@@ -1,0 +1,6 @@
+{
+  "name": "AutoPrime Motors - Digital Car Dealership & Sourcing",
+  "description": "Professional digital automotive dealership platform, digital showroom, vehicle inventory, import sourcing, lead management, and WhatsApp sales funnel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
