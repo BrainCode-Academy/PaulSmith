@@ -11,6 +11,7 @@ import { FindMyCarPage } from './pages/FindMyCarPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
+import { BrandsPage } from './pages/BrandsPage';
 import { PrivacyPage, TermsPage } from './pages/LegalPages';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 
@@ -48,6 +49,8 @@ function AppRouter() {
       document.title = `${businessName} | Verified Car Dealership & Direct Import Sourcing`;
     } else if (currentPath === '/cars') {
       document.title = `Showroom Inventory | ${businessName}`;
+    } else if (currentPath === '/brands') {
+      document.title = `All Car Brands & Global Catalog | ${businessName}`;
     } else if (currentPath === '/import-a-car') {
       document.title = `Custom Vehicle Import Sourcing | ${businessName}`;
     } else if (currentPath === '/find-my-car') {
@@ -71,6 +74,10 @@ function AppRouter() {
 
     if (currentPath === '/cars') {
       return <CarsPage initialFilters={routeParams} onNavigate={navigate} />;
+    }
+
+    if (currentPath === '/brands') {
+      return <BrandsPage onNavigate={navigate} settings={settings} />;
     }
 
     if (currentPath.startsWith('/cars/')) {

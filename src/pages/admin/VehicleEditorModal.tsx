@@ -27,9 +27,12 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
   const [color, setColor] = useState(vehicle?.color || '');
   const [interiorColor, setInteriorColor] = useState(vehicle?.interiorColor || '');
   const [vin, setVin] = useState(vehicle?.vin || '');
+  const [bodyType, setBodyType] = useState<'SUV' | 'Sedan' | 'Coupe' | 'Hatchback' | 'Truck' | 'Crossover'>(vehicle?.bodyType || 'SUV');
   const [location, setLocation] = useState(vehicle?.location || 'Main Showroom');
   const [status, setStatus] = useState<'Available' | 'Reserved' | 'Sold' | 'Coming Soon' | 'In Transit'>(vehicle?.status || 'Available');
   const [featured, setFeatured] = useState(vehicle?.featured || false);
+  const [featuredOrder, setFeaturedOrder] = useState<number>(vehicle?.featuredOrder ?? 0);
+  const [heroSlideEnabled, setHeroSlideEnabled] = useState<boolean>(vehicle?.heroSlideEnabled !== false);
   const [published, setPublished] = useState(vehicle ? vehicle.published : true);
   const [videoUrl, setVideoUrl] = useState(vehicle?.videoUrl || '');
   const [description, setDescription] = useState(vehicle?.description || '');
@@ -38,13 +41,16 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
   const [images, setImages] = useState<string[]>(vehicle?.images || ['/images/hero_car_showroom_1790168724059.jpg']);
   const [newImageUrl, setNewImageUrl] = useState('');
   const [hierarchy, setHierarchy] = useState<BrandHierarchyResult[]>([]);
+  const [customMakeMode, setCustomMakeMode] = useState(false);
+  const [customModelMode, setCustomModelMode] = useState(false);
 
   useEffect(() => {
-    api.getHierarchy().then(setHierarchy).catch(() => {});
+    api.getHierarchy({ includeDisabled: true }).then(setHierarchy).catch(() => {});
   }, []);
 
   const selectedBrandObj = hierarchy.find(b => b.name.toLowerCase() === make.toLowerCase());
   const suggestedModels = selectedBrandObj?.models || [];
+  const selectedModelObj = suggestedModels.find(m => m.name.toLowerCase() === model.toLowerCase());
 
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -121,6 +127,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
       price: Number(price) || 0,
       mileage: Number(mileage) || 0,
       mileageUnit: mileageUnit as any,
+      bodyType: bodyType as any,
       condition: condition as any,
       transmission: transmission as any,
       fuel: fuel as any,
@@ -132,6 +139,8 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
       location,
       status: status as any,
       featured,
+      featuredOrder: Number(featuredOrder) || 0,
+      heroSlideEnabled,
       published,
       videoUrl,
       description,
@@ -196,42 +205,156 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
 
           {/* Make, Model, Year */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* 1. Make / Brand Selection */}
             <div>
-              <label className="block text-xs font-medium text-neutral-300 mb-1">Make / Brand *</label>
-              <input
-                type="text"
-                required
-                list="editor-brand-list"
-                placeholder="e.g. Toyota"
-                value={make}
-                onChange={(e) => setMake(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
-              />
-              <datalist id="editor-brand-list">
-                {hierarchy.map((b) => (
-                  <option key={b.id} value={b.name} />
-                ))}
-              </datalist>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-xs font-medium text-neutral-300">Make / Brand *</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCustomMakeMode(!customMakeMode);
+                    if (!customMakeMode) {
+                      setCustomModelMode(true);
+                    }
+                  }}
+                  className="text-[11px] text-amber-400 hover:text-amber-300 cursor-pointer"
+                >
+                  {customMakeMode ? 'Select from list' : '+ Custom brand'}
+                </button>
+              </div>
+
+              {customMakeMode ? (
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Lucid"
+                  value={make}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setMake(val);
+                    if (val && model && year) setTitle(`${year} ${val} ${model}`);
+                  }}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              ) : (
+                <select
+                  required
+                  value={make}
+                  onChange={(e) => {
+                    const selectedMake = e.target.value;
+                    setMake(selectedMake);
+                    setModel(''); // Strict reset when brand changes
+                    setCustomModelMode(false);
+                    if (selectedMake && year) {
+                      setTitle(`${year} ${selectedMake}`);
+                    }
+                  }}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                >
+                  <option value="">-- Select Brand ({hierarchy.length} available) --</option>
+                  {hierarchy.map((b) => (
+                    <option key={b.id} value={b.name}>
+                      {b.name} ({b.country || 'Global'})
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
+            {/* 2. Model Selection (Strictly Dependent on Selected Brand) */}
             <div>
-              <label className="block text-xs font-medium text-neutral-300 mb-1">Model *</label>
-              <input
-                type="text"
-                required
-                list="editor-model-list"
-                placeholder="e.g. Prado"
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
-              />
-              <datalist id="editor-model-list">
-                {suggestedModels.map((m) => (
-                  <option key={m.id} value={m.name} />
-                ))}
-              </datalist>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-xs font-medium text-neutral-300">
+                  Model {make ? `(${make})` : ''} *
+                </label>
+                {make && (
+                  <button
+                    type="button"
+                    onClick={() => setCustomModelMode(!customModelMode)}
+                    className="text-[11px] text-amber-400 hover:text-amber-300 cursor-pointer"
+                  >
+                    {customModelMode ? 'Select brand model' : '+ Unlisted model'}
+                  </button>
+                )}
+              </div>
+
+              {customModelMode || !make || suggestedModels.length === 0 ? (
+                <input
+                  type="text"
+                  required
+                  placeholder={make ? `Enter ${make} model name` : 'Select brand first'}
+                  disabled={!make}
+                  value={model}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setModel(val);
+                    if (make && year && val) setTitle(`${year} ${make} ${val}`);
+                  }}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 disabled:opacity-50"
+                />
+              ) : (
+                <select
+                  required
+                  value={model}
+                  onChange={(e) => {
+                    const chosenModelName = e.target.value;
+                    if (chosenModelName === '__custom__') {
+                      setCustomModelMode(true);
+                      setModel('');
+                      return;
+                    }
+                    setModel(chosenModelName);
+                    const foundModel = suggestedModels.find((m) => m.name === chosenModelName);
+                    if (foundModel) {
+                      if (foundModel.category) {
+                        setBodyType(foundModel.category as any);
+                      }
+                      if (foundModel.years && foundModel.years.length > 0 && !year) {
+                        setYear(String(foundModel.years[0]));
+                      }
+                    }
+                    if (make && chosenModelName && year) {
+                      setTitle(`${year} ${make} ${chosenModelName}`);
+                    }
+                  }}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                >
+                  <option value="">-- Select {make} Model --</option>
+                  {suggestedModels.map((m) => (
+                    <option key={m.id} value={m.name}>
+                      {m.name} {m.category ? `(${m.category})` : ''}
+                    </option>
+                  ))}
+                  <option value="__custom__">+ Enter custom / unlisted model...</option>
+                </select>
+              )}
+
+              {/* Supported Years Quick-Pill Badges */}
+              {selectedModelObj && selectedModelObj.years && selectedModelObj.years.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1 mt-1.5">
+                  <span className="text-[10px] text-neutral-400">Years:</span>
+                  {selectedModelObj.years.slice(0, 5).map((y) => (
+                    <button
+                      key={y}
+                      type="button"
+                      onClick={() => {
+                        setYear(String(y));
+                        if (make && model) setTitle(`${y} ${make} ${model}`);
+                      }}
+                      className={`text-[10px] px-1.5 py-0.5 rounded cursor-pointer transition-colors ${
+                        year === String(y)
+                          ? 'bg-amber-400 text-neutral-950 font-bold'
+                          : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                      }`}
+                    >
+                      {y}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
+            {/* 3. Year */}
             <div>
               <label className="block text-xs font-medium text-neutral-300 mb-1">Year *</label>
               <input
@@ -239,7 +362,10 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 required
                 placeholder="2024"
                 value={year}
-                onChange={(e) => setYear(e.target.value)}
+                onChange={(e) => {
+                  setYear(e.target.value);
+                  if (make && model) setTitle(`${e.target.value} ${make} ${model}`);
+                }}
                 className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
               />
             </div>
@@ -298,8 +424,8 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
             </div>
           </div>
 
-          {/* Condition, Transmission, Fuel */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* Condition, Body Type, Transmission, Fuel */}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <div>
               <label className="block text-xs font-medium text-neutral-300 mb-1">Condition</label>
               <select
@@ -311,6 +437,23 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 <option value="Brand New">Brand New</option>
                 <option value="Locally Used">Locally Used</option>
                 <option value="In Transit">In Transit</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-neutral-300 mb-1">Body Type</label>
+              <select
+                value={bodyType}
+                onChange={(e) => setBodyType(e.target.value as any)}
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-medium"
+              >
+                <option value="SUV">SUV</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Crossover">Crossover</option>
+                <option value="Truck">Truck / Pickup</option>
+                <option value="Coupe">Coupe</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Van">Van / MPV</option>
               </select>
             </div>
 
@@ -533,8 +676,8 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
           </div>
 
           {/* Status & Featured Toggles */}
-          <div className="pt-2 border-t border-neutral-800 flex flex-wrap items-center justify-between gap-4 text-xs">
-            <div className="flex items-center gap-6">
+          <div className="pt-2 border-t border-neutral-800 space-y-3 text-xs">
+            <div className="flex flex-wrap items-center gap-6">
               <label className="flex items-center gap-2 cursor-pointer text-neutral-300">
                 <input
                   type="checkbox"
@@ -542,7 +685,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                   onChange={(e) => setFeatured(e.target.checked)}
                   className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
                 />
-                <span>Feature on Homepage</span>
+                <span className="font-semibold text-amber-400">Featured on Homepage Hero Slider</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer text-neutral-300">
@@ -556,7 +699,33 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               </label>
             </div>
 
-            <div className="flex items-center gap-2">
+            {featured && (
+              <div className="flex flex-wrap items-center gap-4 bg-neutral-950 border border-neutral-800/80 rounded-lg p-3">
+                <label className="flex items-center gap-2 cursor-pointer text-neutral-300">
+                  <input
+                    type="checkbox"
+                    checked={heroSlideEnabled}
+                    onChange={(e) => setHeroSlideEnabled(e.target.checked)}
+                    className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                  />
+                  <span>Active in Slider Rotation</span>
+                </label>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-neutral-400">Slide Order:</span>
+                  <input
+                    type="number"
+                    min="0"
+                    value={featuredOrder}
+                    onChange={(e) => setFeaturedOrder(parseInt(e.target.value, 10) || 0)}
+                    className="w-16 bg-neutral-900 border border-neutral-700 rounded px-2 py-1 text-white font-mono text-center"
+                  />
+                  <span className="text-[11px] text-neutral-500">(0 = Primary / First)</span>
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center justify-end gap-2 pt-2">
               <button
                 type="button"
                 onClick={onClose}

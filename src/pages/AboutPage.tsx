@@ -38,12 +38,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center p-6 sm:p-10">
           {/* CEO Photo */}
           <div className="md:col-span-5 flex flex-col items-center">
-            <div className="relative w-full max-w-[280px] aspect-square rounded-2xl overflow-hidden border border-neutral-700/80 shadow-2xl bg-neutral-950">
+            <div className="relative w-full max-w-[260px] aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-700/80 shadow-2xl bg-neutral-950">
               <img
-                src={settings?.ceoImage || '/images/ceo_paul_smith_1790590776884.jpg'}
+                src={settings?.ceoImage || '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg'}
                 alt="Paul Smith - Founder & CEO of Paul Smith Autos"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-3 right-3 text-center sm:text-left">

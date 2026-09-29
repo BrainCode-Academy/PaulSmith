@@ -48,6 +48,15 @@ if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
+app.use(['/*WhatsApp*Image*', '/*8.55.15*'], (req, res, next) => {
+  const filePath = path.join(PUBLIC_DIR, 'WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg');
+  if (fs.existsSync(filePath)) {
+    res.setHeader('Content-Type', 'image/jpeg');
+    return res.sendFile(filePath);
+  }
+  next();
+});
+
 app.use(express.static(PUBLIC_DIR));
 
 // ==========================================
@@ -122,6 +131,46 @@ app.put('/api/settings', requireAdmin, (req, res) => {
   }
 });
 
+// Image upload endpoint (supports base64 image data from file pickers)
+app.post('/api/upload', (req, res) => {
+  try {
+    const { image, filename } = req.body;
+    if (!image) {
+      return res.status(400).json({ error: 'Image data is required' });
+    }
+
+    const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let buffer: Buffer;
+    let ext = 'jpg';
+
+    if (matches && matches.length === 3) {
+      const mime = matches[1];
+      buffer = Buffer.from(matches[2], 'base64');
+      if (mime.includes('png')) ext = 'png';
+      else if (mime.includes('webp')) ext = 'webp';
+      else if (mime.includes('jpeg') || mime.includes('jpg')) ext = 'jpg';
+    } else {
+      buffer = Buffer.from(image, 'base64');
+    }
+
+    const safeName = filename 
+      ? filename.replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase() 
+      : `upload_${Date.now()}`;
+    const targetFile = `${safeName}_${Date.now()}.${ext}`;
+    const imagesDir = path.join(PUBLIC_DIR, 'images');
+    if (!fs.existsSync(imagesDir)) {
+      fs.mkdirSync(imagesDir, { recursive: true });
+    }
+    const targetPath = path.join(imagesDir, targetFile);
+    fs.writeFileSync(targetPath, buffer);
+
+    const publicUrl = `/images/${targetFile}`;
+    res.json({ success: true, url: publicUrl });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to upload image' });
+  }
+});
+
 // ==========================================
 // 3. VEHICLE INVENTORY
 // ==========================================
@@ -135,6 +184,7 @@ app.get('/api/vehicles', (req, res) => {
     condition,
     transmission,
     fuel,
+    bodyType,
     status,
     featured,
     search,
@@ -150,6 +200,7 @@ app.get('/api/vehicles', (req, res) => {
     condition: condition ? String(condition) : undefined,
     transmission: transmission ? String(transmission) : undefined,
     fuel: fuel ? String(fuel) : undefined,
+    bodyType: bodyType ? String(bodyType) : undefined,
     status: status ? String(status) : undefined,
     featured: featured !== undefined ? featured === 'true' : undefined,
     search: search ? String(search) : undefined,
@@ -228,6 +279,19 @@ app.delete('/api/vehicles/:id', requireAdmin, (req, res) => {
   res.json({ success: true });
 });
 
+app.post('/api/admin/hero-slider/reorder', requireAdmin, (req, res) => {
+  try {
+    const { orderedIds } = req.body;
+    if (!Array.isArray(orderedIds)) {
+      return res.status(400).json({ error: 'orderedIds must be an array of vehicle IDs' });
+    }
+    const updatedVehicles = db.reorderHeroSlides(orderedIds);
+    res.json({ success: true, vehicles: updatedVehicles });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to reorder hero slides' });
+  }
+});
+
 app.patch('/api/vehicles/:id/status', requireAdmin, (req, res) => {
   const { status } = req.body;
   if (!['Available', 'Reserved', 'Sold', 'Coming Soon', 'In Transit'].includes(status)) {
@@ -243,9 +307,11 @@ app.patch('/api/vehicles/:id/status', requireAdmin, (req, res) => {
 // ==========================================
 // 3B. BRAND & MODEL HIERARCHY
 // ==========================================
-app.get('/api/hierarchy', (_req, res) => {
+app.get('/api/hierarchy', (req, res) => {
   try {
-    const hierarchy = db.getBrandHierarchy();
+    const includeDisabled = req.query.includeDisabled === 'true';
+    const inventoryOnly = req.query.inventoryOnly === 'true';
+    const hierarchy = db.getBrandHierarchy({ includeDisabled, inventoryOnly });
     res.json(hierarchy);
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to fetch hierarchy' });
@@ -254,12 +320,32 @@ app.get('/api/hierarchy', (_req, res) => {
 
 app.post('/api/admin/brands', requireAdmin, (req, res) => {
   try {
-    const { name, logo } = req.body;
+    const { name, country, logo } = req.body;
     if (!name) return res.status(400).json({ error: 'Brand name is required' });
-    const created = db.addBrand(name, logo);
+    const created = db.addBrand(name, country, logo);
     res.status(201).json(created);
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to create brand' });
+  }
+});
+
+app.put('/api/admin/brands/:id', requireAdmin, (req, res) => {
+  try {
+    const updated = db.updateBrand(req.params.id, req.body);
+    if (!updated) return res.status(404).json({ error: 'Brand not found' });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to update brand' });
+  }
+});
+
+app.patch('/api/admin/brands/:id/toggle', requireAdmin, (req, res) => {
+  try {
+    const updated = db.toggleBrand(req.params.id);
+    if (!updated) return res.status(404).json({ error: 'Brand not found' });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to toggle brand status' });
   }
 });
 
@@ -271,13 +357,23 @@ app.delete('/api/admin/brands/:id', requireAdmin, (req, res) => {
 
 app.post('/api/admin/brands/:brandId/models', requireAdmin, (req, res) => {
   try {
-    const { name, years } = req.body;
+    const { name, years, category } = req.body;
     if (!name) return res.status(400).json({ error: 'Model name is required' });
-    const updated = db.addModel(req.params.brandId, name, Array.isArray(years) ? years : []);
+    const updated = db.addModel(req.params.brandId, name, Array.isArray(years) ? years : [], category);
     if (!updated) return res.status(404).json({ error: 'Brand not found' });
     res.status(201).json(updated);
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to add model' });
+  }
+});
+
+app.put('/api/admin/brands/:brandId/models/:modelId', requireAdmin, (req, res) => {
+  try {
+    const updated = db.updateModel(req.params.brandId, req.params.modelId, req.body);
+    if (!updated) return res.status(404).json({ error: 'Brand or model not found' });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to update model' });
   }
 });
 

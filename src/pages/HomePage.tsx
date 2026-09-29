@@ -12,10 +12,12 @@ import {
   Layers,
   Flame,
   Award,
+  Globe,
 } from 'lucide-react';
 import { Vehicle, Review, BrandHierarchyResult } from '../types';
 import { useDealer } from '../context/DealerContext';
 import { VehicleCard } from '../components/VehicleCard';
+import { ShowroomHeroSlider } from '../components/ShowroomHeroSlider';
 import { ShareVehicleModal } from '../components/ShareVehicleModal';
 import { buildWhatsAppLink, getGeneralWhatsAppMessage } from '../lib/whatsapp';
 import { api } from '../lib/api';
@@ -109,20 +111,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
   return (
     <div className="space-y-16 lg:space-y-24 pb-16">
-      {/* 1. HERO SECTION */}
+      {/* 1. HERO SECTION (Original Content with Subtle Showroom Image Slider Background) */}
       <section className="relative min-h-[580px] lg:min-h-[640px] flex items-center justify-center bg-neutral-950 overflow-hidden">
-        {/* Background Hero Image with measured scrim for high contrast */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero_car_showroom_1790168724059.jpg"
-            alt="Paul Smith Autos digital showroom"
-            referrerPolicy="no-referrer"
-            className="w-full h-full object-cover object-center opacity-40 scale-105 transform duration-1000"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/75 to-neutral-950/50" />
-        </div>
+        {/* Subtle Showroom Image Slider */}
+        <ShowroomHeroSlider />
 
-        {/* Hero Content */}
+        {/* Original Hero Content - 100% Preserved */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 bg-amber-950/60 border border-amber-800/80 px-3.5 py-1.5 rounded-full">
             <Sparkles className="w-3.5 h-3.5" />
@@ -319,13 +313,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               Select a brand to view available vehicles currently in our showroom.
             </p>
           </div>
-          <button
-            onClick={() => onNavigate('/cars')}
-            className="flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
-          >
-            <span>View All Cars</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => onNavigate('/brands')}
+              className="flex items-center gap-1.5 text-xs font-semibold text-neutral-300 hover:text-white px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors cursor-pointer"
+            >
+              <Globe className="w-3.5 h-3.5 text-amber-400" />
+              <span>All Brands ({hierarchy.length})</span>
+            </button>
+            <button
+              onClick={() => onNavigate('/cars')}
+              className="flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
+            >
+              <span>View All Cars</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
         {brandsWithInventory.length === 0 ? (
@@ -524,64 +527,77 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 7. MEET THE FOUNDER & CEO (Paul Smith) */}
+      {/* 7. MEET THE CEO */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center p-6 sm:p-10">
-            <div className="md:col-span-4 flex justify-center">
-              <div className="relative w-48 sm:w-60 aspect-square rounded-2xl overflow-hidden border border-neutral-700/80 shadow-2xl bg-neutral-950">
-                <img
-                  src={settings?.ceoImage || '/images/ceo_paul_smith_1790590776884.jpg'}
-                  alt="Paul Smith - Founder & CEO of Paul Smith Autos"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-transparent to-transparent" />
-                <div className="absolute bottom-2.5 left-3 right-3 text-center sm:text-left">
-                  <span className="text-xs font-bold text-white block">Paul Smith</span>
-                  <span className="text-[11px] text-amber-400 block font-medium">Founder & CEO</span>
-                </div>
-              </div>
+          <div className="p-6 sm:p-10">
+            <div className="text-center sm:text-left mb-6">
+              <span className="text-xs uppercase tracking-widest text-amber-400 font-bold">
+                MEET THE CEO
+              </span>
             </div>
 
-            <div className="md:col-span-8 space-y-4 text-center sm:text-left">
-              <div className="space-y-1">
-                <span className="text-xs uppercase tracking-wider text-amber-400 font-semibold">Leadership & Personal Guarantee</span>
-                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  "No Fakes. No Compromise on Engine Soundness or Customs Authenticity."
-                </h2>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-10 items-center">
+              <div className="md:col-span-5 lg:col-span-4 flex justify-center">
+                <div className="relative w-56 sm:w-64 aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-700/80 shadow-2xl bg-neutral-950">
+                  <img
+                    src={settings?.ceoImage || '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg'}
+                    alt="Paul Smith - CEO, Paul Smith Autos"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
               </div>
 
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                {settings?.ceoQuote ||
-                  'At Paul Smith Autos, we inspect every car down to the bolt. No accident-concealed vehicles, no tampered odometers. You deal directly with a team that values your safety and hard-earned capital.'}
-              </p>
+              <div className="md:col-span-7 lg:col-span-8 space-y-4 text-center sm:text-left">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    {settings?.ceoName || 'Paul Smith'}
+                  </h2>
+                  <p className="text-sm font-semibold text-amber-400">
+                    {settings?.ceoTitle || 'CEO, Paul Smith Autos'}
+                  </p>
+                </div>
 
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2">
-                <a
-                  href={directCeoWhatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold transition-colors flex items-center gap-2"
-                >
-                  <MessageSquare className="w-4 h-4 fill-current" />
-                  <span>Chat with Paul Smith ({ceoPhone})</span>
-                </a>
+                <div className="space-y-3 text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                  <p>
+                    {settings?.ceoQuote ||
+                      'At Paul Smith Autos, we inspect every car down to the bolt. No accident-concealed vehicles, no tampered odometers. You deal directly with a team that values your safety and hard-earned capital.'}
+                  </p>
+                  {settings?.businessDescription && (
+                    <p className="text-neutral-400 text-xs">
+                      {settings.businessDescription}
+                    </p>
+                  )}
+                </div>
 
-                <a
-                  href={`tel:${ceoPhone}`}
-                  className="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xs font-medium transition-colors flex items-center gap-2"
-                >
-                  <Phone className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Call: {ceoPhone}</span>
-                </a>
+                {/* Verified Business Contact Information */}
+                <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <a
+                    href={directCeoWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold transition-colors flex items-center gap-2 shadow"
+                  >
+                    <MessageSquare className="w-4 h-4 fill-current" />
+                    <span>Chat on WhatsApp ({ceoPhone})</span>
+                  </a>
 
-                <button
-                  onClick={() => onNavigate('/about')}
-                  className="px-4 py-2.5 bg-transparent hover:bg-neutral-800 text-amber-400 border border-amber-800/60 rounded-xl text-xs font-medium transition-colors cursor-pointer"
-                >
-                  About Dealership
-                </button>
+                  <a
+                    href={`tel:${ceoPhone}`}
+                    className="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xs font-medium transition-colors flex items-center gap-2 border border-neutral-700"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Call: {ceoPhone}</span>
+                  </a>
+
+                  <button
+                    onClick={() => onNavigate('/about')}
+                    className="px-4 py-2.5 bg-transparent hover:bg-neutral-800 text-amber-400 border border-amber-800/60 rounded-xl text-xs font-medium transition-colors cursor-pointer"
+                  >
+                    About Dealership
+                  </button>
+                </div>
               </div>
             </div>
           </div>

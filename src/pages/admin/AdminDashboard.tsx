@@ -23,6 +23,17 @@ import {
   EyeOff,
   Star,
   Layers,
+  Upload,
+  ArrowUp,
+  ArrowDown,
+  Play,
+  ArrowRight,
+  X,
+  Sliders,
+  ChevronLeft,
+  ChevronRight,
+  Gauge,
+  Fuel,
 } from 'lucide-react';
 import { Vehicle, Lead, ImportRequest, CarRequest, AdminStats, AuditLog, DealerSettings, BrandHierarchyResult } from '../../types';
 import { useDealer } from '../../context/DealerContext';
@@ -45,7 +56,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
   const [loggingIn, setLoggingIn] = useState(false);
 
   // Active navigation tab
-  const [activeTab, setActiveTab] = useState<'overview' | 'vehicles' | 'brands' | 'leads' | 'imports' | 'find_car' | 'settings' | 'audit'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'vehicles' | 'hero_slider' | 'brands' | 'leads' | 'imports' | 'find_car' | 'settings' | 'audit'>('overview');
+
+  // Hero Slider states
+  const [previewSlideVehicle, setPreviewSlideVehicle] = useState<Vehicle | null>(null);
+  const [showAddSliderModal, setShowAddSliderModal] = useState(false);
+  const [sliderSearchTerm, setSliderSearchTerm] = useState('');
+  const [savingSliderOrder, setSavingSliderOrder] = useState(false);
 
   // Data states
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -59,9 +76,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
   // Brand management state
   const [newBrandName, setNewBrandName] = useState('');
+  const [newBrandCountry, setNewBrandCountry] = useState('Japan');
+  const [adminBrandSearch, setAdminBrandSearch] = useState('');
+  const [editingBrand, setEditingBrand] = useState<{ id: string; name: string; country?: string } | null>(null);
   const [activeBrandAddModal, setActiveBrandAddModal] = useState<string | null>(null);
   const [newModelName, setNewModelName] = useState('');
-  const [newModelYears, setNewModelYears] = useState('2021, 2022, 2023, 2024');
+  const [newModelYears, setNewModelYears] = useState('2022, 2023, 2024, 2025, 2026');
+  const [newModelCategory, setNewModelCategory] = useState('SUV');
+  const [editingModel, setEditingModel] = useState<{ brandId: string; modelId: string; name: string; years: string; category?: string } | null>(null);
+  const [quickAddYearModel, setQuickAddYearModel] = useState<{ brandId: string; modelId: string } | null>(null);
+  const [quickYearInput, setQuickYearInput] = useState('');
 
   // Modal states
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null | 'new'>(null);
@@ -71,6 +95,44 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
   const [settingsForm, setSettingsForm] = useState<Partial<DealerSettings>>({});
   const [settingsSaved, setSettingsSaved] = useState(false);
   const [settingsError, setSettingsError] = useState<string | null>(null);
+  const [uploadingCeoImage, setUploadingCeoImage] = useState(false);
+
+  const handleCeoImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingCeoImage(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result as string;
+        try {
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              image: base64,
+              filename: `ceo_${file.name.replace(/\.[^/.]+$/, '')}`
+            })
+          });
+          const data = await res.json();
+          if (data.url) {
+            setSettingsForm(prev => ({ ...prev, ceoImage: data.url }));
+          } else {
+            setSettingsForm(prev => ({ ...prev, ceoImage: base64 }));
+          }
+        } catch {
+          setSettingsForm(prev => ({ ...prev, ceoImage: base64 }));
+        } finally {
+          setUploadingCeoImage(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      console.error('Failed to process image file:', err);
+      setUploadingCeoImage(false);
+    }
+  };
 
   // Lead note state
   const [leadNoteInput, setLeadNoteInput] = useState<{ [leadId: string]: string }>({});
@@ -86,7 +148,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
         api.getImportRequests(),
         api.getFindCarRequests(),
         api.getAuditLogs(),
-        api.getHierarchy(),
+        api.getHierarchy({ includeDisabled: true }),
       ]);
 
       setStats(statsData);
@@ -152,6 +214,89 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       await loadAllAdminData();
     } catch (err: any) {
       alert(`Failed to update featured state: ${err.message}`);
+    }
+  };
+
+  // Hero Slider Management Handlers
+  const handleAddToSlider = async (vehicleId: string) => {
+    try {
+      const currentFeatured = vehicles.filter(v => v.featured);
+      await api.updateVehicle(vehicleId, {
+        featured: true,
+        heroSlideEnabled: true,
+        featuredOrder: currentFeatured.length,
+      });
+      setShowAddSliderModal(false);
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to add vehicle to slider: ${err.message}`);
+    }
+  };
+
+  const handleRemoveFromSlider = async (vehicle: Vehicle) => {
+    if (!confirm(`Remove "${vehicle.title}" from the homepage hero slider?`)) return;
+    try {
+      await api.updateVehicle(vehicle.id, { featured: false });
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to remove vehicle from slider: ${err.message}`);
+    }
+  };
+
+  const handleToggleSlideEnabled = async (vehicle: Vehicle) => {
+    try {
+      const nextState = vehicle.heroSlideEnabled === false ? true : false;
+      await api.updateVehicle(vehicle.id, { heroSlideEnabled: nextState });
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to toggle slide status: ${err.message}`);
+    }
+  };
+
+  const handleSetPrimarySlide = async (vehicleId: string) => {
+    try {
+      setSavingSliderOrder(true);
+      const featured = vehicles
+        .filter(v => v.featured)
+        .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0));
+      const targetVehicle = featured.find(v => v.id === vehicleId);
+      if (!targetVehicle) return;
+
+      const remaining = featured.filter(v => v.id !== vehicleId);
+      const newOrder = [targetVehicle.id, ...remaining.map(v => v.id)];
+      await api.reorderHeroSlides(newOrder);
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to set primary slide: ${err.message}`);
+    } finally {
+      setSavingSliderOrder(false);
+    }
+  };
+
+  const handleMoveSlide = async (vehicleId: string, direction: 'up' | 'down') => {
+    try {
+      setSavingSliderOrder(true);
+      const featured = vehicles
+        .filter(v => v.featured)
+        .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0));
+      const currentIndex = featured.findIndex(v => v.id === vehicleId);
+      if (currentIndex === -1) return;
+
+      const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+      if (targetIndex < 0 || targetIndex >= featured.length) return;
+
+      const newFeatured = [...featured];
+      const temp = newFeatured[currentIndex];
+      newFeatured[currentIndex] = newFeatured[targetIndex];
+      newFeatured[targetIndex] = temp;
+
+      const orderedIds = newFeatured.map(v => v.id);
+      await api.reorderHeroSlides(orderedIds);
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to reorder slide: ${err.message}`);
+    } finally {
+      setSavingSliderOrder(false);
     }
   };
 
@@ -366,6 +511,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
         {[
           { id: 'overview', label: 'Dashboard Overview', icon: History },
           { id: 'vehicles', label: `Inventory (${vehicles.length})`, icon: Car },
+          { id: 'hero_slider', label: `Hero Slider (${vehicles.filter(v => v.featured).length})`, icon: Sparkles },
           { id: 'brands', label: `Brands & Models (${hierarchy.length})`, icon: Layers },
           { id: 'leads', label: `Inquiries & Leads (${leads.length})`, icon: Users },
           { id: 'imports', label: `Import Sourcing (${imports.length})`, icon: Ship },
@@ -662,6 +808,285 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               </table>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ----------------------------------------------------
+          TAB 2.5: HOMEPAGE HERO SLIDER MANAGEMENT
+          ---------------------------------------------------- */}
+      {activeTab === 'hero_slider' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold text-white tracking-tight">Homepage Hero Slider Management</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-400 border border-amber-400/30">
+                  {vehicles.filter((v) => v.featured).length} Featured Slides
+                </span>
+              </div>
+              <p className="text-xs text-neutral-400 mt-1">
+                Curate and order the full-width vehicle showcase on the homepage. Reorder slides, set the primary slide, or enable/disable slides with 1 click.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={() => onNavigate('/')}
+                className="flex items-center gap-1.5 px-3 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-800 rounded-xl text-xs font-medium transition cursor-pointer"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>View Live Slider</span>
+              </button>
+
+              <button
+                onClick={() => setShowAddSliderModal(true)}
+                className="flex items-center gap-1.5 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md shadow-amber-400/10"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Vehicle to Slider</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Business Logic Rule Notice */}
+          <div className="bg-neutral-900/80 border border-neutral-800 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                <CheckCircle className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="font-semibold text-neutral-200">Automatic Display Rule</p>
+                <p className="text-neutral-400 text-[11px]">
+                  Only vehicles marked <strong className="text-amber-400">Featured + Published + Available</strong> appear on the public homepage slider. Sold, reserved, or unpublished vehicles are automatically excluded.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-[11px] text-neutral-400 font-mono bg-neutral-950 px-3 py-1.5 rounded-lg border border-neutral-800 shrink-0">
+              Live in Rotation:{' '}
+              <strong className="text-emerald-400 font-bold">
+                {
+                  vehicles.filter(
+                    (v) =>
+                      v.featured &&
+                      v.published &&
+                      v.status === 'Available' &&
+                      v.heroSlideEnabled !== false
+                  ).length
+                }{' '}
+                cars
+              </strong>
+            </div>
+          </div>
+
+          {/* Active Featured Slides Table */}
+          {vehicles.filter((v) => v.featured).length === 0 ? (
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12 text-center space-y-4">
+              <div className="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-500 mx-auto">
+                <Sparkles className="w-6 h-6 text-amber-400" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-bold text-white">No Vehicles Featured on Homepage Slider</h3>
+                <p className="text-xs text-neutral-400 max-w-md mx-auto">
+                  Select vehicles from your inventory to showcase on the homepage hero carousel. Customers will discover them first when visiting Paul Smith Autos.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowAddSliderModal(true)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Select First Featured Vehicle</span>
+              </button>
+            </div>
+          ) : (
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden shadow-xl">
+              <div className="p-4 border-b border-neutral-800 flex items-center justify-between">
+                <span className="text-xs font-semibold text-neutral-300 uppercase tracking-wider">
+                  Featured Slides in Carousel Order
+                </span>
+                {savingSliderOrder && (
+                  <span className="text-xs text-amber-400 animate-pulse font-medium">
+                    Saving slide order...
+                  </span>
+                )}
+              </div>
+
+              <div className="divide-y divide-neutral-800/80">
+                {vehicles
+                  .filter((v) => v.featured)
+                  .sort((a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0))
+                  .map((v, index, arr) => {
+                    const isLive =
+                      v.featured &&
+                      v.published &&
+                      v.status === 'Available' &&
+                      v.heroSlideEnabled !== false;
+
+                    const heroImg =
+                      v.images && v.images.length > 0
+                        ? v.images[0]
+                        : '/images/hero_car_showroom_1790168724059.jpg';
+
+                    return (
+                      <div
+                        key={v.id}
+                        className="p-4 hover:bg-neutral-800/30 transition flex flex-col md:flex-row md:items-center justify-between gap-4"
+                      >
+                        {/* Slide Ranking, Thumbnail & Info */}
+                        <div className="flex items-center gap-4">
+                          <div className="flex flex-col items-center justify-center w-8 shrink-0 text-center font-mono">
+                            <span className="text-xs font-bold text-neutral-400">
+                              #{index + 1}
+                            </span>
+                            {index === 0 && (
+                              <span className="text-[9px] uppercase tracking-wider font-extrabold text-amber-400">
+                                Primary
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="relative w-20 h-14 sm:w-24 sm:h-16 rounded-lg overflow-hidden border border-neutral-800 bg-neutral-950 shrink-0">
+                            <img
+                              src={heroImg}
+                              alt={v.title}
+                              referrerPolicy="no-referrer"
+                              className="w-full h-full object-cover"
+                            />
+                            {index === 0 && (
+                              <div className="absolute top-1 left-1 bg-amber-400 text-neutral-950 text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
+                                1st
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <h4 className="text-sm font-bold text-white hover:text-amber-300 transition cursor-pointer"
+                                onClick={() => setPreviewSlideVehicle(v)}
+                              >
+                                {v.year} {v.make} {v.model}
+                              </h4>
+                              {isLive ? (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-full">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                  Live on Hero
+                                </span>
+                              ) : v.heroSlideEnabled === false ? (
+                                <span className="text-[10px] font-medium text-neutral-400 bg-neutral-800 px-2 py-0.5 rounded-full">
+                                  Slide Disabled
+                                </span>
+                              ) : !v.published ? (
+                                <span className="text-[10px] font-medium text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded-full">
+                                  Unpublished
+                                </span>
+                              ) : (
+                                <span className="text-[10px] font-medium text-red-400 bg-red-950/50 px-2 py-0.5 rounded-full">
+                                  {v.status}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-400">
+                              <span className="font-mono text-white font-medium">
+                                {formatPrice(v.price, v.currency, settings?.currencySymbol || '₦')}
+                              </span>
+                              <span>·</span>
+                              <span>{v.transmission}</span>
+                              <span>·</span>
+                              <span>{v.fuel}</span>
+                              <span>·</span>
+                              <span>{v.condition}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Interactive Controls */}
+                        <div className="flex flex-wrap items-center gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-neutral-800/60">
+                          {/* Reorder Buttons */}
+                          <div className="flex items-center gap-1 bg-neutral-950 p-1 rounded-lg border border-neutral-800">
+                            <button
+                              onClick={() => handleMoveSlide(v.id, 'up')}
+                              disabled={index === 0 || savingSliderOrder}
+                              title="Move Slide Up"
+                              className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 disabled:opacity-30 rounded transition cursor-pointer"
+                            >
+                              <ArrowUp className="w-3.5 h-3.5" />
+                            </button>
+
+                            <button
+                              onClick={() => handleMoveSlide(v.id, 'down')}
+                              disabled={index === arr.length - 1 || savingSliderOrder}
+                              title="Move Slide Down"
+                              className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 disabled:opacity-30 rounded transition cursor-pointer"
+                            >
+                              <ArrowDown className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+
+                          {/* Set Primary Slide Button */}
+                          {index !== 0 && (
+                            <button
+                              onClick={() => handleSetPrimarySlide(v.id)}
+                              disabled={savingSliderOrder}
+                              title="Set as First / Primary Slide"
+                              className="px-2.5 py-1.5 text-[11px] font-semibold text-neutral-300 hover:text-amber-400 bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition cursor-pointer"
+                            >
+                              Make Primary
+                            </button>
+                          )}
+
+                          {/* Enable / Disable Slide Toggle */}
+                          <button
+                            onClick={() => handleToggleSlideEnabled(v)}
+                            title={
+                              v.heroSlideEnabled === false
+                                ? 'Enable this slide in rotation'
+                                : 'Disable this slide from rotation'
+                            }
+                            className={`px-2.5 py-1.5 text-[11px] font-semibold rounded-lg border transition cursor-pointer ${
+                              v.heroSlideEnabled === false
+                                ? 'bg-neutral-800 text-neutral-400 border-neutral-700 hover:text-white'
+                                : 'bg-emerald-950/40 text-emerald-400 border-emerald-800/60 hover:bg-emerald-900/50'
+                            }`}
+                          >
+                            {v.heroSlideEnabled === false ? 'Disabled' : 'Enabled'}
+                          </button>
+
+                          {/* Preview Slide Button */}
+                          <button
+                            onClick={() => setPreviewSlideVehicle(v)}
+                            title="Preview Hero Slide"
+                            className="px-2.5 py-1.5 text-[11px] font-semibold text-neutral-300 hover:text-white bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition flex items-center gap-1 cursor-pointer"
+                          >
+                            <Play className="w-3 h-3 text-amber-400" />
+                            <span>Preview</span>
+                          </button>
+
+                          {/* Edit Vehicle */}
+                          <button
+                            onClick={() => setEditingVehicle(v)}
+                            title="Edit Vehicle Details"
+                            className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-lg transition cursor-pointer"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+
+                          {/* Remove from Slider */}
+                          <button
+                            onClick={() => handleRemoveFromSlider(v)}
+                            title="Remove from Homepage Slider"
+                            className="p-1.5 text-red-400 hover:text-red-300 hover:bg-red-950/40 rounded-lg transition cursor-pointer"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -1303,14 +1728,71 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-neutral-300 mb-1.5">CEO Image Asset URL</label>
-                <input
-                  type="text"
-                  placeholder="/images/ceo_paul_smith_1790590776884.jpg"
-                  value={settingsForm.ceoImage || ''}
-                  onChange={(e) => setSettingsForm({ ...settingsForm, ceoImage: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
-                />
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">
+                  CEO Official Portrait Photo
+                </label>
+                
+                <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-5">
+                  <div className="relative w-28 h-36 rounded-lg overflow-hidden border border-neutral-700 bg-neutral-900 shrink-0 shadow-lg">
+                    {settingsForm.ceoImage ? (
+                      <img
+                        src={settingsForm.ceoImage}
+                        alt="CEO Portrait"
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center text-neutral-500 text-xs text-center p-2">
+                        <ImageIcon className="w-6 h-6 mb-1 text-neutral-600" />
+                        No photo set
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex-1 space-y-3 w-full">
+                    <div>
+                      <p className="text-xs text-neutral-300 font-medium">Upload or Change CEO Portrait</p>
+                      <p className="text-[11px] text-neutral-500">
+                        Upload your authentic photo from your phone or computer, or enter a direct image path.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3">
+                      <label className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs rounded-lg cursor-pointer transition shadow-md">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>{uploadingCeoImage ? 'Uploading...' : 'Choose Photo from Device'}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleCeoImageUpload}
+                          disabled={uploadingCeoImage}
+                          className="hidden"
+                        />
+                      </label>
+
+                      {settingsForm.ceoImage && (
+                        <button
+                          type="button"
+                          onClick={() => setSettingsForm({ ...settingsForm, ceoImage: '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg' })}
+                          className="text-[11px] text-neutral-400 hover:text-white px-2.5 py-1.5 border border-neutral-800 rounded-lg hover:border-neutral-700 transition cursor-pointer"
+                        >
+                          Reset to Uploaded CEO Photo
+                        </button>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] text-neutral-400 mb-1">Image URL / Path</label>
+                      <input
+                        type="text"
+                        placeholder="/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg"
+                        value={settingsForm.ceoImage || ''}
+                        onChange={(e) => setSettingsForm({ ...settingsForm, ceoImage: e.target.value })}
+                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-300 focus:outline-none focus:border-amber-400 font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div>
@@ -1424,6 +1906,204 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       {/* Social Post Generator Modal */}
       {postGenVehicle && (
         <SocialPostModal vehicle={postGenVehicle} onClose={() => setPostGenVehicle(null)} />
+      )}
+
+      {/* Add Vehicle to Homepage Slider Modal */}
+      {showAddSliderModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-neutral-800 flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-white">Add Vehicle to Homepage Slider</h3>
+                <p className="text-xs text-neutral-400">Select any car from showroom inventory to feature on the homepage.</p>
+              </div>
+              <button
+                onClick={() => setShowAddSliderModal(false)}
+                className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-4 border-b border-neutral-800 bg-neutral-950/60">
+              <div className="relative">
+                <Search className="w-4 h-4 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search by make, model, year..."
+                  value={sliderSearchTerm}
+                  onChange={(e) => setSliderSearchTerm(e.target.value)}
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 space-y-2 divide-y divide-neutral-800/60">
+              {vehicles
+                .filter((v) => !v.featured)
+                .filter(
+                  (v) =>
+                    !sliderSearchTerm ||
+                    v.title.toLowerCase().includes(sliderSearchTerm.toLowerCase()) ||
+                    v.make.toLowerCase().includes(sliderSearchTerm.toLowerCase()) ||
+                    v.model.toLowerCase().includes(sliderSearchTerm.toLowerCase())
+                ).length === 0 ? (
+                <div className="py-8 text-center text-xs text-neutral-500">
+                  {sliderSearchTerm
+                    ? 'No matching vehicles found.'
+                    : 'All vehicles in inventory are already featured on the slider!'}
+                </div>
+              ) : (
+                vehicles
+                  .filter((v) => !v.featured)
+                  .filter(
+                    (v) =>
+                      !sliderSearchTerm ||
+                      v.title.toLowerCase().includes(sliderSearchTerm.toLowerCase()) ||
+                      v.make.toLowerCase().includes(sliderSearchTerm.toLowerCase()) ||
+                      v.model.toLowerCase().includes(sliderSearchTerm.toLowerCase())
+                  )
+                  .map((v) => (
+                    <div key={v.id} className="pt-2 first:pt-0 flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={v.images[0] || '/images/hero_car_showroom_1790168724059.jpg'}
+                          alt={v.title}
+                          referrerPolicy="no-referrer"
+                          className="w-14 h-10 object-cover rounded-lg border border-neutral-800 shrink-0"
+                        />
+                        <div>
+                          <div className="text-xs font-bold text-white">{v.title}</div>
+                          <div className="text-[11px] text-neutral-400">
+                            {formatPrice(v.price, v.currency, settings?.currencySymbol || '₦')} · {v.status}
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => handleAddToSlider(v.id)}
+                        className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs transition cursor-pointer shrink-0"
+                      >
+                        Feature on Slider
+                      </button>
+                    </div>
+                  ))
+              )}
+            </div>
+
+            <div className="p-4 border-t border-neutral-800 bg-neutral-950 flex justify-end">
+              <button
+                onClick={() => setShowAddSliderModal(false)}
+                className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-xs font-medium cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Live Hero Slide Preview Modal */}
+      {previewSlideVehicle && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col">
+            <div className="p-4 border-b border-neutral-800 flex items-center justify-between bg-neutral-950">
+              <div className="flex items-center gap-2">
+                <Play className="w-4 h-4 text-amber-400" />
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+                  Live Hero Slide Customer Preview
+                </h3>
+              </div>
+              <button
+                onClick={() => setPreviewSlideVehicle(null)}
+                className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Simulated Hero Viewport */}
+            <div className="relative h-[440px] sm:h-[480px] w-full bg-neutral-950 overflow-hidden select-none">
+              <img
+                src={previewSlideVehicle.images[0] || '/images/hero_car_showroom_1790168724059.jpg'}
+                alt={previewSlideVehicle.title}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/90 via-neutral-950/40 to-transparent" />
+
+              <div className="absolute inset-0 p-6 sm:p-10 flex flex-col justify-end">
+                <div className="max-w-xl space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold uppercase tracking-wider">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      AVAILABLE
+                    </span>
+                    <span className="text-xs text-amber-400 font-medium">
+                      Featured Showroom Selection
+                    </span>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-semibold text-amber-400 tracking-wide uppercase">
+                      {previewSlideVehicle.make}
+                    </p>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                      {previewSlideVehicle.year} {previewSlideVehicle.model}
+                    </h2>
+                  </div>
+
+                  <div className="text-2xl font-extrabold text-white font-mono">
+                    {formatPrice(
+                      previewSlideVehicle.price,
+                      previewSlideVehicle.currency,
+                      settings?.currencySymbol || '₦'
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs text-neutral-300">
+                    <span>
+                      {previewSlideVehicle.mileage.toLocaleString()} {previewSlideVehicle.mileageUnit}
+                    </span>
+                    <span>·</span>
+                    <span>{previewSlideVehicle.transmission}</span>
+                    <span>·</span>
+                    <span>{previewSlideVehicle.fuel}</span>
+                  </div>
+
+                  <p className="text-xs text-neutral-300 line-clamp-2">
+                    {previewSlideVehicle.description}
+                  </p>
+
+                  <div className="flex items-center gap-3 pt-2">
+                    <div className="px-5 py-2.5 bg-amber-400 text-neutral-950 font-bold rounded-xl text-xs flex items-center gap-1.5 shadow">
+                      <span>View Vehicle</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl text-xs flex items-center gap-1.5 shadow">
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      <span>Chat on WhatsApp</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 bg-neutral-950 border-t border-neutral-800 flex items-center justify-between text-xs">
+              <span className="text-neutral-400">
+                Slider Position: #{((previewSlideVehicle.featuredOrder ?? 0) + 1)} · Status:{' '}
+                {previewSlideVehicle.status}
+              </span>
+              <button
+                onClick={() => setPreviewSlideVehicle(null)}
+                className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-xs font-medium cursor-pointer"
+              >
+                Close Preview
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

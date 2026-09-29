@@ -1,4 +1,4 @@
-import { DealerSettings, Vehicle, Lead, ImportRequest, CarRequest, Review, AdminStats, AuditLog } from '../types';
+import { DealerSettings, Vehicle, Lead, ImportRequest, CarRequest, Review, AdminStats, AuditLog, BrandHierarchyResult } from '../types';
 
 function getAuthHeader(): Record<string, string> {
   const token = localStorage.getItem('autoprime_admin_token');
@@ -123,6 +123,23 @@ export const api = {
       const err = await res.json();
       throw new Error(err.error || 'Failed to delete vehicle');
     }
+  },
+
+  async reorderHeroSlides(orderedIds: string[]): Promise<Vehicle[]> {
+    const res = await fetch('/api/admin/hero-slider/reorder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify({ orderedIds }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to reorder hero slides');
+    }
+    const data = await res.json();
+    return data.vehicles;
   },
 
   // Image Upload
@@ -408,24 +425,56 @@ export const api = {
   },
 
   // Brand & Model Hierarchy
-  async getHierarchy(): Promise<any[]> {
-    const res = await fetch('/api/hierarchy');
+  async getHierarchy(options?: { includeDisabled?: boolean; inventoryOnly?: boolean }): Promise<BrandHierarchyResult[]> {
+    const params = new URLSearchParams();
+    if (options?.includeDisabled) params.append('includeDisabled', 'true');
+    if (options?.inventoryOnly) params.append('inventoryOnly', 'true');
+    const query = params.toString() ? `?${params.toString()}` : '';
+    const res = await fetch(`/api/hierarchy${query}`);
     if (!res.ok) throw new Error('Failed to fetch brand hierarchy');
     return res.json();
   },
 
-  async addBrand(name: string, logo?: string): Promise<any> {
+  async addBrand(name: string, country?: string, logo?: string): Promise<any> {
     const res = await fetch('/api/admin/brands', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...getAuthHeader(),
       },
-      body: JSON.stringify({ name, logo }),
+      body: JSON.stringify({ name, country, logo }),
     });
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.error || 'Failed to add brand');
+    }
+    return res.json();
+  },
+
+  async updateBrand(id: string, updates: { name?: string; country?: string; logo?: string; enabled?: boolean }): Promise<any> {
+    const res = await fetch(`/api/admin/brands/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify(updates),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to update brand');
+    }
+    return res.json();
+  },
+
+  async toggleBrand(id: string): Promise<any> {
+    const res = await fetch(`/api/admin/brands/${id}/toggle`, {
+      method: 'PATCH',
+      headers: getAuthHeader(),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to toggle brand status');
     }
     return res.json();
   },
@@ -438,18 +487,34 @@ export const api = {
     if (!res.ok) throw new Error('Failed to delete brand');
   },
 
-  async addModel(brandId: string, name: string, years: number[]): Promise<any> {
+  async addModel(brandId: string, name: string, years: number[], category?: string): Promise<any> {
     const res = await fetch(`/api/admin/brands/${brandId}/models`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...getAuthHeader(),
       },
-      body: JSON.stringify({ name, years }),
+      body: JSON.stringify({ name, years, category }),
     });
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.error || 'Failed to add model');
+    }
+    return res.json();
+  },
+
+  async updateModel(brandId: string, modelId: string, updates: { name?: string; years?: number[]; category?: string }): Promise<any> {
+    const res = await fetch(`/api/admin/brands/${brandId}/models/${modelId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify(updates),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to update model');
     }
     return res.json();
   },

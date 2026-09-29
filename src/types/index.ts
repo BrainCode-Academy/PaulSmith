@@ -52,6 +52,8 @@ export interface Vehicle {
   images: string[];
   videoUrl?: string;
   featured: boolean;
+  featuredOrder?: number;
+  heroSlideEnabled?: boolean;
   published: boolean;
   viewsCount: number;
   inquiriesCount: number;
@@ -145,23 +147,31 @@ export interface BrandModelItem {
   id: string;
   name: string;
   years: number[];
+  category?: string;
 }
 
 export interface BrandCatalogItem {
   id: string;
   name: string;
+  country?: string;
+  region?: string;
   logo?: string;
+  enabled?: boolean;
   models: BrandModelItem[];
 }
 
 export interface BrandHierarchyResult {
   id: string;
   name: string;
+  country?: string;
+  region?: string;
   logo?: string;
+  enabled?: boolean;
   models: {
     id: string;
     name: string;
     years: number[];
+    category?: string;
   }[];
   vehicleCount: number;
 }

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { COMPREHENSIVE_BRAND_CATALOG } from './brandCatalogData';
 
 export interface DealerSettings {
   id: string;
@@ -56,6 +57,8 @@ export interface Vehicle {
   images: string[];
   videoUrl?: string;
   featured: boolean;
+  featuredOrder?: number;
+  heroSlideEnabled?: boolean;
   published: boolean;
   viewsCount: number;
   inquiriesCount: number;
@@ -143,23 +146,31 @@ export interface BrandModelItem {
   id: string;
   name: string;
   years: number[];
+  category?: string;
 }
 
 export interface BrandCatalogItem {
   id: string;
   name: string;
+  country?: string;
+  region?: string;
   logo?: string;
+  enabled?: boolean;
   models: BrandModelItem[];
 }
 
 export interface BrandHierarchyResult {
   id: string;
   name: string;
+  country?: string;
+  region?: string;
   logo?: string;
+  enabled?: boolean;
   models: {
     id: string;
     name: string;
     years: number[];
+    category?: string;
   }[];
   vehicleCount: number;
 }
@@ -204,7 +215,7 @@ const initialData: DatabaseSchema = {
     businessDescription: 'Paul Smith Autos is a premier automotive dealership and direct vehicle import specialist. Founded by Paul Smith, we guarantee 100% verified sound engines, original customs documentation, and zero compromises on mechanical integrity. No fakes, no altered odometers, and direct personal service.',
     ceoName: 'Paul Smith',
     ceoTitle: 'Founder & CEO',
-    ceoImage: '/images/ceo_paul_smith_1790590776884.jpg',
+    ceoImage: '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg',
     ceoPhone: '08037781788',
     ceoQuote: 'At Paul Smith Autos, we inspect every car down to the bolt. No accident-concealed vehicles, no tampered odometers. You deal directly with a team that values your safety and hard-earned capital.',
     importCountries: ['China', 'United States', 'Canada', 'Germany', 'Japan'],
@@ -455,6 +466,19 @@ class Database {
       this.data = initialData;
       this.persist();
     }
+
+    // Ensure comprehensive catalog is seeded if missing or incomplete
+    if (!this.data.brandCatalog || this.data.brandCatalog.length < 10) {
+      const existingMap = new Map((this.data.brandCatalog || []).map(b => [b.name.toLowerCase(), b]));
+      const merged: BrandCatalogItem[] = [...(this.data.brandCatalog || [])];
+      for (const comp of COMPREHENSIVE_BRAND_CATALOG) {
+        if (!existingMap.has(comp.name.toLowerCase())) {
+          merged.push(comp);
+        }
+      }
+      this.data.brandCatalog = merged;
+      this.persist();
+    }
   }
 
   private persist() {
@@ -489,6 +513,7 @@ class Database {
     condition?: string;
     transmission?: string;
     fuel?: string;
+    bodyType?: string;
     status?: string;
     featured?: boolean;
     search?: string;
@@ -510,6 +535,9 @@ class Database {
     }
     if (filters?.condition) {
       list = list.filter(v => v.condition === filters.condition);
+    }
+    if (filters?.bodyType) {
+      list = list.filter(v => v.bodyType === filters.bodyType);
     }
     if (filters?.status) {
       list = list.filter(v => v.status === filters.status);
@@ -603,6 +631,18 @@ class Database {
     return true;
   }
 
+  reorderHeroSlides(orderedIds: string[]): Vehicle[] {
+    orderedIds.forEach((id, index) => {
+      const v = this.data.vehicles.find(item => item.id === id);
+      if (v) {
+        v.featuredOrder = index;
+      }
+    });
+    this.logAudit('HERO_SLIDER_REORDERED', 'vehicle', 'hero-slider', `Reordered ${orderedIds.length} homepage slides`);
+    this.persist();
+    return this.getVehicles({ publishedOnly: false });
+  }
+
   incrementVehicleStats(id: string, type: 'view' | 'inquiry') {
     const v = this.data.vehicles.find(item => item.id === id);
     if (v) {
@@ -613,39 +653,47 @@ class Database {
   }
 
   // --- Brand & Model Hierarchy Catalog ---
-  getBrandHierarchy(): BrandHierarchyResult[] {
-    const catalog = this.data.brandCatalog || [];
+  getBrandHierarchy(options?: { inventoryOnly?: boolean; includeDisabled?: boolean }): BrandHierarchyResult[] {
+    const catalog = this.data.brandCatalog || COMPREHENSIVE_BRAND_CATALOG;
     const vehicles = this.data.vehicles.filter(v => v.published);
 
     const brandMap = new Map<string, {
       id: string;
       name: string;
+      country: string;
+      region: string;
       logo?: string;
-      modelsMap: Map<string, { id: string; name: string; yearsSet: Set<number> }>;
+      enabled: boolean;
+      modelsMap: Map<string, { id: string; name: string; yearsSet: Set<number>; category?: string }>;
       count: number;
     }>();
 
     // 1. Seed from defined brandCatalog
     for (const b of catalog) {
+      if (!options?.includeDisabled && b.enabled === false) continue;
       const bKey = b.name.trim().toLowerCase();
-      const modelsMap = new Map<string, { id: string; name: string; yearsSet: Set<number> }>();
+      const modelsMap = new Map<string, { id: string; name: string; yearsSet: Set<number>; category?: string }>();
       for (const m of (b.models || [])) {
         modelsMap.set(m.name.trim().toLowerCase(), {
           id: m.id,
           name: m.name.trim(),
-          yearsSet: new Set(m.years || [])
+          yearsSet: new Set(m.years || []),
+          category: m.category
         });
       }
       brandMap.set(bKey, {
         id: b.id,
         name: b.name.trim(),
+        country: b.country || 'Global',
+        region: b.region || 'International',
         logo: b.logo,
+        enabled: b.enabled !== false,
         modelsMap,
         count: 0
       });
     }
 
-    // 2. Aggregate from live vehicles in database
+    // 2. Count active inventory & dynamically register models from inventory
     for (const v of vehicles) {
       if (!v.make) continue;
       const bKey = v.make.trim().toLowerCase();
@@ -654,6 +702,9 @@ class Database {
         brandEntry = {
           id: `b-${bKey.replace(/[^a-z0-9]+/g, '-')}`,
           name: v.make.trim(),
+          country: 'Global',
+          region: 'International',
+          enabled: true,
           modelsMap: new Map(),
           count: 0
         };
@@ -671,7 +722,8 @@ class Database {
           modelEntry = {
             id: `m-${mKey.replace(/[^a-z0-9]+/g, '-')}`,
             name: v.model.trim(),
-            yearsSet: new Set()
+            yearsSet: new Set(),
+            category: v.bodyType
           };
           brandEntry.modelsMap.set(mKey, modelEntry);
         }
@@ -681,19 +733,25 @@ class Database {
       }
     }
 
-    // Convert to sorted result array
+    // Convert to result array
     const results: BrandHierarchyResult[] = [];
     for (const [, b] of brandMap) {
+      if (options?.inventoryOnly && b.count === 0) continue;
+
       const models = Array.from(b.modelsMap.values()).map(m => ({
         id: m.id,
         name: m.name,
-        years: Array.from(m.yearsSet).sort((x, y) => y - x)
+        years: Array.from(m.yearsSet).sort((x, y) => y - x),
+        category: m.category
       })).sort((a, b) => a.name.localeCompare(b.name));
 
       results.push({
         id: b.id,
         name: b.name,
+        country: b.country || 'Global',
+        region: b.region || 'International',
         logo: b.logo,
+        enabled: b.enabled,
         models,
         vehicleCount: b.count
       });
@@ -707,19 +765,45 @@ class Database {
     });
   }
 
-  addBrand(name: string, logo?: string): BrandCatalogItem {
+  addBrand(name: string, country?: string, logo?: string): BrandCatalogItem {
     if (!this.data.brandCatalog) this.data.brandCatalog = [];
     const id = `b-${Date.now()}`;
     const newBrand: BrandCatalogItem = {
       id,
       name: name.trim(),
+      country: country?.trim() || 'Global',
+      region: 'International',
       logo: logo || '',
+      enabled: true,
       models: []
     };
     this.data.brandCatalog.push(newBrand);
-    this.logAudit('BRAND_CREATED', 'settings', id, `Added brand ${newBrand.name}`);
+    this.logAudit('BRAND_CREATED', 'settings', id, `Added brand ${newBrand.name} (${newBrand.country})`);
     this.persist();
     return newBrand;
+  }
+
+  updateBrand(id: string, updates: Partial<BrandCatalogItem>): BrandCatalogItem | null {
+    if (!this.data.brandCatalog) return null;
+    const brand = this.data.brandCatalog.find(b => b.id === id);
+    if (!brand) return null;
+    if (updates.name !== undefined) brand.name = updates.name.trim();
+    if (updates.country !== undefined) brand.country = updates.country.trim();
+    if (updates.logo !== undefined) brand.logo = updates.logo;
+    if (updates.enabled !== undefined) brand.enabled = updates.enabled;
+    this.logAudit('BRAND_UPDATED', 'settings', id, `Updated brand ${brand.name}`);
+    this.persist();
+    return brand;
+  }
+
+  toggleBrand(id: string): BrandCatalogItem | null {
+    if (!this.data.brandCatalog) return null;
+    const brand = this.data.brandCatalog.find(b => b.id === id);
+    if (!brand) return null;
+    brand.enabled = brand.enabled === false ? true : false;
+    this.logAudit('BRAND_TOGGLED', 'settings', id, `Toggled brand ${brand.name} to ${brand.enabled}`);
+    this.persist();
+    return brand;
   }
 
   deleteBrand(id: string): boolean {
@@ -733,7 +817,7 @@ class Database {
     return true;
   }
 
-  addModel(brandId: string, modelName: string, years: number[]): BrandCatalogItem | null {
+  addModel(brandId: string, modelName: string, years: number[], category?: string): BrandCatalogItem | null {
     if (!this.data.brandCatalog) this.data.brandCatalog = [];
     const brand = this.data.brandCatalog.find(b => b.id === brandId);
     if (!brand) return null;
@@ -741,9 +825,24 @@ class Database {
     brand.models.push({
       id: modelId,
       name: modelName.trim(),
-      years: years.sort((a, b) => b - a)
+      years: (years.length > 0 ? years : [2026, 2025, 2024, 2023, 2022, 2021, 2020]).sort((a, b) => b - a),
+      category
     });
     this.logAudit('MODEL_CREATED', 'settings', modelId, `Added model ${modelName} to ${brand.name}`);
+    this.persist();
+    return brand;
+  }
+
+  updateModel(brandId: string, modelId: string, updates: Partial<BrandModelItem>): BrandCatalogItem | null {
+    if (!this.data.brandCatalog) return null;
+    const brand = this.data.brandCatalog.find(b => b.id === brandId);
+    if (!brand) return null;
+    const model = brand.models.find(m => m.id === modelId);
+    if (!model) return null;
+    if (updates.name !== undefined) model.name = updates.name.trim();
+    if (updates.years !== undefined) model.years = updates.years.sort((a, b) => b - a);
+    if (updates.category !== undefined) model.category = updates.category;
+    this.logAudit('MODEL_UPDATED', 'settings', modelId, `Updated model ${model.name}`);
     this.persist();
     return brand;
   }
@@ -755,6 +854,7 @@ class Database {
     const idx = brand.models.findIndex(m => m.id === modelId);
     if (idx === -1) return null;
     brand.models.splice(idx, 1);
+    this.logAudit('MODEL_DELETED', 'settings', modelId, `Deleted model from ${brand.name}`);
     this.persist();
     return brand;
   }

@@ -74,10 +74,10 @@ export const ContactPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl overflow-hidden border border-amber-700/60 shrink-0 bg-neutral-950">
                 <img
-                  src={settings?.ceoImage || '/images/ceo_paul_smith_1790590776884.jpg'}
+                  src={settings?.ceoImage || '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg'}
                   alt="Paul Smith - CEO"
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
               <div>

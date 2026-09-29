@@ -23,6 +23,7 @@ export const CarsPage: React.FC<CarsPageProps> = ({ initialFilters, onNavigate }
     condition: initialFilters?.condition || '',
     transmission: initialFilters?.transmission || '',
     fuel: initialFilters?.fuel || '',
+    bodyType: initialFilters?.bodyType || '',
     minPrice: initialFilters?.minPrice || '',
     maxPrice: initialFilters?.maxPrice || '',
     search: initialFilters?.search || '',
@@ -37,6 +38,7 @@ export const CarsPage: React.FC<CarsPageProps> = ({ initialFilters, onNavigate }
         model: initialFilters.model !== undefined ? initialFilters.model : prev.model,
         year: initialFilters.year !== undefined ? initialFilters.year : prev.year,
         condition: initialFilters.condition !== undefined ? initialFilters.condition : prev.condition,
+        bodyType: initialFilters.bodyType !== undefined ? initialFilters.bodyType : prev.bodyType,
         maxPrice: initialFilters.maxPrice !== undefined ? initialFilters.maxPrice : prev.maxPrice,
       }));
     }
@@ -52,6 +54,7 @@ export const CarsPage: React.FC<CarsPageProps> = ({ initialFilters, onNavigate }
         condition: filters.condition || undefined,
         transmission: filters.transmission || undefined,
         fuel: filters.fuel || undefined,
+        bodyType: filters.bodyType || undefined,
         minPrice: filters.minPrice ? Number(filters.minPrice) : undefined,
         maxPrice: filters.maxPrice ? Number(filters.maxPrice) : undefined,
         status: filters.status || undefined,

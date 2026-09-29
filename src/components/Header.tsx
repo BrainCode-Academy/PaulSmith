@@ -26,6 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   const navItems = [
     { label: 'Home', path: '/' },
     { label: 'Cars', path: '/cars' },
+    { label: 'All Brands', path: '/brands' },
     { label: 'Import a Car', path: '/import-a-car' },
     { label: 'Find My Car', path: '/find-my-car' },
     { label: 'About', path: '/about' },

@@ -500,10 +500,10 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
               </div>
               <div className="flex items-center gap-3">
                 <img
-                  src={settings?.ceoImage || '/images/ceo_paul_smith_1790590776884.jpg'}
+                  src={settings?.ceoImage || '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg'}
                   alt="Paul Smith"
                   referrerPolicy="no-referrer"
-                  className="w-12 h-12 rounded-xl object-cover border border-neutral-700"
+                  className="w-12 h-12 rounded-xl object-cover object-center border border-neutral-700"
                 />
                 <div>
                   <span className="text-sm font-bold text-white block">{businessName}</span>
