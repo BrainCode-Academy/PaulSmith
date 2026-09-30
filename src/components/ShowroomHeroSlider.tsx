@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ShowroomSlide } from '../types';
 
 interface ShowroomHeroSliderProps {
   customImages?: string[];
+  slides?: ShowroomSlide[];
 }
 
 const DEFAULT_SHOWROOM_IMAGES = [
@@ -24,9 +26,16 @@ const DEFAULT_SHOWROOM_IMAGES = [
   },
 ];
 
-export const ShowroomHeroSlider: React.FC<ShowroomHeroSliderProps> = ({ customImages }) => {
+export const ShowroomHeroSlider: React.FC<ShowroomHeroSliderProps> = ({ customImages, slides: propSlides }) => {
+  // If ShowroomSlide[] is provided, use enabled slides sorted by order
+  const activeConfigSlides = propSlides && propSlides.length > 0
+    ? propSlides.filter(s => s.enabled !== false).sort((a, b) => a.order - b.order)
+    : null;
+
   const slides =
-    customImages && customImages.length > 0
+    activeConfigSlides && activeConfigSlides.length > 0
+      ? activeConfigSlides.map((s, i) => ({ url: s.url, alt: s.caption || `Paul Smith Autos Showroom View ${i + 1}` }))
+      : customImages && customImages.length > 0
       ? customImages.map((url, i) => ({ url, alt: `Paul Smith Autos Showroom View ${i + 1}` }))
       : DEFAULT_SHOWROOM_IMAGES;
 

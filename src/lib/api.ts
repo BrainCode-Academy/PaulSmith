@@ -1,4 +1,4 @@
-import { DealerSettings, Vehicle, Lead, ImportRequest, CarRequest, Review, AdminStats, AuditLog, BrandHierarchyResult } from '../types';
+import { DealerSettings, Vehicle, Lead, ImportRequest, CarRequest, Review, AdminStats, AuditLog, BrandHierarchyResult, ShowroomSlide } from '../types';
 
 function getAuthHeader(): Record<string, string> {
   const token = localStorage.getItem('autoprime_admin_token');
@@ -39,6 +39,7 @@ export const api = {
     condition?: string;
     transmission?: string;
     fuel?: string;
+    bodyType?: string;
     status?: string;
     featured?: boolean;
     search?: string;
@@ -350,6 +351,126 @@ export const api = {
       headers: getAuthHeader(),
     });
     if (!res.ok) throw new Error('Failed to delete review');
+  },
+
+  async updateReview(id: string, updates: Partial<Review>): Promise<Review> {
+    const res = await fetch(`/api/admin/reviews/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify(updates),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to update review');
+    }
+    return res.json();
+  },
+
+  async toggleReview(id: string, field: 'published' | 'verified'): Promise<Review> {
+    const res = await fetch(`/api/admin/reviews/${id}/toggle`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify({ field }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to toggle review');
+    }
+    return res.json();
+  },
+
+  // Showroom Slides Management
+  async getShowroomSlides(): Promise<ShowroomSlide[]> {
+    const res = await fetch('/api/showroom-slides');
+    if (!res.ok) return [];
+    return res.json();
+  },
+
+  async addShowroomSlide(url: string, caption?: string): Promise<ShowroomSlide> {
+    const res = await fetch('/api/admin/showroom-slides', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify({ url, caption }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to add showroom slide');
+    }
+    return res.json();
+  },
+
+  async updateShowroomSlide(id: string, updates: Partial<ShowroomSlide>): Promise<ShowroomSlide> {
+    const res = await fetch(`/api/admin/showroom-slides/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify(updates),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to update showroom slide');
+    }
+    return res.json();
+  },
+
+  async deleteShowroomSlide(id: string): Promise<void> {
+    const res = await fetch(`/api/admin/showroom-slides/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeader(),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to delete showroom slide');
+    }
+  },
+
+  async reorderShowroomSlides(orderedIds: string[]): Promise<ShowroomSlide[]> {
+    const res = await fetch('/api/admin/showroom-slides/reorder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader(),
+      },
+      body: JSON.stringify({ orderedIds }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to reorder showroom slides');
+    }
+    return res.json();
+  },
+
+  // Admin Setup
+  async getAdminSetupStatus(): Promise<{ isSetup: boolean; username: string }> {
+    const res = await fetch('/api/auth/setup-status');
+    if (!res.ok) throw new Error('Failed to get setup status');
+    return res.json();
+  },
+
+  async setupInitialAdmin(password: string, confirmPassword: string): Promise<{ token: string; user: any }> {
+    const res = await fetch('/api/auth/setup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password, confirmPassword }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Initial setup failed');
+    }
+    const data = await res.json();
+    localStorage.setItem('autoprime_admin_token', data.token);
+    return data;
   },
 
   // Admin Stats & Audit

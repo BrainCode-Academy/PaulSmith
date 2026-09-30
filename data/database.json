@@ -34,7 +34,37 @@
       "Port clearance and transparent logistics tracking",
       "Final vehicle handover with full documentation"
     ],
-    "updatedAt": "2026-09-28T09:48:00.000Z"
+    "updatedAt": "2026-09-28T09:48:00.000Z",
+    "showroomSlides": [
+      {
+        "id": "slide-1",
+        "url": "/images/hero_car_showroom_1790168724059.jpg",
+        "caption": "Paul Smith Autos certified dealership showroom",
+        "order": 0,
+        "enabled": true
+      },
+      {
+        "id": "slide-2",
+        "url": "/images/vehicle_luxury_lexus_1790168762494.jpg",
+        "caption": "Vehicles displayed inside Paul Smith Autos showroom",
+        "order": 1,
+        "enabled": true
+      },
+      {
+        "id": "slide-3",
+        "url": "/images/vehicle_suv_prado_1790168736955.jpg",
+        "caption": "Showroom vehicle selection and inspection floor",
+        "order": 2,
+        "enabled": true
+      },
+      {
+        "id": "slide-4",
+        "url": "/images/import_shipping_port_1790168781597.jpg",
+        "caption": "Direct international automotive sourcing and logistics",
+        "order": 3,
+        "enabled": true
+      }
+    ]
   },
   "vehicles": [
     {
@@ -166,6 +196,21 @@
   ],
   "leads": [
     {
+      "name": "Alhaji Danladi",
+      "phone": "08023456789",
+      "whatsapp": "08023456789",
+      "vehicleId": "v-1790762834719",
+      "vehicleTitle": "2025 Koenigsegg Jesko Attack",
+      "source": "whatsapp_cta",
+      "message": "I want to schedule showroom inspection for this Jesko on Thursday.",
+      "budget": "₦1,500,000,000",
+      "status": "New",
+      "id": "lead-1790762834731",
+      "notes": [],
+      "createdAt": "2026-09-30T10:07:14.731Z",
+      "updatedAt": "2026-09-30T10:07:14.731Z"
+    },
+    {
       "id": "lead-1",
       "name": "Emeka Okafor",
       "phone": "+2348034567890",
@@ -231,6 +276,78 @@
   "reviews": [],
   "auditLogs": [
     {
+      "id": "log-1790762834770-fn1u",
+      "action": "SHOWROOM_SLIDE_DELETED",
+      "targetType": "settings",
+      "targetId": "slide-1790762834753-k9f8",
+      "details": "Deleted showroom slide",
+      "timestamp": "2026-09-30T10:07:14.770Z"
+    },
+    {
+      "id": "log-1790762834767-f9tb",
+      "action": "BRAND_DELETED",
+      "targetType": "settings",
+      "targetId": "b-1790762834699",
+      "details": "Deleted brand Koenigsegg Test",
+      "timestamp": "2026-09-30T10:07:14.767Z"
+    },
+    {
+      "id": "log-1790762834761-uki9",
+      "action": "VEHICLE_DELETED",
+      "targetType": "vehicle",
+      "targetId": "v-1790762834719",
+      "details": "Deleted vehicle 2025 Koenigsegg Jesko Attack",
+      "timestamp": "2026-09-30T10:07:14.761Z"
+    },
+    {
+      "id": "log-1790762834753-2w33",
+      "action": "SHOWROOM_SLIDE_ADDED",
+      "targetType": "settings",
+      "targetId": "slide-1790762834753-k9f8",
+      "details": "Added showroom slide",
+      "timestamp": "2026-09-30T10:07:14.753Z"
+    },
+    {
+      "id": "log-1790762834743-e3me",
+      "action": "VEHICLE_UPDATED",
+      "targetType": "vehicle",
+      "targetId": "v-1790762834719",
+      "details": "Updated vehicle 2025 Koenigsegg Jesko Attack",
+      "timestamp": "2026-09-30T10:07:14.743Z"
+    },
+    {
+      "id": "log-1790762834733-lgi9",
+      "action": "LEAD_CREATED",
+      "targetType": "lead",
+      "targetId": "lead-1790762834731",
+      "details": "New lead received from Alhaji Danladi",
+      "timestamp": "2026-09-30T10:07:14.733Z"
+    },
+    {
+      "id": "log-1790762834720-4yk5",
+      "action": "VEHICLE_CREATED",
+      "targetType": "vehicle",
+      "targetId": "v-1790762834719",
+      "details": "Created vehicle 2025 Koenigsegg Jesko Attack",
+      "timestamp": "2026-09-30T10:07:14.720Z"
+    },
+    {
+      "id": "log-1790762834707-ajg3",
+      "action": "MODEL_CREATED",
+      "targetType": "settings",
+      "targetId": "m-1790762834707",
+      "details": "Added model Jesko to Koenigsegg Test",
+      "timestamp": "2026-09-30T10:07:14.707Z"
+    },
+    {
+      "id": "log-1790762834699-befj",
+      "action": "BRAND_CREATED",
+      "targetType": "settings",
+      "targetId": "b-1790762834699",
+      "details": "Added brand Koenigsegg Test (Sweden)",
+      "timestamp": "2026-09-30T10:07:14.699Z"
+    },
+    {
       "id": "log-1",
       "action": "SYSTEM_INITIALIZED",
       "targetType": "settings",
@@ -240,6 +357,70 @@
     }
   ],
   "analyticsEvents": [
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "all_brands"
+      },
+      "id": "ev-1790762282417-t73p",
+      "timestamp": "2026-09-30T09:58:02.417Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "all_brands"
+      },
+      "id": "ev-1790762282414-ljst",
+      "timestamp": "2026-09-30T09:58:02.414Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "cars_showroom"
+      },
+      "id": "ev-1790762281226-ml01",
+      "timestamp": "2026-09-30T09:58:01.226Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "cars_showroom"
+      },
+      "id": "ev-1790762281198-qmik",
+      "timestamp": "2026-09-30T09:58:01.198Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "cars_showroom"
+      },
+      "id": "ev-1790762281193-o6wo",
+      "timestamp": "2026-09-30T09:58:01.194Z"
+    },
+    {
+      "eventType": "whatsapp_click",
+      "metadata": {
+        "source": "floating_sticky_button"
+      },
+      "id": "ev-1790762176191-hghu",
+      "timestamp": "2026-09-30T09:56:16.191Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1790762167527-agzh",
+      "timestamp": "2026-09-30T09:56:07.527Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1790762167519-wauy",
+      "timestamp": "2026-09-30T09:56:07.519Z"
+    },
     {
       "eventType": "page_view",
       "metadata": {

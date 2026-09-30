@@ -1,3 +1,11 @@
+export interface ShowroomSlide {
+  id: string;
+  url: string;
+  caption?: string;
+  order: number;
+  enabled: boolean;
+}
+
 export interface DealerSettings {
   id: string;
   businessName: string;
@@ -22,6 +30,7 @@ export interface DealerSettings {
   businessHours: string;
   inspectionOffered: boolean;
   sourcingProcess: string[];
+  showroomSlides?: ShowroomSlide[];
   updatedAt: string;
 }
 

@@ -34,8 +34,10 @@ import {
   ChevronRight,
   Gauge,
   Fuel,
+  KeyRound,
+  ShieldCheck,
 } from 'lucide-react';
-import { Vehicle, Lead, ImportRequest, CarRequest, AdminStats, AuditLog, DealerSettings, BrandHierarchyResult } from '../../types';
+import { Vehicle, Lead, ImportRequest, CarRequest, AdminStats, AuditLog, DealerSettings, BrandHierarchyResult, Review, ShowroomSlide } from '../../types';
 import { useDealer } from '../../context/DealerContext';
 import { api } from '../../lib/api';
 import { formatPrice, buildWhatsAppLink } from '../../lib/whatsapp';
@@ -47,7 +49,7 @@ interface AdminDashboardProps {
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) => {
-  const { settings, updateSettings, isAdmin, login, logout } = useDealer();
+  const { settings, updateSettings, isAdmin, login, logout, refreshSettings } = useDealer();
 
   // Auth state
   const [username, setUsername] = useState('');
@@ -55,14 +57,51 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loggingIn, setLoggingIn] = useState(false);
 
-  // Active navigation tab
-  const [activeTab, setActiveTab] = useState<'overview' | 'vehicles' | 'hero_slider' | 'brands' | 'leads' | 'imports' | 'find_car' | 'settings' | 'audit'>('overview');
+  // Initial Admin Setup states
+  const [adminSetupStatus, setAdminSetupStatus] = useState<{ isSetup: boolean; username: string } | null>(null);
+  const [setupPassword, setSetupPassword] = useState('');
+  const [setupConfirmPassword, setSetupConfirmPassword] = useState('');
+  const [settingUp, setSettingUp] = useState(false);
+  const [setupError, setSetupError] = useState<string | null>(null);
 
-  // Hero Slider states
+  // Active navigation tab
+  const [activeTab, setActiveTab] = useState<'overview' | 'vehicles' | 'hero_slider' | 'brands' | 'leads' | 'imports' | 'find_car' | 'reviews' | 'settings' | 'audit'>('overview');
+  const [sliderSubTab, setSliderSubTab] = useState<'showroom_slides' | 'featured_cars'>('showroom_slides');
+
+  // Hero Slider states (Featured Vehicles)
   const [previewSlideVehicle, setPreviewSlideVehicle] = useState<Vehicle | null>(null);
   const [showAddSliderModal, setShowAddSliderModal] = useState(false);
   const [sliderSearchTerm, setSliderSearchTerm] = useState('');
   const [savingSliderOrder, setSavingSliderOrder] = useState(false);
+
+  // Showroom Slider states (Physical Dealership Showroom Floor Images)
+  const [showroomSlides, setShowroomSlides] = useState<ShowroomSlide[]>([]);
+  const [showAddSlideModal, setShowAddSlideModal] = useState(false);
+  const [newSlideUrl, setNewSlideUrl] = useState('');
+  const [newSlideCaption, setNewSlideCaption] = useState('');
+  const [uploadingSlide, setUploadingSlide] = useState(false);
+
+  // Reviews states
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [showAddReviewModal, setShowAddReviewModal] = useState(false);
+  const [reviewForm, setReviewForm] = useState<Partial<Review>>({
+    customerName: '',
+    vehiclePurchased: '',
+    rating: 5,
+    comment: '',
+    date: new Date().toISOString().split('T')[0],
+    verified: true,
+    published: true,
+  });
+  const [savingReview, setSavingReview] = useState(false);
+
+  // Password Change in Settings
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
   // Data states
   const [stats, setStats] = useState<AdminStats | null>(null);
@@ -105,31 +144,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
     try {
       const reader = new FileReader();
       reader.onload = async () => {
-        const base64 = reader.result as string;
         try {
-          const res = await fetch('/api/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              image: base64,
-              filename: `ceo_${file.name.replace(/\.[^/.]+$/, '')}`
-            })
-          });
-          const data = await res.json();
-          if (data.url) {
-            setSettingsForm(prev => ({ ...prev, ceoImage: data.url }));
-          } else {
-            setSettingsForm(prev => ({ ...prev, ceoImage: base64 }));
-          }
-        } catch {
-          setSettingsForm(prev => ({ ...prev, ceoImage: base64 }));
+          const base64 = reader.result as string;
+          const url = await api.uploadImage(base64, file.name);
+          setSettingsForm((prev) => ({ ...prev, ceoImage: url }));
+        } catch (err: any) {
+          alert(`Failed to upload CEO portrait: ${err.message}`);
         } finally {
           setUploadingCeoImage(false);
         }
       };
       reader.readAsDataURL(file);
-    } catch (err) {
-      console.error('Failed to process image file:', err);
+    } catch {
       setUploadingCeoImage(false);
     }
   };
@@ -141,7 +167,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
     if (!isAdmin) return;
     setLoading(true);
     try {
-      const [statsData, vehiclesData, leadsData, importsData, findCarData, auditData, hierarchyData] = await Promise.all([
+      const [statsData, vehiclesData, leadsData, importsData, findCarData, auditData, hierarchyData, reviewsData, slidesData] = await Promise.all([
         api.getStats(),
         api.getVehicles({ includeUnpublished: true }),
         api.getLeads(),
@@ -149,6 +175,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
         api.getFindCarRequests(),
         api.getAuditLogs(),
         api.getHierarchy({ includeDisabled: true }),
+        api.getAdminReviews(),
+        api.getShowroomSlides(),
       ]);
 
       setStats(statsData);
@@ -158,12 +186,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       setFindCarRequests(findCarData);
       setAuditLogs(auditData);
       setHierarchy(hierarchyData);
+      setReviews(reviewsData);
+      setShowroomSlides(slidesData);
     } catch (err) {
       console.error('Failed to load admin data:', err);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    api.getAdminSetupStatus()
+      .then(setAdminSetupStatus)
+      .catch((err) => console.error('Failed to check admin setup status:', err));
+  }, []);
 
   useEffect(() => {
     if (isAdmin) {
@@ -187,6 +223,195 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       setLoginError(err.message || 'Login failed.');
     } finally {
       setLoggingIn(false);
+    }
+  };
+
+  const handleInitialSetup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (setupPassword.length < 8) {
+      setSetupError('Master password must be at least 8 characters long.');
+      return;
+    }
+    if (setupPassword !== setupConfirmPassword) {
+      setSetupError('Passwords do not match.');
+      return;
+    }
+    setSettingUp(true);
+    setSetupError(null);
+    try {
+      await api.setupInitialAdmin(setupPassword, setupConfirmPassword);
+      window.location.reload();
+    } catch (err: any) {
+      setSetupError(err.message || 'Setup failed.');
+    } finally {
+      setSettingUp(false);
+    }
+  };
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.length < 8) {
+      setPasswordError('New password must be at least 8 characters long.');
+      return;
+    }
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError('New passwords do not match.');
+      return;
+    }
+    setChangingPassword(true);
+    setPasswordSuccess(null);
+    setPasswordError(null);
+    try {
+      const res = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('autoprime_admin_token') || ''}`,
+        },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to update password');
+      }
+      setPasswordSuccess('Administrator password successfully updated.');
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+    } catch (err: any) {
+      setPasswordError(err.message || 'Failed to update password');
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
+  // Showroom Slides Management Handlers
+  const handleAddShowroomSlide = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSlideUrl.trim()) return;
+    try {
+      await api.addShowroomSlide(newSlideUrl.trim(), newSlideCaption.trim() || undefined);
+      setShowAddSlideModal(false);
+      setNewSlideUrl('');
+      setNewSlideCaption('');
+      const updated = await api.getShowroomSlides();
+      setShowroomSlides(updated);
+      await refreshSettings();
+    } catch (err: any) {
+      alert(`Failed to add showroom slide: ${err.message}`);
+    }
+  };
+
+  const handleToggleShowroomSlideEnabled = async (slide: ShowroomSlide) => {
+    try {
+      await api.updateShowroomSlide(slide.id, { enabled: !slide.enabled });
+      const updated = await api.getShowroomSlides();
+      setShowroomSlides(updated);
+      await refreshSettings();
+    } catch (err: any) {
+      alert(`Failed to toggle showroom slide: ${err.message}`);
+    }
+  };
+
+  const handleDeleteShowroomSlide = async (slideId: string) => {
+    if (!confirm('Remove this showroom slide from homepage background?')) return;
+    try {
+      await api.deleteShowroomSlide(slideId);
+      const updated = await api.getShowroomSlides();
+      setShowroomSlides(updated);
+      await refreshSettings();
+    } catch (err: any) {
+      alert(`Failed to delete showroom slide: ${err.message}`);
+    }
+  };
+
+  const handleMoveShowroomSlide = async (index: number, direction: 'up' | 'down') => {
+    const targetIdx = direction === 'up' ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= showroomSlides.length) return;
+    const reordered = [...showroomSlides];
+    const temp = reordered[index];
+    reordered[index] = reordered[targetIdx];
+    reordered[targetIdx] = temp;
+    try {
+      const orderedIds = reordered.map((s) => s.id);
+      const saved = await api.reorderShowroomSlides(orderedIds);
+      setShowroomSlides(saved);
+      await refreshSettings();
+    } catch (err: any) {
+      alert(`Failed to reorder showroom slides: ${err.message}`);
+    }
+  };
+
+  const handleSlideImageFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingSlide(true);
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const base64 = reader.result as string;
+          const url = await api.uploadImage(base64, file.name);
+          setNewSlideUrl(url);
+        } catch (err: any) {
+          alert(`Image upload failed: ${err.message}`);
+        } finally {
+          setUploadingSlide(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch {
+      setUploadingSlide(false);
+    }
+  };
+
+  // Review Management Handlers
+  const handleAddReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reviewForm.customerName || !reviewForm.comment) {
+      alert('Customer name and testimonial comment are required.');
+      return;
+    }
+    setSavingReview(true);
+    try {
+      await api.createReview(reviewForm);
+      setShowAddReviewModal(false);
+      setReviewForm({
+        customerName: '',
+        vehiclePurchased: '',
+        rating: 5,
+        comment: '',
+        date: new Date().toISOString().split('T')[0],
+        verified: true,
+        published: true,
+      });
+      const updated = await api.getAdminReviews();
+      setReviews(updated);
+    } catch (err: any) {
+      alert(`Failed to create review: ${err.message}`);
+    } finally {
+      setSavingReview(false);
+    }
+  };
+
+  const handleToggleReview = async (id: string, field: 'published' | 'verified') => {
+    try {
+      await api.toggleReview(id, field);
+      const updated = await api.getAdminReviews();
+      setReviews(updated);
+    } catch (err: any) {
+      alert(`Failed to toggle review: ${err.message}`);
+    }
+  };
+
+  const handleDeleteReview = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this customer review?')) return;
+    try {
+      await api.deleteReview(id);
+      const updated = await api.getAdminReviews();
+      setReviews(updated);
+    } catch (err: any) {
+      alert(`Failed to delete review: ${err.message}`);
     }
   };
 
@@ -314,11 +539,36 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
     e.preventDefault();
     if (!newBrandName.trim()) return;
     try {
-      await api.addBrand(newBrandName.trim());
+      await api.addBrand(newBrandName.trim(), newBrandCountry.trim());
       setNewBrandName('');
+      setNewBrandCountry('Japan');
       await loadAllAdminData();
     } catch (err: any) {
       alert(`Failed to add brand: ${err.message}`);
+    }
+  };
+
+  const handleEditBrand = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingBrand || !editingBrand.name.trim()) return;
+    try {
+      await api.updateBrand(editingBrand.id, {
+        name: editingBrand.name.trim(),
+        country: editingBrand.country?.trim() || 'Global',
+      });
+      setEditingBrand(null);
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to update brand: ${err.message}`);
+    }
+  };
+
+  const handleToggleBrand = async (brandId: string) => {
+    try {
+      await api.toggleBrand(brandId);
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to toggle brand status: ${err.message}`);
     }
   };
 
@@ -340,12 +590,46 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       .map((y) => parseInt(y.trim(), 10))
       .filter((y) => !isNaN(y));
     try {
-      await api.addModel(brandId, newModelName.trim(), years);
+      await api.addModel(brandId, newModelName.trim(), years, newModelCategory);
       setNewModelName('');
       setActiveBrandAddModal(null);
       await loadAllAdminData();
     } catch (err: any) {
       alert(`Failed to add model: ${err.message}`);
+    }
+  };
+
+  const handleUpdateModel = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingModel || !editingModel.name.trim()) return;
+    const years = editingModel.years
+      .split(',')
+      .map((y) => parseInt(y.trim(), 10))
+      .filter((y) => !isNaN(y));
+    try {
+      await api.updateModel(editingModel.brandId, editingModel.modelId, {
+        name: editingModel.name.trim(),
+        years,
+        category: editingModel.category || undefined,
+      });
+      setEditingModel(null);
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to update model: ${err.message}`);
+    }
+  };
+
+  const handleAddSupportedYear = async (brandId: string, modelId: string, currentYears: number[], newYear: number) => {
+    if (!newYear || isNaN(newYear)) return;
+    if (currentYears.includes(newYear)) return;
+    const updatedYears = [...currentYears, newYear].sort((a, b) => b - a);
+    try {
+      await api.updateModel(brandId, modelId, { years: updatedYears });
+      setQuickAddYearModel(null);
+      setQuickYearInput('');
+      await loadAllAdminData();
+    } catch (err: any) {
+      alert(`Failed to add supported year: ${err.message}`);
     }
   };
 
@@ -403,9 +687,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
   };
 
   // ----------------------------------------------------
-  // Login Screen if not authenticated
+  // Login Screen or Initial Setup Screen if not authenticated
   // ----------------------------------------------------
   if (!isAdmin) {
+    const isInitialSetup = adminSetupStatus && !adminSetupStatus.isSetup;
+
     return (
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-8 shadow-2xl space-y-6">
@@ -413,56 +699,119 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
             <div className="w-12 h-12 bg-amber-400/10 border border-amber-400/30 rounded-xl flex items-center justify-center text-amber-400 mx-auto">
               <Shield className="w-6 h-6" />
             </div>
-            <h1 className="text-xl font-bold text-white tracking-tight">Dealership Admin Portal</h1>
+            <h1 className="text-xl font-bold text-white tracking-tight">
+              {isInitialSetup ? 'First-Time Administrator Setup' : 'Dealership Admin Portal'}
+            </h1>
             <p className="text-xs text-neutral-400">
-              Sign in to manage showroom inventory, client inquiries, and import requests.
+              {isInitialSetup
+                ? 'Create a secure master password for the administrator account to access the dealership console.'
+                : 'Sign in to manage showroom inventory, client inquiries, and import requests.'}
             </p>
           </div>
 
-          {loginError && (
-            <div className="p-3 bg-red-950/40 border border-red-800/80 rounded-lg text-xs text-red-300">
-              {loginError}
-            </div>
+          {isInitialSetup ? (
+            /* First-Time Setup Wizard */
+            <form onSubmit={handleInitialSetup} className="space-y-4">
+              {setupError && (
+                <div className="p-3 bg-red-950/40 border border-red-800/80 rounded-lg text-xs text-red-300">
+                  {setupError}
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Administrator Username</label>
+                <input
+                  type="text"
+                  disabled
+                  value={adminSetupStatus?.username || 'admin'}
+                  className="w-full bg-neutral-950/60 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-neutral-400 cursor-not-allowed font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Master Password (min. 8 characters)</label>
+                <input
+                  type="password"
+                  required
+                  minLength={8}
+                  value={setupPassword}
+                  onChange={(e) => setSetupPassword(e.target.value)}
+                  placeholder="Enter strong password..."
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Confirm Master Password</label>
+                <input
+                  type="password"
+                  required
+                  minLength={8}
+                  value={setupConfirmPassword}
+                  onChange={(e) => setSetupConfirmPassword(e.target.value)}
+                  placeholder="Repeat master password..."
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={settingUp}
+                className="w-full py-3 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer shadow-lg shadow-amber-400/10"
+              >
+                {settingUp ? 'Initializing Credentials...' : 'Set Admin Password & Access Console'}
+              </button>
+
+              <div className="p-3 bg-neutral-950/80 border border-neutral-800/80 rounded-lg text-[11px] text-neutral-400 text-center">
+                Credentials are salted and hashed with PBKDF2-SHA512. No plaintext passwords are saved.
+              </div>
+            </form>
+          ) : (
+            /* Regular Sign In */
+            <form onSubmit={handleLogin} className="space-y-4">
+              {loginError && (
+                <div className="p-3 bg-red-950/40 border border-red-800/80 rounded-lg text-xs text-red-300">
+                  {loginError}
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Username</label>
+                <input
+                  type="text"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="admin"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Password</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loggingIn}
+                className="w-full py-3 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer"
+              >
+                {loggingIn ? 'Authenticating...' : 'Sign In to Portal'}
+              </button>
+
+              <div className="p-3 bg-neutral-950 border border-neutral-800 rounded-lg text-[11px] text-neutral-400 text-center">
+                Authorized dealership personnel only. Protected by cryptographic session verification.
+              </div>
+            </form>
           )}
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-medium text-neutral-300 mb-1.5">Username</label>
-              <input
-                type="text"
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="admin"
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-neutral-300 mb-1.5">Password</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loggingIn}
-              className="w-full py-3 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer"
-            >
-              {loggingIn ? 'Authenticating...' : 'Sign In to Portal'}
-            </button>
-          </form>
-
-          <div className="p-3 bg-neutral-950 border border-neutral-800 rounded-lg text-xs text-neutral-400 text-center">
-            Default credentials: <span className="text-amber-400 font-mono">admin</span> /{' '}
-            <span className="text-amber-400 font-mono">AutoPrime2026!</span>
-          </div>
         </div>
       </div>
     );
@@ -511,11 +860,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
         {[
           { id: 'overview', label: 'Dashboard Overview', icon: History },
           { id: 'vehicles', label: `Inventory (${vehicles.length})`, icon: Car },
-          { id: 'hero_slider', label: `Hero Slider (${vehicles.filter(v => v.featured).length})`, icon: Sparkles },
+          { id: 'hero_slider', label: `Homepage & Sliders (${showroomSlides.length + vehicles.filter(v => v.featured).length})`, icon: Sparkles },
           { id: 'brands', label: `Brands & Models (${hierarchy.length})`, icon: Layers },
           { id: 'leads', label: `Inquiries & Leads (${leads.length})`, icon: Users },
           { id: 'imports', label: `Import Sourcing (${imports.length})`, icon: Ship },
           { id: 'find_car', label: `Car Requests (${findCarRequests.length})`, icon: Search },
+          { id: 'reviews', label: `Reviews & Proof (${reviews.length})`, icon: Star },
           { id: 'settings', label: 'Business Settings', icon: Settings },
           { id: 'audit', label: 'Audit Trail', icon: FileText },
         ].map((tab) => {
@@ -812,10 +1162,170 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       )}
 
       {/* ----------------------------------------------------
-          TAB 2.5: HOMEPAGE HERO SLIDER MANAGEMENT
+          TAB 2.5: HOMEPAGE & SLIDERS MANAGEMENT
           ---------------------------------------------------- */}
       {activeTab === 'hero_slider' && (
         <div className="space-y-6">
+          {/* Sub-tab navigation */}
+          <div className="flex items-center gap-3 border-b border-neutral-800 pb-3">
+            <button
+              onClick={() => setSliderSubTab('showroom_slides')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                sliderSubTab === 'showroom_slides'
+                  ? 'bg-amber-400 text-neutral-950 shadow'
+                  : 'bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800'
+              }`}
+            >
+              <ImageIcon className="w-4 h-4" />
+              <span>Showroom Gallery Slider ({showroomSlides.length} slides)</span>
+            </button>
+
+            <button
+              onClick={() => setSliderSubTab('featured_cars')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                sliderSubTab === 'featured_cars'
+                  ? 'bg-amber-400 text-neutral-950 shadow'
+                  : 'bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800'
+              }`}
+            >
+              <Car className="w-4 h-4" />
+              <span>Featured Vehicle Carousel ({vehicles.filter(v => v.featured).length} cars)</span>
+            </button>
+          </div>
+
+          {sliderSubTab === 'showroom_slides' ? (
+            /* Showroom Display Slider Management (Physical Dealership Floor Photos) */
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-base font-bold text-white tracking-tight">Dealership Showroom Floor Gallery</h3>
+                  <p className="text-xs text-neutral-400 mt-1">
+                    Manage the authentic dealership showroom floor and facility photos displayed in the subtle homepage hero background.
+                    <span className="text-amber-400 font-semibold block sm:inline sm:ml-1">
+                      (Physical showroom background gallery, NOT a vehicle price slider).
+                    </span>
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <button
+                    onClick={() => onNavigate('/')}
+                    className="flex items-center gap-1.5 px-3 py-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-800 rounded-xl text-xs font-medium transition cursor-pointer"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>View Public Hero</span>
+                  </button>
+
+                  <button
+                    onClick={() => setShowAddSlideModal(true)}
+                    className="flex items-center gap-1.5 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md shadow-amber-400/10"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add Showroom Slide</span>
+                  </button>
+                </div>
+              </div>
+
+              {showroomSlides.length === 0 ? (
+                <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12 text-center space-y-4">
+                  <ImageIcon className="w-10 h-10 text-neutral-600 mx-auto" />
+                  <p className="text-xs text-neutral-400">No showroom display slides uploaded yet.</p>
+                  <button
+                    onClick={() => setShowAddSlideModal(true)}
+                    className="px-4 py-2 bg-amber-400 text-neutral-950 font-bold rounded-xl text-xs"
+                  >
+                    Add First Showroom Slide
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {showroomSlides.map((slide, idx) => (
+                    <div
+                      key={slide.id}
+                      className="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between"
+                    >
+                      <div className="relative aspect-[16/9] bg-neutral-950">
+                        <img
+                          src={slide.url}
+                          alt={slide.caption || 'Showroom slide'}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-2 left-2 flex items-center gap-1.5">
+                          <span className="bg-black/80 font-mono text-[10px] text-amber-400 px-2 py-0.5 rounded font-bold border border-amber-400/30">
+                            Slide #{idx + 1}
+                          </span>
+                          <span
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                              slide.enabled !== false
+                                ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800/80'
+                                : 'bg-neutral-900/90 text-neutral-400 border border-neutral-700'
+                            }`}
+                          >
+                            {slide.enabled !== false ? 'Active' : 'Disabled'}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                        <div>
+                          <p className="text-xs font-semibold text-white">
+                            {slide.caption || 'Paul Smith Autos Showroom View'}
+                          </p>
+                          <p className="text-[11px] text-neutral-500 font-mono truncate mt-0.5">
+                            {slide.url}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2 border-t border-neutral-800/60">
+                          <div className="flex items-center gap-1">
+                            <button
+                              onClick={() => handleMoveShowroomSlide(idx, 'up')}
+                              disabled={idx === 0}
+                              title="Move slide earlier"
+                              className="p-1.5 bg-neutral-950 hover:bg-neutral-800 text-neutral-300 disabled:opacity-30 rounded-lg text-xs transition cursor-pointer"
+                            >
+                              <ArrowUp className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => handleMoveShowroomSlide(idx, 'down')}
+                              disabled={idx === showroomSlides.length - 1}
+                              title="Move slide later"
+                              className="p-1.5 bg-neutral-950 hover:bg-neutral-800 text-neutral-300 disabled:opacity-30 rounded-lg text-xs transition cursor-pointer"
+                            >
+                              <ArrowDown className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleToggleShowroomSlideEnabled(slide)}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                                slide.enabled !== false
+                                  ? 'bg-neutral-800 text-neutral-300 hover:text-white'
+                                  : 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                              }`}
+                            >
+                              {slide.enabled !== false ? 'Disable' : 'Enable'}
+                            </button>
+
+                            <button
+                              onClick={() => handleDeleteShowroomSlide(slide.id)}
+                              className="p-1.5 text-neutral-400 hover:text-red-400 hover:bg-red-950/30 rounded-lg transition cursor-pointer"
+                              title="Delete slide"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
@@ -1087,6 +1597,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               </div>
             </div>
           )}
+            </div>
+          )}
         </div>
       )}
 
@@ -1095,144 +1607,466 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
           ---------------------------------------------------- */}
       {activeTab === 'brands' && (
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-white tracking-tight">Brand & Model Hierarchy Catalog</h2>
               <p className="text-xs text-neutral-400">
-                Manage the Brand → Model → Year hierarchy that powers vehicle search, categorization, and digital showroom inventory.
+                Manage the Brand → Model → Year hierarchy powering vehicle discovery, filters, and digital showroom inventory.
               </p>
             </div>
 
             {/* Quick Add Brand Form */}
-            <form onSubmit={handleAddBrand} className="flex items-center gap-2 w-full sm:w-auto">
+            <form onSubmit={handleAddBrand} className="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full lg:w-auto">
               <input
                 type="text"
                 required
-                placeholder="New Brand Name (e.g. BMW)"
+                placeholder="Brand Name (e.g. Genesis)"
                 value={newBrandName}
                 onChange={(e) => setNewBrandName(e.target.value)}
-                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 min-w-[160px]"
               />
+              <select
+                value={newBrandCountry}
+                onChange={(e) => setNewBrandCountry(e.target.value)}
+                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+              >
+                <option value="Japan">Japan</option>
+                <option value="Germany">Germany</option>
+                <option value="United States">United States</option>
+                <option value="South Korea">South Korea</option>
+                <option value="China">China</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="France">France</option>
+                <option value="Italy">Italy</option>
+                <option value="Sweden">Sweden</option>
+                <option value="India">India</option>
+                <option value="Global">Other / Global</option>
+              </select>
               <button
                 type="submit"
-                className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs whitespace-nowrap cursor-pointer uppercase tracking-wider shadow-sm"
+                className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs whitespace-nowrap cursor-pointer uppercase tracking-wider shadow-sm flex items-center gap-1.5"
               >
-                Add Brand
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add Brand</span>
               </button>
             </form>
           </div>
 
+          {/* Search Brand Filter */}
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="relative w-full sm:max-w-md">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+              <input
+                type="text"
+                placeholder="Search brands or countries (e.g. Toyota, China, Ford)..."
+                value={adminBrandSearch}
+                onChange={(e) => setAdminBrandSearch(e.target.value)}
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400"
+              />
+              {adminBrandSearch && (
+                <button
+                  type="button"
+                  onClick={() => setAdminBrandSearch('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white text-xs"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+
+            <div className="text-xs text-neutral-400">
+              Showing{' '}
+              <span className="text-white font-bold">
+                {hierarchy.filter((b) =>
+                  adminBrandSearch
+                    ? b.name.toLowerCase().includes(adminBrandSearch.toLowerCase()) ||
+                      (b.country || '').toLowerCase().includes(adminBrandSearch.toLowerCase())
+                    : true
+                ).length}
+              </span>{' '}
+              of {hierarchy.length} manufacturers
+            </div>
+          </div>
+
+          {/* Brands Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {hierarchy.map((brand) => (
-              <div
-                key={brand.id}
-                className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4 shadow-xl flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-                    <div>
-                      <h3 className="text-base font-bold text-white">{brand.name}</h3>
-                      <span className="text-xs text-amber-400 font-medium">
-                        {brand.vehicleCount} vehicle{brand.vehicleCount === 1 ? '' : 's'} in active stock
-                      </span>
+            {hierarchy
+              .filter((b) =>
+                adminBrandSearch
+                  ? b.name.toLowerCase().includes(adminBrandSearch.toLowerCase()) ||
+                    (b.country || '').toLowerCase().includes(adminBrandSearch.toLowerCase())
+                  : true
+              )
+              .map((brand) => (
+                <div
+                  key={brand.id}
+                  className={`bg-neutral-900 border rounded-2xl p-6 space-y-4 shadow-xl flex flex-col justify-between transition-all ${
+                    brand.enabled === false ? 'border-neutral-800/50 opacity-75' : 'border-neutral-800'
+                  }`}
+                >
+                  <div>
+                    {/* Brand Card Header */}
+                    <div className="flex items-center justify-between border-b border-neutral-800 pb-3 gap-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-base font-bold text-white">{brand.name}</h3>
+                          <span className="text-[10px] bg-neutral-950 px-2 py-0.5 rounded text-neutral-400 border border-neutral-800">
+                            {brand.country || 'Global'}
+                          </span>
+                          <span
+                            className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
+                              brand.enabled !== false
+                                ? 'bg-emerald-950 text-emerald-400 border border-emerald-900'
+                                : 'bg-red-950 text-red-400 border border-red-900'
+                            }`}
+                          >
+                            {brand.enabled !== false ? 'Active' : 'Disabled'}
+                          </span>
+                        </div>
+                        <span className="text-xs text-amber-400 font-medium mt-0.5 block">
+                          {brand.vehicleCount} vehicle{brand.vehicleCount === 1 ? '' : 's'} in active stock
+                        </span>
+                      </div>
+
+                      {/* Brand Quick Actions */}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {/* Enable / Disable Brand Toggle */}
+                        <button
+                          type="button"
+                          onClick={() => handleToggleBrand(brand.id)}
+                          title={brand.enabled !== false ? 'Disable brand' : 'Enable brand'}
+                          className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                            brand.enabled !== false
+                              ? 'text-emerald-400 hover:bg-neutral-800 hover:text-emerald-300'
+                              : 'text-neutral-500 hover:bg-neutral-800 hover:text-emerald-400'
+                          }`}
+                        >
+                          {brand.enabled !== false ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                        </button>
+
+                        {/* Edit Brand */}
+                        <button
+                          type="button"
+                          onClick={() => setEditingBrand({ id: brand.id, name: brand.name, country: brand.country })}
+                          title="Edit brand name & country"
+                          className="p-1.5 text-neutral-400 hover:text-amber-400 hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+
+                        {/* Delete Brand */}
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteBrand(brand.id, brand.name)}
+                          title="Delete brand"
+                          className="p-1.5 text-neutral-400 hover:text-red-400 hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={() => handleDeleteBrand(brand.id, brand.name)}
-                      title="Delete brand"
-                      className="p-1.5 text-neutral-400 hover:text-red-400 hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    {/* Inline Edit Brand Form if selected */}
+                    {editingBrand && editingBrand.id === brand.id && (
+                      <form onSubmit={handleEditBrand} className="mt-3 p-3 bg-neutral-950 rounded-xl border border-amber-400/50 space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold text-amber-400">
+                          <span>Edit Brand Details</span>
+                          <button
+                            type="button"
+                            onClick={() => setEditingBrand(null)}
+                            className="text-neutral-400 hover:text-white"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <input
+                            type="text"
+                            required
+                            value={editingBrand.name}
+                            onChange={(e) => setEditingBrand({ ...editingBrand, name: e.target.value })}
+                            className="bg-neutral-900 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                            placeholder="Brand Name"
+                          />
+                          <select
+                            value={editingBrand.country || 'Global'}
+                            onChange={(e) => setEditingBrand({ ...editingBrand, country: e.target.value })}
+                            className="bg-neutral-900 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                          >
+                            <option value="Japan">Japan</option>
+                            <option value="Germany">Germany</option>
+                            <option value="United States">United States</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="China">China</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="France">France</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="India">India</option>
+                            <option value="Global">Global</option>
+                          </select>
+                        </div>
+                        <button
+                          type="submit"
+                          className="w-full py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs"
+                        >
+                          Save Changes
+                        </button>
+                      </form>
+                    )}
+
+                    {/* Models list under this Brand */}
+                    <div className="pt-3 space-y-2">
+                      <span className="text-xs font-semibold text-neutral-400 block uppercase tracking-wider text-[11px]">
+                        Models & Supported Years ({brand.models.length})
+                      </span>
+
+                      {brand.models.length === 0 ? (
+                        <p className="text-xs text-neutral-500 italic py-2">No models added under {brand.name} yet.</p>
+                      ) : (
+                        <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+                          {brand.models.map((model) => (
+                            <div
+                              key={model.id}
+                              className="p-2.5 bg-neutral-950 rounded-xl border border-neutral-800/80 flex flex-col gap-1.5 text-xs"
+                            >
+                              <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-semibold text-white">{model.name}</span>
+                                  {model.category && (
+                                    <span className="text-[10px] text-amber-400 bg-amber-950/60 border border-amber-900/60 px-1.5 py-0.2 rounded">
+                                      {model.category}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <button
+                                    onClick={() =>
+                                      setEditingModel({
+                                        brandId: brand.id,
+                                        modelId: model.id,
+                                        name: model.name,
+                                        years: model.years.join(', '),
+                                        category: model.category,
+                                      })
+                                    }
+                                    title="Edit Model"
+                                    className="text-neutral-500 hover:text-amber-400 p-1 cursor-pointer transition-colors"
+                                  >
+                                    <Edit2 className="w-3.5 h-3.5" />
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteModel(brand.id, model.id)}
+                                    title="Delete Model"
+                                    className="text-neutral-500 hover:text-red-400 p-1 cursor-pointer transition-colors"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </div>
+
+                              {/* Years & Quick Year Adder */}
+                              <div className="flex flex-wrap items-center gap-1 text-[11px] text-neutral-400 font-mono">
+                                <span>Years:</span>
+                                {model.years && model.years.length > 0 ? (
+                                  model.years.slice(0, 6).map((yr) => (
+                                    <span key={yr} className="bg-neutral-900 px-1.5 py-0.5 rounded text-[10px] text-neutral-300">
+                                      {yr}
+                                    </span>
+                                  ))
+                                ) : (
+                                  <span>Any</span>
+                                )}
+
+                                {/* Add supported year button */}
+                                {quickAddYearModel?.modelId === model.id ? (
+                                  <div className="flex items-center gap-1 ml-1">
+                                    <input
+                                      type="number"
+                                      placeholder="YYYY"
+                                      value={quickYearInput}
+                                      onChange={(e) => setQuickYearInput(e.target.value)}
+                                      className="w-16 bg-neutral-900 border border-amber-400 rounded px-1.5 py-0.5 text-[10px] text-white"
+                                    />
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        handleAddSupportedYear(
+                                          brand.id,
+                                          model.id,
+                                          model.years || [],
+                                          parseInt(quickYearInput, 10)
+                                        )
+                                      }
+                                      className="px-1.5 py-0.5 bg-amber-400 text-neutral-950 font-bold rounded text-[10px]"
+                                    >
+                                      Add
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => setQuickAddYearModel(null)}
+                                      className="text-neutral-400 text-[10px]"
+                                    >
+                                      ✕
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setQuickAddYearModel({ brandId: brand.id, modelId: model.id });
+                                      setQuickYearInput(String(new Date().getFullYear()));
+                                    }}
+                                    className="text-[10px] text-amber-400 hover:underline cursor-pointer ml-1"
+                                  >
+                                    + Add Year
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Models list under this Brand */}
-                  <div className="pt-3 space-y-2">
-                    <span className="text-xs font-semibold text-neutral-400 block uppercase tracking-wider text-[11px]">
-                      Models & Supported Years ({brand.models.length})
-                    </span>
-
-                    {brand.models.length === 0 ? (
-                      <p className="text-xs text-neutral-500 italic py-2">No models added under {brand.name} yet.</p>
-                    ) : (
-                      <div className="space-y-2">
-                        {brand.models.map((model) => (
-                          <div
-                            key={model.id}
-                            className="p-2.5 bg-neutral-950 rounded-xl border border-neutral-800/80 flex items-center justify-between gap-3 text-xs"
+                  {/* Add Model to this Brand */}
+                  <div className="pt-3 border-t border-neutral-800/80">
+                    {activeBrandAddModal === brand.id ? (
+                      <form onSubmit={(e) => handleAddModel(brand.id, e)} className="space-y-2 p-3 bg-neutral-950 rounded-xl border border-neutral-800">
+                        <div className="flex items-center justify-between text-xs font-semibold text-white">
+                          <span>Add Model to {brand.name}</span>
+                          <button
+                            type="button"
+                            onClick={() => setActiveBrandAddModal(null)}
+                            className="text-neutral-400 hover:text-white cursor-pointer"
                           >
-                            <div>
-                              <span className="font-semibold text-white block">{model.name}</span>
-                              <span className="text-[11px] text-neutral-400 font-mono">
-                                Years: {model.years && model.years.length > 0 ? model.years.join(', ') : 'Any'}
-                              </span>
-                            </div>
-                            <button
-                              onClick={() => handleDeleteModel(brand.id, model.id)}
-                              title="Delete model"
-                              className="text-neutral-500 hover:text-red-400 p-1 cursor-pointer transition-colors"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
+                            Cancel
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Model name (e.g. Camry, RAV4, X5)"
+                          value={newModelName}
+                          onChange={(e) => setNewModelName(e.target.value)}
+                          className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <select
+                            value={newModelCategory}
+                            onChange={(e) => setNewModelCategory(e.target.value)}
+                            className="bg-neutral-900 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                          >
+                            <option value="SUV">SUV</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="Crossover">Crossover</option>
+                            <option value="Truck">Truck / Pickup</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Van">Van / MPV</option>
+                          </select>
+                          <input
+                            type="text"
+                            placeholder="Years (e.g. 2024, 2025)"
+                            value={newModelYears}
+                            onChange={(e) => setNewModelYears(e.target.value)}
+                            className="bg-neutral-900 border border-neutral-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          className="w-full py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs cursor-pointer"
+                        >
+                          Save Model
+                        </button>
+                      </form>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setActiveBrandAddModal(brand.id);
+                          setNewModelName('');
+                        }}
+                        className="w-full py-2 bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Add Model to {brand.name}</span>
+                      </button>
                     )}
                   </div>
                 </div>
-
-                {/* Add Model to this Brand */}
-                <div className="pt-3 border-t border-neutral-800/80">
-                  {activeBrandAddModal === brand.id ? (
-                    <form onSubmit={(e) => handleAddModel(brand.id, e)} className="space-y-2 p-3 bg-neutral-950 rounded-xl border border-neutral-800">
-                      <div className="flex items-center justify-between text-xs font-semibold text-white">
-                        <span>Add Model to {brand.name}</span>
-                        <button
-                          type="button"
-                          onClick={() => setActiveBrandAddModal(null)}
-                          className="text-neutral-400 hover:text-white cursor-pointer"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Model name (e.g. Camry)"
-                        value={newModelName}
-                        onChange={(e) => setNewModelName(e.target.value)}
-                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                      <input
-                        type="text"
-                        placeholder="Years comma-separated (e.g. 2021, 2022, 2023)"
-                        value={newModelYears}
-                        onChange={(e) => setNewModelYears(e.target.value)}
-                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
-                      />
-                      <button
-                        type="submit"
-                        className="w-full py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs cursor-pointer"
-                      >
-                        Save Model
-                      </button>
-                    </form>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setActiveBrandAddModal(brand.id);
-                        setNewModelName('');
-                      }}
-                      className="w-full py-2 bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      <Plus className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Add Model to {brand.name}</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
+
+          {/* Edit Model Modal */}
+          {editingModel && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+              <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-2xl space-y-4">
+                <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+                  <h3 className="text-sm font-bold text-white">Edit Automobile Model</h3>
+                  <button
+                    onClick={() => setEditingModel(null)}
+                    className="text-neutral-400 hover:text-white"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <form onSubmit={handleUpdateModel} className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-neutral-300 mb-1">Model Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingModel.name}
+                      onChange={(e) => setEditingModel({ ...editingModel, name: e.target.value })}
+                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-neutral-300 mb-1">Body Type / Category</label>
+                    <select
+                      value={editingModel.category || 'SUV'}
+                      onChange={(e) => setEditingModel({ ...editingModel, category: e.target.value })}
+                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white"
+                    >
+                      <option value="SUV">SUV</option>
+                      <option value="Sedan">Sedan</option>
+                      <option value="Crossover">Crossover</option>
+                      <option value="Truck">Truck / Pickup</option>
+                      <option value="Coupe">Coupe</option>
+                      <option value="Hatchback">Hatchback</option>
+                      <option value="Van">Van / MPV</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-neutral-300 mb-1">Supported Years (comma-separated)</label>
+                    <input
+                      type="text"
+                      value={editingModel.years}
+                      onChange={(e) => setEditingModel({ ...editingModel, years: e.target.value })}
+                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                      placeholder="2026, 2025, 2024, 2023, 2022"
+                    />
+                  </div>
+                  <div className="pt-2 flex items-center justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setEditingModel(null)}
+                      className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xs font-medium"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs"
+                    >
+                      Update Model
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -1519,6 +2353,103 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   {r.otherRequirements && (
                     <p className="text-xs text-neutral-300">Notes: {r.otherRequirements}</p>
                   )}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ----------------------------------------------------
+          TAB 5.5: REVIEWS & CUSTOMER PROOF
+          ---------------------------------------------------- */}
+      {activeTab === 'reviews' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold text-white tracking-tight">Verified Customer Reviews & Proof</h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-400 border border-amber-400/30">
+                  {reviews.length} Total Reviews
+                </span>
+              </div>
+              <p className="text-xs text-neutral-400 mt-1">
+                Authentic testimonials from genuine car buyers. Manage verified status, publication visibility, or log customer feedback.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowAddReviewModal(true)}
+              className="flex items-center gap-1.5 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md shadow-amber-400/10"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add Verified Review</span>
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            {reviews.length === 0 ? (
+              <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12 text-center space-y-3">
+                <Star className="w-8 h-8 text-neutral-600 mx-auto" />
+                <p className="text-xs text-neutral-400">No customer reviews recorded yet.</p>
+                <button
+                  onClick={() => setShowAddReviewModal(true)}
+                  className="px-4 py-2 bg-amber-400 text-neutral-950 font-bold rounded-xl text-xs"
+                >
+                  Add First Review
+                </button>
+              </div>
+            ) : (
+              reviews.map((rev) => (
+                <div key={rev.id} className="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 space-y-3 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800 pb-3">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-sm font-bold text-white">{rev.customerName}</h4>
+                        {rev.verified && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 flex items-center gap-1">
+                            <ShieldCheck className="w-3 h-3" /> Verified Buyer
+                          </span>
+                        )}
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          rev.published ? 'bg-amber-950/80 text-amber-400 border border-amber-800/80' : 'bg-neutral-950 text-neutral-400 border border-neutral-800'
+                        }`}>
+                          {rev.published ? 'Published' : 'Hidden'}
+                        </span>
+                      </div>
+                      <div className="text-xs text-neutral-400 mt-0.5">
+                        Purchased: <strong className="text-neutral-200">{rev.vehiclePurchased || 'Showroom Vehicle'}</strong> · Date: {rev.date}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {/* Star rating */}
+                      <div className="flex items-center gap-0.5 bg-neutral-950 px-2 py-1 rounded-lg border border-neutral-800 text-amber-400">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className={`w-3 h-3 ${i < rev.rating ? 'fill-current' : 'text-neutral-700'}`} />
+                        ))}
+                      </div>
+
+                      <button
+                        onClick={() => handleToggleReview(rev.id, 'published')}
+                        className="px-2.5 py-1 bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-lg text-xs text-neutral-300 transition cursor-pointer"
+                      >
+                        {rev.published ? 'Hide' : 'Publish'}
+                      </button>
+
+                      <button
+                        onClick={() => handleDeleteReview(rev.id)}
+                        className="p-1.5 text-neutral-400 hover:text-red-400 hover:bg-red-950/30 rounded-lg transition cursor-pointer"
+                        title="Delete review"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-neutral-300 italic bg-neutral-950 p-3.5 rounded-xl border border-neutral-800/80">
+                    "{rev.comment}"
+                  </p>
                 </div>
               ))
             )}
@@ -1849,6 +2780,84 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               </button>
             </div>
           </form>
+
+          {/* Master Administrator Password Card */}
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400 shrink-0">
+                <KeyRound className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">Administrator Security & Password</h3>
+                <p className="text-xs text-neutral-400">
+                  Update the master password for user 'admin'. Must be at least 8 characters.
+                </p>
+              </div>
+            </div>
+
+            {passwordSuccess && (
+              <div className="p-3 bg-emerald-950/60 border border-emerald-800/80 rounded-xl text-xs text-emerald-300 flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span>{passwordSuccess}</span>
+              </div>
+            )}
+
+            {passwordError && (
+              <div className="p-3 bg-red-950/40 border border-red-800/80 rounded-xl text-xs text-red-300">
+                {passwordError}
+              </div>
+            )}
+
+            <form onSubmit={handleChangePassword} className="space-y-4 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-medium text-neutral-300 mb-1.5">Current Password</label>
+                  <input
+                    type="password"
+                    required
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    placeholder="Enter current password"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-neutral-300 mb-1.5">New Password (8+ chars)</label>
+                  <input
+                    type="password"
+                    required
+                    minLength={8}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="New password"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-neutral-300 mb-1.5">Confirm New Password</label>
+                  <input
+                    type="password"
+                    required
+                    minLength={8}
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    placeholder="Confirm new password"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={changingPassword || !currentPassword || !newPassword}
+                className="px-5 py-2.5 bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition cursor-pointer"
+              >
+                {changingPassword ? 'Updating Password...' : 'Change Administrator Password'}
+              </button>
+            </form>
+          </div>
         </div>
       )}
 
@@ -2102,6 +3111,204 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 Close Preview
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Showroom Display Slide Modal */}
+      {showAddSlideModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden space-y-4">
+            <div className="p-5 border-b border-neutral-800 flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-white">Add Showroom Display Slide</h3>
+                <p className="text-xs text-neutral-400">
+                  Upload an authentic dealership showroom floor or facility photo for the homepage background.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowAddSlideModal(false)}
+                className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddShowroomSlide} className="p-5 pt-0 space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Slide Photo</label>
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="inline-flex items-center gap-2 px-3.5 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-xs rounded-xl cursor-pointer transition">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploadingSlide ? 'Uploading...' : 'Choose Photo from Device'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleSlideImageFileUpload}
+                      disabled={uploadingSlide}
+                      className="hidden"
+                    />
+                  </label>
+                  <span className="text-[11px] text-neutral-500">or paste URL below</span>
+                </div>
+
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. /images/showroom_floor.jpg or https://..."
+                  value={newSlideUrl}
+                  onChange={(e) => setNewSlideUrl(e.target.value)}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                />
+              </div>
+
+              {newSlideUrl && (
+                <div className="relative aspect-[16/9] rounded-xl overflow-hidden border border-neutral-800 bg-neutral-950">
+                  <img src={newSlideUrl} alt="Preview" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Slide Caption (Optional)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Paul Smith Autos certified showroom floor & customer lounge"
+                  value={newSlideCaption}
+                  onChange={(e) => setNewSlideCaption(e.target.value)}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddSlideModal(false)}
+                  className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-xl text-xs font-medium cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={!newSlideUrl || uploadingSlide}
+                  className="px-5 py-2 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer"
+                >
+                  Save Showroom Slide
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Add Verified Customer Review Modal */}
+      {showAddReviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden space-y-4">
+            <div className="p-5 border-b border-neutral-800 flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-white">Add Verified Customer Review</h3>
+                <p className="text-xs text-neutral-400">
+                  Log an authentic review from a verified Paul Smith Autos buyer.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowAddReviewModal(false)}
+                className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddReview} className="p-5 pt-0 space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Customer Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Chief Adebayo Ogunlesi"
+                  value={reviewForm.customerName || ''}
+                  onChange={(e) => setReviewForm({ ...reviewForm, customerName: e.target.value })}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-medium text-neutral-300 mb-1.5">Vehicle Purchased</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 2024 Mercedes-Benz GLE 450"
+                    value={reviewForm.vehiclePurchased || ''}
+                    onChange={(e) => setReviewForm({ ...reviewForm, vehiclePurchased: e.target.value })}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-neutral-300 mb-1.5">Star Rating (1 - 5)</label>
+                  <select
+                    value={reviewForm.rating || 5}
+                    onChange={(e) => setReviewForm({ ...reviewForm, rating: Number(e.target.value) })}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  >
+                    <option value={5}>★★★★★ (5 Stars - Exceptional)</option>
+                    <option value={4}>★★★★☆ (4 Stars - Very Good)</option>
+                    <option value={3}>★★★☆☆ (3 Stars - Good)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Customer Testimonial Comment *</label>
+                <textarea
+                  rows={3}
+                  required
+                  placeholder="Write the customer's authentic review and inspection feedback..."
+                  value={reviewForm.comment || ''}
+                  onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                />
+              </div>
+
+              <div className="flex items-center gap-6 pt-1 text-xs">
+                <label className="flex items-center gap-2 cursor-pointer text-neutral-300">
+                  <input
+                    type="checkbox"
+                    checked={reviewForm.verified !== false}
+                    onChange={(e) => setReviewForm({ ...reviewForm, verified: e.target.checked })}
+                    className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                  />
+                  <span>Mark as Verified Buyer</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer text-neutral-300">
+                  <input
+                    type="checkbox"
+                    checked={reviewForm.published !== false}
+                    onChange={(e) => setReviewForm({ ...reviewForm, published: e.target.checked })}
+                    className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                  />
+                  <span>Publish Immediately</span>
+                </label>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddReviewModal(false)}
+                  className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded-xl text-xs font-medium cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingReview}
+                  className="px-5 py-2 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer"
+                >
+                  {savingReview ? 'Saving...' : 'Save Verified Review'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

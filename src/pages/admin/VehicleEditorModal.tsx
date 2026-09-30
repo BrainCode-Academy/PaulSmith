@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Upload, Plus, Trash2, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { X, Upload, Plus, Trash2, CheckCircle, Image as ImageIcon, Star, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Vehicle, BrandHierarchyResult } from '../../types';
 import { api } from '../../lib/api';
 
@@ -85,27 +85,53 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
     setImages(images.filter((_, i) => i !== idx));
   };
 
+  const handleMakePrimary = (idx: number) => {
+    if (idx <= 0 || idx >= images.length) return;
+    const target = images[idx];
+    const rest = images.filter((_, i) => i !== idx);
+    setImages([target, ...rest]);
+  };
+
+  const handleMoveImage = (idx: number, direction: 'left' | 'right') => {
+    const targetIdx = direction === 'left' ? idx - 1 : idx + 1;
+    if (targetIdx < 0 || targetIdx >= images.length) return;
+    const copy = [...images];
+    const temp = copy[idx];
+    copy[idx] = copy[targetIdx];
+    copy[targetIdx] = temp;
+    setImages(copy);
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
 
     setUploading(true);
     try {
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const base64 = reader.result as string;
-          const uploadedUrl = await api.uploadImage(base64, file.name);
-          setImages((prev) => [...prev, uploadedUrl]);
-        } catch (err: any) {
-          alert(`Upload failed: ${err.message}`);
-        } finally {
-          setUploading(false);
-        }
-      };
-      reader.readAsDataURL(file);
-    } catch {
+      const uploadPromises = files.map(file => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = async () => {
+            try {
+              const base64 = reader.result as string;
+              const uploadedUrl = await api.uploadImage(base64, file.name);
+              resolve(uploadedUrl);
+            } catch (err) {
+              reject(err);
+            }
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      });
+
+      const uploadedUrls = await Promise.all(uploadPromises);
+      setImages((prev) => [...prev, ...uploadedUrls]);
+    } catch (err: any) {
+      alert(`Upload failed: ${err.message || 'Error processing images'}`);
+    } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -629,11 +655,12 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs font-medium text-neutral-300">Vehicle Photos</label>
-              <label className="cursor-pointer text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
+              <label className="cursor-pointer text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 bg-amber-400/10 hover:bg-amber-400/20 px-2.5 py-1 rounded-lg border border-amber-400/30 transition">
                 <Upload className="w-3.5 h-3.5" />
-                <span>{uploading ? 'Uploading...' : 'Upload Image File'}</span>
+                <span>{uploading ? 'Uploading images...' : 'Upload Photos (Multiple)'}</span>
                 <input
                   type="file"
+                  multiple
                   accept="image/*"
                   onChange={handleFileUpload}
                   disabled={uploading}
@@ -659,17 +686,68 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               </button>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {images.map((img, i) => (
-                <div key={i} className="relative aspect-[16/10] bg-neutral-950 rounded-lg overflow-hidden border border-neutral-800 group">
-                  <img src={img} alt="Vehicle thumbnail" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveImage(i)}
-                    className="absolute top-1.5 right-1.5 p-1 bg-black/80 hover:bg-red-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
+                <div key={i} className="relative aspect-[16/10] bg-neutral-950 rounded-xl overflow-hidden border border-neutral-800 group shadow-sm">
+                  <img src={img} alt={`Vehicle view ${i + 1}`} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                  
+                  {/* Primary indicator or index */}
+                  <div className="absolute top-1.5 left-1.5 z-10 flex items-center gap-1">
+                    {i === 0 ? (
+                      <span className="bg-amber-400 text-neutral-950 font-bold px-2 py-0.5 rounded text-[10px] flex items-center gap-1 shadow-md">
+                        <Star className="w-2.5 h-2.5 fill-current" /> Cover
+                      </span>
+                    ) : (
+                      <span className="bg-black/75 text-neutral-300 font-mono px-1.5 py-0.5 rounded text-[10px] border border-neutral-700/60">
+                        #{i + 1}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Action overlay bar */}
+                  <div className="absolute inset-x-0 bottom-0 p-1.5 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex items-center justify-between opacity-90 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-1">
+                      {i > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleMoveImage(i, 'left')}
+                          title="Move left"
+                          className="p-1 bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 rounded text-[10px] transition"
+                        >
+                          <ArrowLeft className="w-3 h-3" />
+                        </button>
+                      )}
+                      {i < images.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleMoveImage(i, 'right')}
+                          title="Move right"
+                          className="p-1 bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 rounded text-[10px] transition"
+                        >
+                          <ArrowRight className="w-3 h-3" />
+                        </button>
+                      )}
+                      {i > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleMakePrimary(i)}
+                          title="Set as primary cover"
+                          className="px-1.5 py-0.5 bg-amber-400/90 hover:bg-amber-300 text-neutral-950 rounded text-[10px] font-bold transition flex items-center gap-0.5"
+                        >
+                          <Star className="w-2.5 h-2.5" /> Set Cover
+                        </button>
+                      )}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImage(i)}
+                      title="Remove image"
+                      className="p-1 bg-red-950/80 hover:bg-red-900 text-red-200 rounded transition"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

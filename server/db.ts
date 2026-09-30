@@ -3,6 +3,14 @@ import path from 'path';
 import crypto from 'crypto';
 import { COMPREHENSIVE_BRAND_CATALOG } from './brandCatalogData';
 
+export interface ShowroomSlide {
+  id: string;
+  url: string;
+  caption?: string;
+  order: number;
+  enabled: boolean;
+}
+
 export interface DealerSettings {
   id: string;
   businessName: string;
@@ -27,6 +35,7 @@ export interface DealerSettings {
   businessHours: string;
   inspectionOffered: boolean;
   sourcingProcess: string[];
+  showroomSlides?: ShowroomSlide[];
   updatedAt: string;
 }
 
@@ -189,6 +198,7 @@ export interface DatabaseSchema {
     username: string;
     passwordHash: string;
     salt: string;
+    isInitialSetupRequired?: boolean;
   };
 }
 
@@ -199,8 +209,9 @@ function hashPassword(password: string, salt: string): string {
   return crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
 }
 
+const defaultAdminPassword = process.env.ADMIN_PASSWORD;
 const defaultSalt = 'autoprime_salt_2026';
-const initialAdminPasswordHash = hashPassword('admin123', defaultSalt);
+const initialAdminPasswordHash = defaultAdminPassword ? hashPassword(defaultAdminPassword, defaultSalt) : '';
 
 const initialData: DatabaseSchema = {
   settings: {
@@ -231,6 +242,36 @@ const initialData: DatabaseSchema = {
       'Direct sourcing inspection and verified pricing breakdown',
       'Port clearance and transparent logistics tracking',
       'Final vehicle handover with full documentation'
+    ],
+    showroomSlides: [
+      {
+        id: 'slide-1',
+        url: '/images/hero_car_showroom_1790168724059.jpg',
+        caption: 'Paul Smith Autos certified dealership showroom',
+        order: 0,
+        enabled: true
+      },
+      {
+        id: 'slide-2',
+        url: '/images/vehicle_luxury_lexus_1790168762494.jpg',
+        caption: 'Vehicles displayed inside Paul Smith Autos showroom',
+        order: 1,
+        enabled: true
+      },
+      {
+        id: 'slide-3',
+        url: '/images/vehicle_suv_prado_1790168736955.jpg',
+        caption: 'Showroom vehicle selection and inspection floor',
+        order: 2,
+        enabled: true
+      },
+      {
+        id: 'slide-4',
+        url: '/images/import_shipping_port_1790168781597.jpg',
+        caption: 'Direct international automotive sourcing and logistics',
+        order: 3,
+        enabled: true
+      }
     ],
     updatedAt: new Date().toISOString()
   },
@@ -439,9 +480,10 @@ const initialData: DatabaseSchema = {
   ],
   analyticsEvents: [],
   admin: {
-    username: 'admin',
+    username: process.env.ADMIN_USERNAME || 'admin',
     passwordHash: initialAdminPasswordHash,
-    salt: defaultSalt
+    salt: defaultSalt,
+    isInitialSetupRequired: !defaultAdminPassword
   }
 };
 
@@ -477,6 +519,24 @@ class Database {
         }
       }
       this.data.brandCatalog = merged;
+      this.persist();
+    }
+
+    // Seed showroomSlides if missing
+    if (!this.data.settings.showroomSlides || this.data.settings.showroomSlides.length === 0) {
+      this.data.settings.showroomSlides = [...initialData.settings.showroomSlides!];
+      this.persist();
+    }
+
+    // Sync admin password from process.env.ADMIN_PASSWORD if provided
+    if (process.env.ADMIN_PASSWORD) {
+      const salt = crypto.randomBytes(16).toString('hex');
+      this.data.admin = {
+        username: process.env.ADMIN_USERNAME || 'admin',
+        salt,
+        passwordHash: hashPassword(process.env.ADMIN_PASSWORD, salt),
+        isInitialSetupRequired: false
+      };
       this.persist();
     }
   }
@@ -1003,6 +1063,19 @@ class Database {
     return true;
   }
 
+  updateReview(id: string, updates: Partial<Review>): Review | null {
+    const rev = this.data.reviews.find(r => r.id === id);
+    if (!rev) return null;
+    if (updates.customerName !== undefined) rev.customerName = updates.customerName;
+    if (updates.vehiclePurchased !== undefined) rev.vehiclePurchased = updates.vehiclePurchased;
+    if (updates.rating !== undefined) rev.rating = updates.rating;
+    if (updates.comment !== undefined) rev.comment = updates.comment;
+    if (updates.verified !== undefined) rev.verified = updates.verified;
+    if (updates.published !== undefined) rev.published = updates.published;
+    this.persist();
+    return rev;
+  }
+
   // --- Audit Logs ---
   private logAudit(action: string, targetType: AuditLog['targetType'], targetId: string, details: string) {
     const log: AuditLog = {
@@ -1077,6 +1150,30 @@ class Database {
   }
 
   // --- Authentication ---
+  getAdminSetupStatus(): { isSetup: boolean; username: string } {
+    const isSetup = Boolean(this.data.admin && this.data.admin.passwordHash && !this.data.admin.isInitialSetupRequired);
+    return {
+      isSetup,
+      username: this.data.admin?.username || process.env.ADMIN_USERNAME || 'admin'
+    };
+  }
+
+  setInitialAdminPassword(password: string): boolean {
+    if (this.data.admin && this.data.admin.passwordHash && this.data.admin.isInitialSetupRequired === false) {
+      return false;
+    }
+    const salt = crypto.randomBytes(16).toString('hex');
+    this.data.admin = {
+      username: process.env.ADMIN_USERNAME || 'admin',
+      salt,
+      passwordHash: hashPassword(password, salt),
+      isInitialSetupRequired: false
+    };
+    this.logAudit('ADMIN_INITIAL_SETUP', 'auth', 'admin', 'Initial administrator password configured');
+    this.persist();
+    return true;
+  }
+
   verifyAdminPassword(password: string): boolean {
     const hash = hashPassword(password, this.data.admin.salt);
     return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(this.data.admin.passwordHash));
@@ -1087,9 +1184,76 @@ class Database {
     const salt = crypto.randomBytes(16).toString('hex');
     this.data.admin.salt = salt;
     this.data.admin.passwordHash = hashPassword(newPassword, salt);
+    this.data.admin.isInitialSetupRequired = false;
     this.logAudit('ADMIN_PASSWORD_CHANGED', 'auth', 'admin', 'Admin password successfully updated');
     this.persist();
     return true;
+  }
+
+  // --- Showroom Slides Management ---
+  getShowroomSlides(): ShowroomSlide[] {
+    const slides = this.data.settings.showroomSlides || [];
+    return [...slides].sort((a, b) => a.order - b.order);
+  }
+
+  addShowroomSlide(url: string, caption?: string): ShowroomSlide {
+    if (!this.data.settings.showroomSlides) this.data.settings.showroomSlides = [];
+    const newSlide: ShowroomSlide = {
+      id: `slide-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      url: url.trim(),
+      caption: caption?.trim() || 'Showroom Display View',
+      order: this.data.settings.showroomSlides.length,
+      enabled: true
+    };
+    this.data.settings.showroomSlides.push(newSlide);
+    this.logAudit('SHOWROOM_SLIDE_ADDED', 'settings', newSlide.id, `Added showroom slide`);
+    this.persist();
+    return newSlide;
+  }
+
+  updateShowroomSlide(id: string, updates: Partial<ShowroomSlide>): ShowroomSlide | null {
+    if (!this.data.settings.showroomSlides) return null;
+    const slide = this.data.settings.showroomSlides.find(s => s.id === id);
+    if (!slide) return null;
+    if (updates.url !== undefined) slide.url = updates.url.trim();
+    if (updates.caption !== undefined) slide.caption = updates.caption.trim();
+    if (updates.enabled !== undefined) slide.enabled = updates.enabled;
+    if (updates.order !== undefined) slide.order = updates.order;
+    this.logAudit('SHOWROOM_SLIDE_UPDATED', 'settings', id, `Updated showroom slide`);
+    this.persist();
+    return slide;
+  }
+
+  deleteShowroomSlide(id: string): boolean {
+    if (!this.data.settings.showroomSlides) return false;
+    const idx = this.data.settings.showroomSlides.findIndex(s => s.id === id);
+    if (idx === -1) return false;
+    this.data.settings.showroomSlides.splice(idx, 1);
+    this.logAudit('SHOWROOM_SLIDE_DELETED', 'settings', id, `Deleted showroom slide`);
+    this.persist();
+    return true;
+  }
+
+  reorderShowroomSlides(orderedIds: string[]): ShowroomSlide[] {
+    if (!this.data.settings.showroomSlides) return [];
+    const map = new Map(this.data.settings.showroomSlides.map(s => [s.id, s]));
+    const reordered: ShowroomSlide[] = [];
+    orderedIds.forEach((id, index) => {
+      const slide = map.get(id);
+      if (slide) {
+        slide.order = index;
+        reordered.push(slide);
+        map.delete(id);
+      }
+    });
+    for (const remaining of map.values()) {
+      remaining.order = reordered.length;
+      reordered.push(remaining);
+    }
+    this.data.settings.showroomSlides = reordered;
+    this.logAudit('SHOWROOM_SLIDES_REORDERED', 'settings', 'slider', `Reordered showroom slides`);
+    this.persist();
+    return reordered;
   }
 }
 

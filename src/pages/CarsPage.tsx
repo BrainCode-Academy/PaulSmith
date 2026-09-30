@@ -81,6 +81,7 @@ export const CarsPage: React.FC<CarsPageProps> = ({ initialFilters, onNavigate }
       condition: '',
       transmission: '',
       fuel: '',
+      bodyType: '',
       minPrice: '',
       maxPrice: '',
       search: '',

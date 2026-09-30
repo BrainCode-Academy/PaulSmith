@@ -62,6 +62,46 @@ app.use(express.static(PUBLIC_DIR));
 // ==========================================
 // 1. AUTHENTICATION ROUTES
 // ==========================================
+app.get('/api/auth/setup-status', (_req, res) => {
+  try {
+    const status = db.getAdminSetupStatus();
+    res.json(status);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to check admin setup status' });
+  }
+});
+
+app.post('/api/auth/setup', (req, res) => {
+  try {
+    const { password, confirmPassword } = req.body;
+    if (!password || password.length < 8) {
+      return res.status(400).json({ error: 'Master password must be at least 8 characters long' });
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: 'Passwords do not match' });
+    }
+    const status = db.getAdminSetupStatus();
+    if (status.isSetup) {
+      return res.status(400).json({ error: 'Administrator account is already initialized. Please sign in.' });
+    }
+
+    const created = db.setInitialAdminPassword(password);
+    if (!created) {
+      return res.status(400).json({ error: 'Failed to initialize administrator account' });
+    }
+
+    const token = generateToken(status.username);
+    res.status(201).json({
+      success: true,
+      token,
+      user: { username: status.username, role: 'Dealer Administrator' },
+      message: 'Administrator account successfully configured'
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Setup failed' });
+  }
+});
+
 app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -104,8 +144,8 @@ app.post('/api/auth/logout', (req, res) => {
 
 app.post('/api/auth/change-password', requireAdmin, (req, res) => {
   const { currentPassword, newPassword } = req.body;
-  if (!currentPassword || !newPassword || newPassword.length < 6) {
-    return res.status(400).json({ error: 'New password must be at least 6 characters' });
+  if (!currentPassword || !newPassword || newPassword.length < 8) {
+    return res.status(400).json({ error: 'New password must be at least 8 characters' });
   }
   const updated = db.updateAdminPassword(currentPassword, newPassword);
   if (!updated) {
@@ -131,43 +171,55 @@ app.put('/api/settings', requireAdmin, (req, res) => {
   }
 });
 
-// Image upload endpoint (supports base64 image data from file pickers)
-app.post('/api/upload', (req, res) => {
+// ==========================================
+// 2B. SHOWROOM SLIDES (HOMEPAGE SHOWROOM GALLERY)
+// ==========================================
+app.get('/api/showroom-slides', (_req, res) => {
   try {
-    const { image, filename } = req.body;
-    if (!image) {
-      return res.status(400).json({ error: 'Image data is required' });
-    }
-
-    const matches = image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-    let buffer: Buffer;
-    let ext = 'jpg';
-
-    if (matches && matches.length === 3) {
-      const mime = matches[1];
-      buffer = Buffer.from(matches[2], 'base64');
-      if (mime.includes('png')) ext = 'png';
-      else if (mime.includes('webp')) ext = 'webp';
-      else if (mime.includes('jpeg') || mime.includes('jpg')) ext = 'jpg';
-    } else {
-      buffer = Buffer.from(image, 'base64');
-    }
-
-    const safeName = filename 
-      ? filename.replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase() 
-      : `upload_${Date.now()}`;
-    const targetFile = `${safeName}_${Date.now()}.${ext}`;
-    const imagesDir = path.join(PUBLIC_DIR, 'images');
-    if (!fs.existsSync(imagesDir)) {
-      fs.mkdirSync(imagesDir, { recursive: true });
-    }
-    const targetPath = path.join(imagesDir, targetFile);
-    fs.writeFileSync(targetPath, buffer);
-
-    const publicUrl = `/images/${targetFile}`;
-    res.json({ success: true, url: publicUrl });
+    const slides = db.getShowroomSlides();
+    res.json(slides);
   } catch (err: any) {
-    res.status(500).json({ error: err.message || 'Failed to upload image' });
+    res.status(500).json({ error: err.message || 'Failed to fetch showroom slides' });
+  }
+});
+
+app.post('/api/admin/showroom-slides', requireAdmin, (req, res) => {
+  try {
+    const { url, caption } = req.body;
+    if (!url) return res.status(400).json({ error: 'Slide image URL is required' });
+    const created = db.addShowroomSlide(url, caption);
+    res.status(201).json(created);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to add showroom slide' });
+  }
+});
+
+app.put('/api/admin/showroom-slides/:id', requireAdmin, (req, res) => {
+  try {
+    const updated = db.updateShowroomSlide(req.params.id, req.body);
+    if (!updated) return res.status(404).json({ error: 'Showroom slide not found' });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to update showroom slide' });
+  }
+});
+
+app.delete('/api/admin/showroom-slides/:id', requireAdmin, (req, res) => {
+  const deleted = db.deleteShowroomSlide(req.params.id);
+  if (!deleted) return res.status(404).json({ error: 'Showroom slide not found' });
+  res.json({ success: true });
+});
+
+app.post('/api/admin/showroom-slides/reorder', requireAdmin, (req, res) => {
+  try {
+    const { orderedIds } = req.body;
+    if (!Array.isArray(orderedIds)) {
+      return res.status(400).json({ error: 'orderedIds must be an array of slide IDs' });
+    }
+    const updated = db.reorderShowroomSlides(orderedIds);
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to reorder showroom slides' });
   }
 });
 
@@ -388,12 +440,14 @@ app.delete('/api/admin/brands/:brandId/models/:modelId', requireAdmin, (req, res
 // ==========================================
 app.post('/api/upload', requireAdmin, (req, res) => {
   try {
-    const { fileData, fileName } = req.body;
-    if (!fileData) {
+    const rawData = req.body.fileData || req.body.image;
+    const rawName = req.body.fileName || req.body.filename;
+
+    if (!rawData) {
       return res.status(400).json({ error: 'No image data provided' });
     }
 
-    const matches = fileData.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    const matches = rawData.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     if (!matches || matches.length !== 3) {
       return res.status(400).json({ error: 'Invalid base64 image data' });
     }
@@ -412,7 +466,8 @@ app.post('/api/upload', requireAdmin, (req, res) => {
       return res.status(400).json({ error: 'File size exceeds 10MB limit' });
     }
 
-    const safeName = `car_${Date.now()}_${crypto.randomBytes(4).toString('hex')}.${ext}`;
+    const basePrefix = rawName ? rawName.replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase() : 'car';
+    const safeName = `${basePrefix}_${Date.now()}_${crypto.randomBytes(4).toString('hex')}.${ext}`;
     const filePath = path.join(UPLOADS_DIR, safeName);
     fs.writeFileSync(filePath, buffer);
 
@@ -612,6 +667,31 @@ app.post('/api/admin/reviews', requireAdmin, (req, res) => {
     res.status(201).json(created);
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to add review' });
+  }
+});
+
+app.put('/api/admin/reviews/:id', requireAdmin, (req, res) => {
+  try {
+    const updated = db.updateReview(req.params.id, req.body);
+    if (!updated) return res.status(404).json({ error: 'Review not found' });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to update review' });
+  }
+});
+
+app.patch('/api/admin/reviews/:id/toggle', requireAdmin, (req, res) => {
+  try {
+    const { field } = req.body; // 'published' | 'verified'
+    const current = db.getReviews(false).find(r => r.id === req.params.id);
+    if (!current) return res.status(404).json({ error: 'Review not found' });
+    const updates = field === 'verified'
+      ? { verified: !current.verified }
+      : { published: !current.published };
+    const updated = db.updateReview(req.params.id, updates);
+    res.json(updated);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to toggle review status' });
   }
 });
 

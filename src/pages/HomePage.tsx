@@ -114,7 +114,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       {/* 1. HERO SECTION (Original Content with Subtle Showroom Image Slider Background) */}
       <section className="relative min-h-[580px] lg:min-h-[640px] flex items-center justify-center bg-neutral-950 overflow-hidden">
         {/* Subtle Showroom Image Slider */}
-        <ShowroomHeroSlider />
+        <ShowroomHeroSlider slides={settings?.showroomSlides} />
 
         {/* Original Hero Content - 100% Preserved */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6">
