@@ -26,8 +26,6 @@ import {
   buildWhatsAppLink,
   getVehicleInquiryMessage,
   getVehicleVideoRequestMessage,
-  getVehicleInspectionMessage,
-  getVehicleOfferMessage,
 } from '../lib/whatsapp';
 import { VehicleCard } from '../components/VehicleCard';
 import { ShareVehicleModal } from '../components/ShareVehicleModal';
@@ -80,8 +78,8 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-pulse">
-          <div className="lg:col-span-8 bg-neutral-900 h-96 rounded-2xl" />
-          <div className="lg:col-span-4 bg-neutral-900 h-96 rounded-2xl" />
+          <div className="lg:col-span-8 bg-[#0e1422] h-96 rounded-xl" />
+          <div className="lg:col-span-4 bg-[#0e1422] h-96 rounded-xl" />
         </div>
       </div>
     );
@@ -90,14 +88,14 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
   if (error || !vehicle) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center space-y-4">
-        <Car className="w-16 h-16 text-neutral-600 mx-auto" />
+        <Car className="w-16 h-16 text-slate-600 mx-auto" />
         <h2 className="text-2xl font-bold text-white">Vehicle Not Found</h2>
-        <p className="text-xs text-neutral-400">
+        <p className="text-xs text-slate-400">
           The requested vehicle may have been sold or removed from inventory.
         </p>
         <button
           onClick={() => onNavigate('/cars')}
-          className="px-5 py-2.5 bg-amber-400 text-neutral-950 font-bold rounded-lg text-xs"
+          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs transition-colors cursor-pointer"
         >
           Return to Showroom
         </button>
@@ -172,7 +170,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       {/* Breadcrumb Navigation */}
-      <div className="flex items-center gap-2 text-xs text-neutral-400">
+      <div className="flex items-center gap-2 text-xs text-slate-400">
         <button
           onClick={() => onNavigate('/')}
           className="hover:text-white transition-colors cursor-pointer"
@@ -203,7 +201,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
         <div className="lg:col-span-7 xl:col-span-8 space-y-8">
           {/* IMAGE / VIDEO GALLERY */}
           <div className="space-y-3">
-            <div className="relative aspect-[16/10] bg-neutral-950 rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl">
+            <div className="relative aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
               <img
                 src={images[selectedImageIndex]}
                 alt={`${vehicle.title} photo ${selectedImageIndex + 1}`}
@@ -217,13 +215,13 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
                   vehicle.status === 'Available'
                     ? 'bg-emerald-600 text-white'
                     : vehicle.status === 'Sold'
-                    ? 'bg-neutral-800 text-neutral-300'
+                    ? 'bg-slate-800 text-slate-300'
                     : 'bg-amber-600 text-white'
                 }`}>
                   {vehicle.status}
                 </span>
                 {vehicle.featured && (
-                  <span className="px-2.5 py-1 text-xs font-semibold bg-neutral-900/90 text-amber-400 rounded border border-neutral-700">
+                  <span className="px-2.5 py-1 text-xs font-semibold bg-slate-900/90 text-blue-300 rounded border border-blue-900/60">
                     Featured
                   </span>
                 )}
@@ -234,14 +232,14 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-neutral-950/80 hover:bg-neutral-900 text-white rounded-full border border-neutral-700 transition-colors cursor-pointer"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-slate-950/80 hover:bg-slate-900 text-white rounded-full border border-slate-700 transition-colors cursor-pointer"
                     aria-label="Previous photo"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-neutral-950/80 hover:bg-neutral-900 text-white rounded-full border border-neutral-700 transition-colors cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-slate-950/80 hover:bg-slate-900 text-white rounded-full border border-slate-700 transition-colors cursor-pointer"
                     aria-label="Next photo"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -249,7 +247,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
                 </>
               )}
 
-              <div className="absolute bottom-3 right-3 bg-neutral-950/80 px-2.5 py-1 rounded text-xs text-neutral-300 font-mono">
+              <div className="absolute bottom-3 right-3 bg-slate-950/80 px-2.5 py-1 rounded text-xs text-slate-300 font-mono">
                 {selectedImageIndex + 1} / {images.length}
               </div>
             </div>
@@ -263,8 +261,8 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
                     onClick={() => setSelectedImageIndex(idx)}
                     className={`relative w-20 h-14 rounded-lg overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
                       selectedImageIndex === idx
-                        ? 'border-amber-400 opacity-100'
-                        : 'border-neutral-800 opacity-60 hover:opacity-90'
+                        ? 'border-blue-500 opacity-100 shadow-sm'
+                        : 'border-slate-800 opacity-60 hover:opacity-90'
                     }`}
                   >
                     <img
@@ -280,88 +278,88 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
           </div>
 
           {/* VEHICLE OVERVIEW */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-6">
-            <h2 className="text-xl font-bold text-white tracking-tight border-b border-neutral-800 pb-3">
+          <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-6 sm:p-8 space-y-6">
+            <h2 className="text-xl font-bold text-white tracking-tight border-b border-slate-800 pb-3">
               Vehicle Overview
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-5 gap-x-6 text-xs">
               <div>
-                <span className="text-neutral-500 block mb-1">Brand</span>
+                <span className="text-slate-500 block mb-1">Brand</span>
                 <span className="text-white font-semibold text-sm">{vehicle.make}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Model</span>
+                <span className="text-slate-500 block mb-1">Model</span>
                 <span className="text-white font-semibold text-sm">{vehicle.model}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Year</span>
+                <span className="text-slate-500 block mb-1">Year</span>
                 <span className="text-white font-semibold text-sm">{vehicle.year}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Mileage</span>
+                <span className="text-slate-500 block mb-1">Mileage</span>
                 <span className="text-white font-semibold text-sm font-mono">
                   {vehicle.mileage ? `${vehicle.mileage.toLocaleString()} ${vehicle.mileageUnit}` : 'Undisclosed'}
                 </span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Transmission</span>
+                <span className="text-slate-500 block mb-1">Transmission</span>
                 <span className="text-white font-semibold text-sm">{vehicle.transmission}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Fuel</span>
+                <span className="text-slate-500 block mb-1">Fuel</span>
                 <span className="text-white font-semibold text-sm">{vehicle.fuel}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Condition</span>
+                <span className="text-slate-500 block mb-1">Condition</span>
                 <span className="text-white font-semibold text-sm">{vehicle.condition}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-1">Body Type</span>
+                <span className="text-slate-500 block mb-1">Body Type</span>
                 <span className="text-white font-semibold text-sm">{vehicle.bodyType}</span>
               </div>
             </div>
           </div>
 
           {/* SPECIFICATIONS */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-6">
-            <h2 className="text-xl font-bold text-white tracking-tight border-b border-neutral-800 pb-3">
+          <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-6 sm:p-8 space-y-6">
+            <h2 className="text-xl font-bold text-white tracking-tight border-b border-slate-800 pb-3">
               Specifications
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6 text-xs">
               <div>
-                <span className="text-neutral-500 block mb-0.5">Drivetrain</span>
+                <span className="text-slate-500 block mb-0.5">Drivetrain</span>
                 <span className="text-white font-semibold">{vehicle.driveType}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-0.5">Engine</span>
+                <span className="text-slate-500 block mb-0.5">Engine</span>
                 <span className="text-white font-semibold">{vehicle.engine || 'Direct Specs'}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-0.5">Exterior Color</span>
+                <span className="text-slate-500 block mb-0.5">Exterior Color</span>
                 <span className="text-white font-semibold">{vehicle.color || 'Documented'}</span>
               </div>
               <div>
-                <span className="text-neutral-500 block mb-0.5">Interior Color</span>
+                <span className="text-slate-500 block mb-0.5">Interior Color</span>
                 <span className="text-white font-semibold">{vehicle.interiorColor || 'Documented'}</span>
               </div>
               {vehicle.vin && (
                 <div className="sm:col-span-2">
-                  <span className="text-neutral-500 block mb-0.5">VIN / Chassis Number</span>
-                  <span className="text-neutral-300 font-mono text-xs">{vehicle.vin}</span>
+                  <span className="text-slate-500 block mb-0.5">VIN / Chassis Number</span>
+                  <span className="text-slate-300 font-mono text-xs">{vehicle.vin}</span>
                 </div>
               )}
             </div>
           </div>
 
-          {/* FEATURES (Actual supplied features) */}
+          {/* FEATURES */}
           {vehicle.features && vehicle.features.length > 0 && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-4">
-              <h2 className="text-xl font-bold text-white tracking-tight border-b border-neutral-800 pb-3">
+            <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-6 sm:p-8 space-y-4">
+              <h2 className="text-xl font-bold text-white tracking-tight border-b border-slate-800 pb-3">
                 Features & Equipment
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 {vehicle.features.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-xs text-neutral-300">
+                  <div key={i} className="flex items-center gap-2.5 text-xs text-slate-300">
                     <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>{feature}</span>
                   </div>
@@ -370,24 +368,24 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
             </div>
           )}
 
-          {/* DESCRIPTION (Actual supplied description) */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-4">
-            <h2 className="text-xl font-bold text-white tracking-tight border-b border-neutral-800 pb-3">
+          {/* DESCRIPTION */}
+          <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-6 sm:p-8 space-y-4">
+            <h2 className="text-xl font-bold text-white tracking-tight border-b border-slate-800 pb-3">
               Description
             </h2>
-            <p className="text-sm text-neutral-300 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">
               {vehicle.description}
             </p>
           </div>
 
-          {/* VIDEO (Actual vehicle video if supplied) */}
+          {/* VIDEO */}
           {vehicle.videoUrl && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-4">
-              <div className="flex items-center gap-2 text-white font-semibold text-base border-b border-neutral-800 pb-3">
-                <Video className="w-5 h-5 text-amber-400" />
+            <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-6 sm:p-8 space-y-4">
+              <div className="flex items-center gap-2 text-white font-semibold text-base border-b border-slate-800 pb-3">
+                <Video className="w-5 h-5 text-blue-400" />
                 <span>Vehicle Video Walk-Around</span>
               </div>
-              <div className="aspect-video w-full rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800">
+              <div className="aspect-video w-full rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
                 <iframe
                   src={vehicle.videoUrl}
                   title={`${vehicle.title} video`}
@@ -402,16 +400,16 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
 
         {/* Right Column: Contiguous Showroom Purchase & Contact Module */}
         <div className="lg:col-span-5 xl:col-span-4 sticky top-24 space-y-6">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-7 shadow-2xl space-y-6">
+          <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-6 sm:p-7 shadow-2xl space-y-6">
             {/* Header info */}
             <div>
-              <div className="flex items-center gap-2 text-xs text-neutral-400 mb-2">
+              <div className="flex items-center gap-2 text-xs text-slate-400 mb-2">
                 <span>{vehicle.year}</span>
-                <span aria-hidden="true">·</span>
+                <span aria-hidden="true" className="text-slate-600">·</span>
                 <span>{vehicle.condition}</span>
-                <span aria-hidden="true">·</span>
+                <span aria-hidden="true" className="text-slate-600">·</span>
                 <span className={`font-semibold uppercase tracking-wider ${
-                  vehicle.status === 'Available' ? 'text-emerald-400' : 'text-neutral-400'
+                  vehicle.status === 'Available' ? 'text-emerald-400' : 'text-slate-400'
                 }`}>
                   {vehicle.status}
                 </span>
@@ -422,17 +420,17 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
               </h1>
 
               {vehicle.location && (
-                <div className="flex items-center gap-1.5 text-xs text-neutral-400 mt-2">
-                  <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-2">
+                  <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                   <span>{vehicle.location}</span>
                 </div>
               )}
             </div>
 
             {/* Price Box */}
-            <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800">
-              <span className="text-xs text-neutral-400 block mb-1">Showroom Listed Price</span>
-              <div className="text-2xl sm:text-3xl font-bold text-amber-400 font-mono tabular-nums">
+            <div className="p-4 bg-[#090d16] rounded-xl border border-slate-800">
+              <span className="text-[11px] text-slate-500 uppercase tracking-wider block mb-1 font-medium">Showroom Listed Price</span>
+              <div className="text-2xl sm:text-3xl font-bold text-white font-mono tracking-tight tabular-nums">
                 {priceFormatted}
               </div>
             </div>
@@ -445,7 +443,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleWhatsAppAction('inquiry')}
-                className="w-full py-3.5 px-4 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
+                className="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-sm transition-all shadow-md shadow-emerald-950/40 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
               >
                 <MessageSquare className="w-4 h-4 fill-current" />
                 <span>Chat on WhatsApp</span>
@@ -457,9 +455,9 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleWhatsAppAction('video_request')}
-                className="w-full py-2.5 px-4 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-semibold rounded-xl text-xs transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2.5 px-4 bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-medium rounded-lg text-xs transition-colors flex items-center justify-center gap-2"
               >
-                <Video className="w-4 h-4 text-amber-400" />
+                <Video className="w-4 h-4 text-blue-400" />
                 <span>Request Walk-Around Video</span>
               </a>
 
@@ -467,7 +465,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
               {settings?.inspectionOffered !== false && (
                 <button
                   onClick={() => setInquiryModalMode('inspection')}
-                  className="w-full py-2.5 px-4 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-semibold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 px-4 bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/60 font-medium rounded-lg text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Calendar className="w-4 h-4 text-emerald-400" />
                   <span>Schedule Physical Inspection</span>
@@ -477,80 +475,81 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
               {/* Make a Purchase Offer */}
               <button
                 onClick={() => setInquiryModalMode('offer')}
-                className="w-full py-2.5 px-4 bg-neutral-950 hover:bg-neutral-800 border border-neutral-700/80 text-neutral-300 font-medium rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-2.5 px-4 bg-[#090d16] hover:bg-slate-800 border border-slate-700/80 text-slate-300 font-medium rounded-lg text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Tag className="w-4 h-4 text-amber-400" />
+                <Tag className="w-4 h-4 text-blue-400" />
                 <span>Make a Purchase Offer</span>
               </button>
 
               {/* Call Dealer */}
               <a
                 href={`tel:${dealerPhone}`}
-                className="w-full py-2.5 px-4 bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 hover:text-white font-medium rounded-xl text-xs transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2.5 px-4 bg-[#090d16] hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white font-medium rounded-lg text-xs transition-colors flex items-center justify-center gap-2"
               >
-                <Phone className="w-3.5 h-3.5" />
+                <Phone className="w-3.5 h-3.5 text-slate-400" />
                 <span>Call Dealer: {dealerPhone}</span>
               </a>
             </div>
 
             {/* DEALER INFORMATION & TRUST */}
-            <div className="pt-4 border-t border-neutral-800 space-y-3">
-              <div className="text-xs uppercase tracking-wider text-amber-400 font-semibold">
-                Dealer Information
+            <div className="pt-4 border-t border-slate-800 space-y-3">
+              <div className="text-xs uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                <span>Verified Dealership Standard</span>
               </div>
               <div className="flex items-center gap-3">
                 <img
                   src={settings?.ceoImage || '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg'}
                   alt="Paul Smith"
                   referrerPolicy="no-referrer"
-                  className="w-12 h-12 rounded-xl object-cover object-center border border-neutral-700"
+                  className="w-12 h-12 rounded-lg object-cover object-center border border-slate-700"
                 />
                 <div>
                   <span className="text-sm font-bold text-white block">{businessName}</span>
-                  <span className="text-xs text-neutral-400 block">CEO: Paul Smith ({dealerPhone})</span>
+                  <span className="text-xs text-slate-400 block">CEO: Paul Smith ({dealerPhone})</span>
                 </div>
               </div>
-              <p className="text-[11px] text-neutral-400 leading-relaxed">
+              <p className="text-[11px] text-slate-400 leading-relaxed">
                 Sound engine & transmission verification guaranteed. Open mechanic pre-purchase inspection policy.
               </p>
             </div>
 
             {/* INTERESTED? */}
-            <div className="p-4 bg-neutral-950 rounded-xl border border-neutral-800 text-center space-y-2">
-              <span className="text-xs font-bold text-white block uppercase tracking-wider">
+            <div className="p-4 bg-[#090d16] rounded-xl border border-slate-800 text-center space-y-2">
+              <span className="text-xs font-semibold text-white block uppercase tracking-wider">
                 Interested in this car?
               </span>
-              <p className="text-xs text-neutral-400">
+              <p className="text-xs text-slate-400">
                 Chat with Paul Smith Autos directly on WhatsApp or call our executive line.
               </p>
-              <div className="text-sm font-bold text-amber-400 font-mono">
+              <div className="text-sm font-bold text-blue-400 font-mono">
                 {dealerPhone}
               </div>
             </div>
 
             {/* SHARE THIS VEHICLE */}
-            <div className="pt-4 border-t border-neutral-800 space-y-3">
-              <span className="text-xs font-semibold text-neutral-300 block">
+            <div className="pt-4 border-t border-slate-800 space-y-3">
+              <span className="text-xs font-semibold text-slate-300 block">
                 Share This Vehicle
               </span>
               <div className="grid grid-cols-3 gap-2">
                 <button
                   onClick={shareOnWhatsApp}
-                  className="py-2 px-2 bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-800 text-emerald-300 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2 px-2 bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-800/80 text-emerald-300 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <MessageSquare className="w-3.5 h-3.5 fill-current" />
                   <span>WhatsApp</span>
                 </button>
                 <button
                   onClick={shareOnFacebook}
-                  className="py-2 px-2 bg-blue-950/60 hover:bg-blue-900/60 border border-blue-800 text-blue-300 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2 px-2 bg-blue-950/60 hover:bg-blue-900/60 border border-blue-800/80 text-blue-300 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Facebook className="w-3.5 h-3.5 fill-current" />
                   <span>Facebook</span>
                 </button>
                 <button
                   onClick={handleCopyLink}
-                  className="py-2 px-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2 px-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-slate-700/60"
                 >
                   {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedLink ? 'Copied' : 'Copy'}</span>
@@ -563,17 +562,17 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
 
       {/* RELATED VEHICLES */}
       {relatedVehicles.length > 0 && (
-        <section className="pt-10 border-t border-neutral-800 space-y-6">
+        <section className="pt-10 border-t border-slate-800 space-y-6">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-white tracking-tight">Related Vehicles</h2>
-              <p className="text-xs text-neutral-400 mt-1">
+              <p className="text-xs text-slate-400 mt-1">
                 Other available options matching {vehicle.make} or {vehicle.bodyType} category.
               </p>
             </div>
             <button
               onClick={() => onNavigate('/cars')}
-              className="text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
+              className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
             >
               View All Showroom Cars →
             </button>
@@ -584,7 +583,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
               <VehicleCard
                 key={rel.id}
                 vehicle={rel}
-                onSelect={(slug) => onNavigate(`/cars/${slug}`)}
+                onSelect={(s) => onNavigate(`/cars/${s}`)}
                 onShare={() => setShareModalOpen(true)}
               />
             ))}

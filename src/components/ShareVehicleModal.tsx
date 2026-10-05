@@ -56,7 +56,7 @@ export const ShareVehicleModal: React.FC<ShareVehicleModalProps> = ({ vehicle, o
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
           <div className="flex items-center gap-2 text-white">
-            <Share2 className="w-5 h-5 text-amber-400" />
+            <Share2 className="w-5 h-5 text-blue-400" />
             <h3 className="font-semibold text-base">Share Vehicle</h3>
           </div>
           <button
@@ -77,7 +77,7 @@ export const ShareVehicleModal: React.FC<ShareVehicleModalProps> = ({ vehicle, o
           />
           <div>
             <h4 className="text-sm font-semibold text-white">{vehicle.title}</h4>
-            <p className="text-xs text-amber-400 font-mono font-medium">{priceFormatted}</p>
+            <p className="text-xs text-blue-400 font-mono font-semibold">{priceFormatted}</p>
           </div>
         </div>
 
@@ -134,7 +134,7 @@ export const ShareVehicleModal: React.FC<ShareVehicleModalProps> = ({ vehicle, o
             <label className="text-xs font-medium text-neutral-400">Formatted Caption</label>
             <button
               onClick={handleCopyCaption}
-              className="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 font-medium cursor-pointer"
+              className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-medium cursor-pointer"
             >
               {copiedCaption ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
               <span>{copiedCaption ? 'Copied Caption' : 'Copy Caption'}</span>

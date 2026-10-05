@@ -48,7 +48,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-3 right-3 text-center sm:text-left">
                 <span className="text-xs font-bold text-white block">Paul Smith</span>
-                <span className="text-[11px] text-amber-400 block font-medium">Founder & CEO</span>
+                <span className="text-[11px] text-blue-400 block font-medium">Founder & CEO</span>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           {/* CEO Bio & Authenticity Message */}
           <div className="md:col-span-7 space-y-4">
             <div className="space-y-1">
-              <span className="text-xs uppercase tracking-wider text-amber-400 font-semibold">Executive Leadership</span>
+              <span className="text-xs uppercase tracking-wider text-blue-400 font-semibold">Executive Leadership</span>
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 "NO Fakes. No Compromise on Engine Soundness or Customs Authenticity."
               </h2>
@@ -124,7 +124,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         <h2 className="text-xl font-bold text-white tracking-tight">The Paul Smith Autos Standards</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-400">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">Zero Odometer Tampering Guarantee</h3>
@@ -175,7 +175,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
 
           <a
             href={`tel:${ceoPhone}`}
-            className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5"
           >
             <Phone className="w-3.5 h-3.5" />
             <span>Call CEO: {ceoPhone}</span>
@@ -191,7 +191,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           )}
           {ceoPhone && (
             <div className="flex items-center gap-2.5 text-neutral-300">
-              <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+              <Phone className="w-4 h-4 text-blue-400 shrink-0" />
               <span>Direct Executive Line: {ceoPhone}</span>
             </div>
           )}

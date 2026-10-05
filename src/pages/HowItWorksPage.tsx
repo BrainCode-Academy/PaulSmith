@@ -34,7 +34,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
             onClick={() => setActiveTab('showroom')}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
               activeTab === 'showroom'
-                ? 'bg-amber-400 text-neutral-950 shadow-md'
+                ? 'bg-blue-600 text-white shadow-md'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -46,7 +46,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
             onClick={() => setActiveTab('import')}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
               activeTab === 'import'
-                ? 'bg-amber-400 text-neutral-950 shadow-md'
+                ? 'bg-blue-600 text-white shadow-md'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -68,8 +68,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-5 bg-neutral-950 rounded-xl border border-neutral-800 space-y-2">
-              <div className="flex items-center gap-2.5 text-amber-400 font-bold text-xs">
-                <span className="w-6 h-6 rounded-full bg-amber-400/10 flex items-center justify-center border border-amber-400/30">1</span>
+              <div className="flex items-center gap-2.5 text-blue-400 font-bold text-xs">
+                <span className="w-6 h-6 rounded-full bg-blue-600/10 flex items-center justify-center border border-blue-500/30">1</span>
                 <span>Browse Inventory</span>
               </div>
               <h3 className="text-sm font-semibold text-white">Choose Your Vehicle</h3>
@@ -79,8 +79,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
             </div>
 
             <div className="p-5 bg-neutral-950 rounded-xl border border-neutral-800 space-y-2">
-              <div className="flex items-center gap-2.5 text-amber-400 font-bold text-xs">
-                <span className="w-6 h-6 rounded-full bg-amber-400/10 flex items-center justify-center border border-amber-400/30">2</span>
+              <div className="flex items-center gap-2.5 text-blue-400 font-bold text-xs">
+                <span className="w-6 h-6 rounded-full bg-blue-600/10 flex items-center justify-center border border-blue-500/30">2</span>
                 <span>Direct WhatsApp Contact</span>
               </div>
               <h3 className="text-sm font-semibold text-white">Confirm Availability & Details</h3>
@@ -90,8 +90,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
             </div>
 
             <div className="p-5 bg-neutral-950 rounded-xl border border-neutral-800 space-y-2">
-              <div className="flex items-center gap-2.5 text-amber-400 font-bold text-xs">
-                <span className="w-6 h-6 rounded-full bg-amber-400/10 flex items-center justify-center border border-amber-400/30">3</span>
+              <div className="flex items-center gap-2.5 text-blue-400 font-bold text-xs">
+                <span className="w-6 h-6 rounded-full bg-blue-600/10 flex items-center justify-center border border-blue-500/30">3</span>
                 <span>Physical Inspection</span>
               </div>
               <h3 className="text-sm font-semibold text-white">Vehicle Viewing & Verification</h3>
@@ -101,8 +101,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
             </div>
 
             <div className="p-5 bg-neutral-950 rounded-xl border border-neutral-800 space-y-2">
-              <div className="flex items-center gap-2.5 text-amber-400 font-bold text-xs">
-                <span className="w-6 h-6 rounded-full bg-amber-400/10 flex items-center justify-center border border-amber-400/30">4</span>
+              <div className="flex items-center gap-2.5 text-blue-400 font-bold text-xs">
+                <span className="w-6 h-6 rounded-full bg-blue-600/10 flex items-center justify-center border border-blue-500/30">4</span>
                 <span>Purchase & Collection</span>
               </div>
               <h3 className="text-sm font-semibold text-white">Documentation & Handover</h3>
@@ -115,7 +115,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
           <div className="pt-4 flex justify-center">
             <button
               onClick={() => onNavigate('/cars')}
-              className="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition-colors flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center gap-2 cursor-pointer"
             >
               <span>Explore Showroom Inventory</span>
               <ArrowRight className="w-4 h-4" />
@@ -183,7 +183,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
           <div className="pt-4 flex justify-center">
             <button
               onClick={() => onNavigate('/import-a-car')}
-              className="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition-colors flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center gap-2 cursor-pointer"
             >
               <span>Submit Import Request</span>
               <ArrowRight className="w-4 h-4" />

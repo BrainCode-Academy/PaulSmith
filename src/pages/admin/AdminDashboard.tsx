@@ -694,15 +694,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
     return (
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-8 shadow-2xl space-y-6">
+        <div className="w-full max-w-md bg-[#0e1422] border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 bg-amber-400/10 border border-amber-400/30 rounded-xl flex items-center justify-center text-amber-400 mx-auto">
+            <div className="w-12 h-12 bg-blue-600/10 border border-blue-500/30 rounded-xl flex items-center justify-center text-blue-400 mx-auto">
               <Shield className="w-6 h-6" />
             </div>
             <h1 className="text-xl font-bold text-white tracking-tight">
               {isInitialSetup ? 'First-Time Administrator Setup' : 'Dealership Admin Portal'}
             </h1>
-            <p className="text-xs text-neutral-400">
+            <p className="text-xs text-slate-400">
               {isInitialSetup
                 ? 'Create a secure master password for the administrator account to access the dealership console.'
                 : 'Sign in to manage showroom inventory, client inquiries, and import requests.'}
@@ -719,17 +719,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               )}
 
               <div>
-                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Administrator Username</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Administrator Username</label>
                 <input
                   type="text"
                   disabled
                   value={adminSetupStatus?.username || 'admin'}
-                  className="w-full bg-neutral-950/60 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-neutral-400 cursor-not-allowed font-mono"
+                  className="w-full bg-slate-950/60 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-slate-400 cursor-not-allowed font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Master Password (min. 8 characters)</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Master Password (min. 8 characters)</label>
                 <input
                   type="password"
                   required
@@ -737,12 +737,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   value={setupPassword}
                   onChange={(e) => setSetupPassword(e.target.value)}
                   placeholder="Enter strong password..."
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Confirm Master Password</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Confirm Master Password</label>
                 <input
                   type="password"
                   required
@@ -750,19 +750,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   value={setupConfirmPassword}
                   onChange={(e) => setSetupConfirmPassword(e.target.value)}
                   placeholder="Repeat master password..."
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={settingUp}
-                className="w-full py-3 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer shadow-lg shadow-amber-400/10"
+                className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer shadow-lg shadow-blue-600/20"
               >
                 {settingUp ? 'Initializing Credentials...' : 'Set Admin Password & Access Console'}
               </button>
 
-              <div className="p-3 bg-neutral-950/80 border border-neutral-800/80 rounded-lg text-[11px] text-neutral-400 text-center">
+              <div className="p-3 bg-slate-950/80 border border-slate-800/80 rounded-lg text-[11px] text-slate-400 text-center">
                 Credentials are salted and hashed with PBKDF2-SHA512. No plaintext passwords are saved.
               </div>
             </form>
@@ -776,38 +776,38 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               )}
 
               <div>
-                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Username</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Username</label>
                 <input
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="admin"
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-neutral-300 mb-1.5">Password</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Password</label>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loggingIn}
-                className="w-full py-3 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer"
+                className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer shadow-lg shadow-blue-600/20"
               >
                 {loggingIn ? 'Authenticating...' : 'Sign In to Portal'}
               </button>
 
-              <div className="p-3 bg-neutral-950 border border-neutral-800 rounded-lg text-[11px] text-neutral-400 text-center">
+              <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-[11px] text-slate-400 text-center">
                 Authorized dealership personnel only. Protected by cryptographic session verification.
               </div>
             </form>
@@ -826,7 +826,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-neutral-800 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/60">
+            <span className="text-xs font-bold text-blue-400 uppercase tracking-wider bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800/60">
               Admin Mode
             </span>
             <h1 className="text-xl font-bold text-white tracking-tight">Dealership Management Console</h1>
@@ -877,7 +877,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               onClick={() => setActiveTab(tab.id as any)}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors whitespace-nowrap cursor-pointer ${
                 isActive
-                  ? 'bg-amber-400 text-neutral-950 font-bold shadow'
+                  ? 'bg-blue-600 text-white font-semibold shadow'
                   : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
               }`}
             >
@@ -905,8 +905,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
             <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-5 space-y-1">
               <span className="text-xs text-neutral-400">Total Leads Received</span>
-              <div className="text-2xl font-bold text-amber-400 font-mono">{stats?.totalLeads ?? leads.length}</div>
-              <div className="text-[11px] text-amber-300/80 pt-1">
+              <div className="text-2xl font-bold text-blue-400 font-mono">{stats?.totalLeads ?? leads.length}</div>
+              <div className="text-[11px] text-blue-300/80 pt-1">
                 {stats?.newLeads ?? 0} need follow-up
               </div>
             </div>
@@ -932,7 +932,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               }}
               className="p-5 bg-neutral-900 hover:bg-neutral-800/80 border border-neutral-800 rounded-xl flex items-center gap-4 transition-colors text-left cursor-pointer group"
             >
-              <div className="w-10 h-10 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform">
                 <Plus className="w-5 h-5" />
               </div>
               <div>
@@ -974,7 +974,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               <h3 className="text-sm font-bold text-white tracking-tight">Recent Client Inquiries</h3>
               <button
                 onClick={() => setActiveTab('leads')}
-                className="text-xs text-amber-400 hover:text-amber-300 font-medium"
+                className="text-xs text-blue-400 hover:text-blue-300 font-medium"
               >
                 View All Leads
               </button>
@@ -995,7 +995,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                       <span
                         className={`px-2 py-0.5 rounded text-[11px] font-medium ${
                           l.status === 'New'
-                            ? 'bg-amber-950/60 text-amber-300 border border-amber-800/60'
+                            ? 'bg-blue-950/60 text-blue-300 border border-blue-800/60'
                             : 'bg-neutral-800 text-neutral-300'
                         }`}
                       >
@@ -1037,7 +1037,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
             <button
               onClick={() => setEditingVehicle('new')}
-              className="flex items-center gap-1.5 px-4 py-2.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add Vehicle</span>
@@ -1077,7 +1077,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 font-mono font-medium text-amber-400">
+                      <td className="py-3 px-4 font-mono font-semibold text-white">
                         {formatPrice(v.price, v.currency, settings?.currencySymbol || '₦')}
                       </td>
 
@@ -1087,7 +1087,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         <select
                           value={v.status}
                           onChange={(e) => handleStatusChange(v.id, e.target.value)}
-                          className="bg-neutral-950 border border-neutral-800 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-amber-400"
+                          className="bg-neutral-950 border border-neutral-800 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-blue-500"
                         >
                           <option value="Available">Available</option>
                           <option value="In Transit">In Transit</option>
@@ -1116,7 +1116,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                             title={v.featured ? 'Featured on homepage' : 'Not featured'}
                             className={`p-1.5 rounded transition-colors ${
                               v.featured
-                                ? 'bg-amber-950/60 text-amber-400 hover:bg-amber-900/60'
+                                ? 'bg-blue-950/60 text-amber-400 hover:bg-amber-900/60'
                                 : 'bg-neutral-800 text-neutral-500 hover:text-white'
                             }`}
                           >
@@ -1172,7 +1172,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               onClick={() => setSliderSubTab('showroom_slides')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
                 sliderSubTab === 'showroom_slides'
-                  ? 'bg-amber-400 text-neutral-950 shadow'
+                  ? 'bg-blue-600 text-white shadow'
                   : 'bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800'
               }`}
             >
@@ -1184,7 +1184,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               onClick={() => setSliderSubTab('featured_cars')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
                 sliderSubTab === 'featured_cars'
-                  ? 'bg-amber-400 text-neutral-950 shadow'
+                  ? 'bg-blue-600 text-white shadow'
                   : 'bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800'
               }`}
             >
@@ -1201,7 +1201,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   <h3 className="text-base font-bold text-white tracking-tight">Dealership Showroom Floor Gallery</h3>
                   <p className="text-xs text-neutral-400 mt-1">
                     Manage the authentic dealership showroom floor and facility photos displayed in the subtle homepage hero background.
-                    <span className="text-amber-400 font-semibold block sm:inline sm:ml-1">
+                    <span className="text-blue-400 font-semibold block sm:inline sm:ml-1">
                       (Physical showroom background gallery, NOT a vehicle price slider).
                     </span>
                   </p>
@@ -1218,7 +1218,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
                   <button
                     onClick={() => setShowAddSlideModal(true)}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md shadow-amber-400/10"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs transition cursor-pointer shadow-md shadow-blue-600/10"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Showroom Slide</span>
@@ -1232,7 +1232,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   <p className="text-xs text-neutral-400">No showroom display slides uploaded yet.</p>
                   <button
                     onClick={() => setShowAddSlideModal(true)}
-                    className="px-4 py-2 bg-amber-400 text-neutral-950 font-bold rounded-xl text-xs"
+                    className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl text-xs"
                   >
                     Add First Showroom Slide
                   </button>
@@ -1252,7 +1252,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute top-2 left-2 flex items-center gap-1.5">
-                          <span className="bg-black/80 font-mono text-[10px] text-amber-400 px-2 py-0.5 rounded font-bold border border-amber-400/30">
+                          <span className="bg-black/80 font-mono text-[10px] text-blue-400 px-2 py-0.5 rounded font-bold border border-blue-500/30">
                             Slide #{idx + 1}
                           </span>
                           <span
@@ -1330,7 +1330,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-bold text-white tracking-tight">Homepage Hero Slider Management</h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-400 border border-amber-400/30">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30">
                   {vehicles.filter((v) => v.featured).length} Featured Slides
                 </span>
               </div>
@@ -1350,7 +1350,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
               <button
                 onClick={() => setShowAddSliderModal(true)}
-                className="flex items-center gap-1.5 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md shadow-amber-400/10"
+                className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs transition cursor-pointer shadow-md shadow-blue-600/10"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Vehicle to Slider</span>
@@ -1367,7 +1367,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               <div>
                 <p className="font-semibold text-neutral-200">Automatic Display Rule</p>
                 <p className="text-neutral-400 text-[11px]">
-                  Only vehicles marked <strong className="text-amber-400">Featured + Published + Available</strong> appear on the public homepage slider. Sold, reserved, or unpublished vehicles are automatically excluded.
+                  Only vehicles marked <strong className="text-blue-400">Featured + Published + Available</strong> appear on the public homepage slider. Sold, reserved, or unpublished vehicles are automatically excluded.
                 </p>
               </div>
             </div>
@@ -1393,7 +1393,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
           {vehicles.filter((v) => v.featured).length === 0 ? (
             <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12 text-center space-y-4">
               <div className="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-500 mx-auto">
-                <Sparkles className="w-6 h-6 text-amber-400" />
+                <Sparkles className="w-6 h-6 text-blue-400" />
               </div>
               <div className="space-y-1">
                 <h3 className="text-sm font-bold text-white">No Vehicles Featured on Homepage Slider</h3>
@@ -1403,7 +1403,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               </div>
               <button
                 onClick={() => setShowAddSliderModal(true)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs transition cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Select First Featured Vehicle</span>
@@ -1416,7 +1416,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   Featured Slides in Carousel Order
                 </span>
                 {savingSliderOrder && (
-                  <span className="text-xs text-amber-400 animate-pulse font-medium">
+                  <span className="text-xs text-blue-400 animate-pulse font-medium">
                     Saving slide order...
                   </span>
                 )}
@@ -1450,7 +1450,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                               #{index + 1}
                             </span>
                             {index === 0 && (
-                              <span className="text-[9px] uppercase tracking-wider font-extrabold text-amber-400">
+                              <span className="text-[9px] uppercase tracking-wider font-extrabold text-blue-400">
                                 Primary
                               </span>
                             )}
@@ -1464,7 +1464,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                               className="w-full h-full object-cover"
                             />
                             {index === 0 && (
-                              <div className="absolute top-1 left-1 bg-amber-400 text-neutral-950 text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
+                              <div className="absolute top-1 left-1 bg-blue-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
                                 1st
                               </div>
                             )}
@@ -1472,7 +1472,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
-                              <h4 className="text-sm font-bold text-white hover:text-amber-300 transition cursor-pointer"
+                              <h4 className="text-sm font-bold text-white hover:text-blue-300 transition cursor-pointer"
                                 onClick={() => setPreviewSlideVehicle(v)}
                               >
                                 {v.year} {v.make} {v.model}
@@ -1487,7 +1487,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                                   Slide Disabled
                                 </span>
                               ) : !v.published ? (
-                                <span className="text-[10px] font-medium text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded-full">
+                                <span className="text-[10px] font-medium text-blue-400 bg-blue-950/50 px-2 py-0.5 rounded-full">
                                   Unpublished
                                 </span>
                               ) : (
@@ -1540,7 +1540,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                               onClick={() => handleSetPrimarySlide(v.id)}
                               disabled={savingSliderOrder}
                               title="Set as First / Primary Slide"
-                              className="px-2.5 py-1.5 text-[11px] font-semibold text-neutral-300 hover:text-amber-400 bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition cursor-pointer"
+                              className="px-2.5 py-1.5 text-[11px] font-semibold text-neutral-300 hover:text-blue-400 bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition cursor-pointer"
                             >
                               Make Primary
                             </button>
@@ -1569,7 +1569,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                             title="Preview Hero Slide"
                             className="px-2.5 py-1.5 text-[11px] font-semibold text-neutral-300 hover:text-white bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition flex items-center gap-1 cursor-pointer"
                           >
-                            <Play className="w-3 h-3 text-amber-400" />
+                            <Play className="w-3 h-3 text-blue-400" />
                             <span>Preview</span>
                           </button>
 
@@ -1623,12 +1623,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 placeholder="Brand Name (e.g. Genesis)"
                 value={newBrandName}
                 onChange={(e) => setNewBrandName(e.target.value)}
-                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 min-w-[160px]"
+                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-blue-500 min-w-[160px]"
               />
               <select
                 value={newBrandCountry}
                 onChange={(e) => setNewBrandCountry(e.target.value)}
-                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="Japan">Japan</option>
                 <option value="Germany">Germany</option>
@@ -1644,7 +1644,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               </select>
               <button
                 type="submit"
-                className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs whitespace-nowrap cursor-pointer uppercase tracking-wider shadow-sm flex items-center gap-1.5"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs whitespace-nowrap cursor-pointer uppercase tracking-wider shadow-sm flex items-center gap-1.5"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Brand</span>
@@ -1661,7 +1661,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 placeholder="Search brands or countries (e.g. Toyota, China, Ford)..."
                 value={adminBrandSearch}
                 onChange={(e) => setAdminBrandSearch(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500"
               />
               {adminBrandSearch && (
                 <button
@@ -1723,7 +1723,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                             {brand.enabled !== false ? 'Active' : 'Disabled'}
                           </span>
                         </div>
-                        <span className="text-xs text-amber-400 font-medium mt-0.5 block">
+                        <span className="text-xs text-blue-400 font-medium mt-0.5 block">
                           {brand.vehicleCount} vehicle{brand.vehicleCount === 1 ? '' : 's'} in active stock
                         </span>
                       </div>
@@ -1749,7 +1749,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                           type="button"
                           onClick={() => setEditingBrand({ id: brand.id, name: brand.name, country: brand.country })}
                           title="Edit brand name & country"
-                          className="p-1.5 text-neutral-400 hover:text-amber-400 hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer"
+                          className="p-1.5 text-neutral-400 hover:text-blue-400 hover:bg-neutral-800 rounded-lg transition-colors cursor-pointer"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
@@ -1768,8 +1768,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
                     {/* Inline Edit Brand Form if selected */}
                     {editingBrand && editingBrand.id === brand.id && (
-                      <form onSubmit={handleEditBrand} className="mt-3 p-3 bg-neutral-950 rounded-xl border border-amber-400/50 space-y-2">
-                        <div className="flex items-center justify-between text-xs font-bold text-amber-400">
+                      <form onSubmit={handleEditBrand} className="mt-3 p-3 bg-neutral-950 rounded-xl border border-blue-500/50 space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold text-blue-400">
                           <span>Edit Brand Details</span>
                           <button
                             type="button"
@@ -1808,7 +1808,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         </div>
                         <button
                           type="submit"
-                          className="w-full py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs"
+                          className="w-full py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs"
                         >
                           Save Changes
                         </button>
@@ -1834,7 +1834,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                                 <div className="flex items-center gap-2">
                                   <span className="font-semibold text-white">{model.name}</span>
                                   {model.category && (
-                                    <span className="text-[10px] text-amber-400 bg-amber-950/60 border border-amber-900/60 px-1.5 py-0.2 rounded">
+                                    <span className="text-[10px] text-blue-400 bg-blue-950/60 border border-blue-900/60 px-1.5 py-0.2 rounded">
                                       {model.category}
                                     </span>
                                   )}
@@ -1851,7 +1851,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                                       })
                                     }
                                     title="Edit Model"
-                                    className="text-neutral-500 hover:text-amber-400 p-1 cursor-pointer transition-colors"
+                                    className="text-neutral-500 hover:text-blue-400 p-1 cursor-pointer transition-colors"
                                   >
                                     <Edit2 className="w-3.5 h-3.5" />
                                   </button>
@@ -1886,7 +1886,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                                       placeholder="YYYY"
                                       value={quickYearInput}
                                       onChange={(e) => setQuickYearInput(e.target.value)}
-                                      className="w-16 bg-neutral-900 border border-amber-400 rounded px-1.5 py-0.5 text-[10px] text-white"
+                                      className="w-16 bg-neutral-900 border border-blue-500 rounded px-1.5 py-0.5 text-[10px] text-white"
                                     />
                                     <button
                                       type="button"
@@ -1898,7 +1898,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                                           parseInt(quickYearInput, 10)
                                         )
                                       }
-                                      className="px-1.5 py-0.5 bg-amber-400 text-neutral-950 font-bold rounded text-[10px]"
+                                      className="px-1.5 py-0.5 bg-blue-600 text-white font-semibold rounded text-[10px]"
                                     >
                                       Add
                                     </button>
@@ -1917,7 +1917,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                                       setQuickAddYearModel({ brandId: brand.id, modelId: model.id });
                                       setQuickYearInput(String(new Date().getFullYear()));
                                     }}
-                                    className="text-[10px] text-amber-400 hover:underline cursor-pointer ml-1"
+                                    className="text-[10px] text-blue-400 hover:underline cursor-pointer ml-1"
                                   >
                                     + Add Year
                                   </button>
@@ -1950,7 +1950,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                           placeholder="Model name (e.g. Camry, RAV4, X5)"
                           value={newModelName}
                           onChange={(e) => setNewModelName(e.target.value)}
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                          className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
                         />
                         <div className="grid grid-cols-2 gap-2">
                           <select
@@ -1976,7 +1976,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         </div>
                         <button
                           type="submit"
-                          className="w-full py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs cursor-pointer"
+                          className="w-full py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs cursor-pointer"
                         >
                           Save Model
                         </button>
@@ -1989,7 +1989,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         }}
                         className="w-full py-2 bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                       >
-                        <Plus className="w-3.5 h-3.5 text-amber-400" />
+                        <Plus className="w-3.5 h-3.5 text-blue-400" />
                         <span>Add Model to {brand.name}</span>
                       </button>
                     )}
@@ -2019,7 +2019,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                       required
                       value={editingModel.name}
                       onChange={(e) => setEditingModel({ ...editingModel, name: e.target.value })}
-                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     />
                   </div>
                   <div>
@@ -2044,7 +2044,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                       type="text"
                       value={editingModel.years}
                       onChange={(e) => setEditingModel({ ...editingModel, years: e.target.value })}
-                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                      className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
                       placeholder="2026, 2025, 2024, 2023, 2022"
                     />
                   </div>
@@ -2058,7 +2058,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs"
                     >
                       Update Model
                     </button>
@@ -2114,7 +2114,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         <select
                           value={l.status}
                           onChange={(e) => handleUpdateLeadStatus(l.id, e.target.value)}
-                          className="bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-400"
+                          className="bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-blue-500"
                         >
                           <option value="New">New</option>
                           <option value="Contacted">Contacted</option>
@@ -2137,7 +2137,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     {/* Inquiry Content */}
                     <div className="text-xs space-y-1">
                       {l.vehicleTitle && (
-                        <p className="text-amber-400 font-semibold">Vehicle: {l.vehicleTitle}</p>
+                        <p className="text-blue-400 font-semibold">Vehicle: {l.vehicleTitle}</p>
                       )}
                       {l.budget && (
                         <p className="text-neutral-300">Customer Offer / Budget: {l.budget}</p>
@@ -2170,7 +2170,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         placeholder="Add internal note (e.g. Mechanic inspection booked for Saturday)..."
                         value={leadNoteInput[l.id] || ''}
                         onChange={(e) => setLeadNoteInput({ ...leadNoteInput, [l.id]: e.target.value })}
-                        className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                        className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
                       />
                       <button
                         onClick={() => handleAddLeadNote(l.id)}
@@ -2232,7 +2232,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         <select
                           value={req.status}
                           onChange={(e) => handleUpdateImportStatus(req.id, e.target.value)}
-                          className="bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-amber-400"
+                          className="bg-neutral-950 border border-neutral-800 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-blue-500"
                         >
                           <option value="New">New</option>
                           <option value="Sourcing">Sourcing in Progress</option>
@@ -2264,7 +2264,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
                       <div>
                         <span className="text-neutral-500 block">Target Budget</span>
-                        <span className="text-amber-400 font-mono font-medium">{req.budget || 'Flexible'}</span>
+                        <span className="text-blue-400 font-mono font-medium">{req.budget || 'Flexible'}</span>
                       </div>
 
                       <div>
@@ -2338,7 +2338,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     </div>
                     <div>
                       <span className="text-neutral-500 block">Budget</span>
-                      <span className="text-amber-400 font-mono">{r.budget || 'Flexible'}</span>
+                      <span className="text-blue-400 font-mono">{r.budget || 'Flexible'}</span>
                     </div>
                     <div>
                       <span className="text-neutral-500 block">Condition</span>
@@ -2369,7 +2369,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-bold text-white tracking-tight">Verified Customer Reviews & Proof</h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-400 border border-amber-400/30">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30">
                   {reviews.length} Total Reviews
                 </span>
               </div>
@@ -2380,7 +2380,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
             <button
               onClick={() => setShowAddReviewModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md shadow-amber-400/10"
+              className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs transition cursor-pointer shadow-md shadow-blue-600/10"
             >
               <Plus className="w-4 h-4" />
               <span>Add Verified Review</span>
@@ -2394,7 +2394,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 <p className="text-xs text-neutral-400">No customer reviews recorded yet.</p>
                 <button
                   onClick={() => setShowAddReviewModal(true)}
-                  className="px-4 py-2 bg-amber-400 text-neutral-950 font-bold rounded-xl text-xs"
+                  className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-xl text-xs"
                 >
                   Add First Review
                 </button>
@@ -2412,7 +2412,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                           </span>
                         )}
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          rev.published ? 'bg-amber-950/80 text-amber-400 border border-amber-800/80' : 'bg-neutral-950 text-neutral-400 border border-neutral-800'
+                          rev.published ? 'bg-blue-950/80 text-blue-300 border border-blue-800/80' : 'bg-neutral-950 text-neutral-400 border border-neutral-800'
                         }`}>
                           {rev.published ? 'Published' : 'Hidden'}
                         </span>
@@ -2490,7 +2490,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   type="text"
                   value={settingsForm.businessName || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, businessName: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -2500,7 +2500,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   type="text"
                   value={settingsForm.tagline || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, tagline: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
@@ -2508,7 +2508,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-medium text-neutral-300 mb-1.5">
-                  Primary WhatsApp Sales Number <span className="text-amber-400">*</span>
+                  Primary WhatsApp Sales Number <span className="text-blue-400">*</span>
                 </label>
                 <input
                   type="text"
@@ -2516,7 +2516,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="+2348012345678"
                   value={settingsForm.whatsappNumber || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, whatsappNumber: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
                 <span className="text-[11px] text-neutral-500 mt-1 block">
                   International format with country code (e.g. +2348000000000 or +1234567890)
@@ -2532,7 +2532,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="https://chat.whatsapp.com/..."
                   value={settingsForm.whatsappGroupLink || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, whatsappGroupLink: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
@@ -2544,7 +2544,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   type="text"
                   value={settingsForm.phone || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, phone: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -2554,7 +2554,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   type="email"
                   value={settingsForm.email || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, email: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
@@ -2567,7 +2567,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="e.g. Plot 14, Victoria Island, Lagos"
                   value={settingsForm.address || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, address: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -2578,7 +2578,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="e.g. Mon - Sat: 8:30 AM - 6:00 PM"
                   value={settingsForm.businessHours || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, businessHours: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
@@ -2591,7 +2591,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="₦ or $"
                   value={settingsForm.currencySymbol || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, currencySymbol: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
                 />
               </div>
 
@@ -2602,7 +2602,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="NGN, USD, EUR"
                   value={settingsForm.currency || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, currency: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 uppercase font-mono"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 uppercase font-mono"
                 />
               </div>
             </div>
@@ -2613,13 +2613,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 rows={3}
                 value={settingsForm.businessDescription || ''}
                 onChange={(e) => setSettingsForm({ ...settingsForm, businessDescription: e.target.value })}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-blue-500 resize-none"
               />
             </div>
 
             {/* CEO Leadership Fields */}
             <div className="pt-4 border-t border-neutral-800 space-y-4">
-              <h3 className="text-xs uppercase tracking-wider text-amber-400 font-bold">
+              <h3 className="text-xs uppercase tracking-wider text-blue-400 font-bold">
                 Founder & Executive Leadership Profile
               </h3>
 
@@ -2631,7 +2631,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     placeholder="e.g. Paul Smith"
                     value={settingsForm.ceoName || ''}
                     onChange={(e) => setSettingsForm({ ...settingsForm, ceoName: e.target.value })}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -2642,7 +2642,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     placeholder="e.g. Founder & CEO"
                     value={settingsForm.ceoTitle || ''}
                     onChange={(e) => setSettingsForm({ ...settingsForm, ceoTitle: e.target.value })}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -2653,7 +2653,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     placeholder="e.g. 08037781788"
                     value={settingsForm.ceoPhone || ''}
                     onChange={(e) => setSettingsForm({ ...settingsForm, ceoPhone: e.target.value })}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
                   />
                 </div>
               </div>
@@ -2689,7 +2689,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3">
-                      <label className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs rounded-lg cursor-pointer transition shadow-md">
+                      <label className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-lg cursor-pointer transition shadow-md">
                         <Upload className="w-3.5 h-3.5" />
                         <span>{uploadingCeoImage ? 'Uploading...' : 'Choose Photo from Device'}</span>
                         <input
@@ -2719,7 +2719,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         placeholder="/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg"
                         value={settingsForm.ceoImage || ''}
                         onChange={(e) => setSettingsForm({ ...settingsForm, ceoImage: e.target.value })}
-                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-300 focus:outline-none focus:border-amber-400 font-mono"
+                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-300 focus:outline-none focus:border-blue-500 font-mono"
                       />
                     </div>
                   </div>
@@ -2735,7 +2735,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="At Paul Smith Autos, we inspect every car down to the bolt. No accident-concealed vehicles, no tampered odometers..."
                   value={settingsForm.ceoQuote || ''}
                   onChange={(e) => setSettingsForm({ ...settingsForm, ceoQuote: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-blue-500 resize-none"
                 />
               </div>
             </div>
@@ -2754,7 +2754,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     importCountries: e.target.value.split(',').map((s) => s.trim()).filter(Boolean),
                   })
                 }
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -2764,7 +2764,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 id="inspectionOffered"
                 checked={settingsForm.inspectionOffered !== false}
                 onChange={(e) => setSettingsForm({ ...settingsForm, inspectionOffered: e.target.checked })}
-                className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                className="w-4 h-4 rounded text-blue-500 bg-neutral-950 border-neutral-800"
               />
               <label htmlFor="inspectionOffered" className="text-xs text-neutral-300 cursor-pointer">
                 Enable "Schedule Inspection" booking CTA across showroom vehicle pages
@@ -2774,7 +2774,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
             <div className="pt-4 border-t border-neutral-800">
               <button
                 type="submit"
-                className="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs transition-colors cursor-pointer"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer"
               >
                 Save Settings
               </button>
@@ -2784,7 +2784,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
           {/* Master Administrator Password Card */}
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400 shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-blue-600/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
                 <KeyRound className="w-4 h-4" />
               </div>
               <div>
@@ -2818,7 +2818,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     placeholder="Enter current password"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -2831,7 +2831,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="New password"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -2844,7 +2844,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
                     placeholder="Confirm new password"
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -2942,7 +2942,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="Search by make, model, year..."
                   value={sliderSearchTerm}
                   onChange={(e) => setSliderSearchTerm(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-9 pr-4 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
@@ -2991,7 +2991,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
 
                       <button
                         onClick={() => handleAddToSlider(v.id)}
-                        className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg text-xs transition cursor-pointer shrink-0"
+                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs transition cursor-pointer shrink-0"
                       >
                         Feature on Slider
                       </button>
@@ -3018,7 +3018,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col">
             <div className="p-4 border-b border-neutral-800 flex items-center justify-between bg-neutral-950">
               <div className="flex items-center gap-2">
-                <Play className="w-4 h-4 text-amber-400" />
+                <Play className="w-4 h-4 text-blue-400" />
                 <h3 className="text-xs font-bold text-white uppercase tracking-wider">
                   Live Hero Slide Customer Preview
                 </h3>
@@ -3049,13 +3049,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                       AVAILABLE
                     </span>
-                    <span className="text-xs text-amber-400 font-medium">
+                    <span className="text-xs text-blue-400 font-medium">
                       Featured Showroom Selection
                     </span>
                   </div>
 
                   <div>
-                    <p className="text-xs font-semibold text-amber-400 tracking-wide uppercase">
+                    <p className="text-xs font-semibold text-blue-400 tracking-wide uppercase">
                       {previewSlideVehicle.make}
                     </p>
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -3086,7 +3086,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   </p>
 
                   <div className="flex items-center gap-3 pt-2">
-                    <div className="px-5 py-2.5 bg-amber-400 text-neutral-950 font-bold rounded-xl text-xs flex items-center gap-1.5 shadow">
+                    <div className="px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-xl text-xs flex items-center gap-1.5 shadow">
                       <span>View Vehicle</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </div>
@@ -3138,7 +3138,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               <div>
                 <label className="block text-xs font-medium text-neutral-300 mb-1.5">Slide Photo</label>
                 <div className="flex items-center gap-3 mb-2">
-                  <label className="inline-flex items-center gap-2 px-3.5 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold text-xs rounded-xl cursor-pointer transition">
+                  <label className="inline-flex items-center gap-2 px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl cursor-pointer transition">
                     <Upload className="w-3.5 h-3.5" />
                     <span>{uploadingSlide ? 'Uploading...' : 'Choose Photo from Device'}</span>
                     <input
@@ -3158,7 +3158,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="e.g. /images/showroom_floor.jpg or https://..."
                   value={newSlideUrl}
                   onChange={(e) => setNewSlideUrl(e.target.value)}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
                 />
               </div>
 
@@ -3175,7 +3175,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="e.g. Paul Smith Autos certified showroom floor & customer lounge"
                   value={newSlideCaption}
                   onChange={(e) => setNewSlideCaption(e.target.value)}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -3190,7 +3190,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 <button
                   type="submit"
                   disabled={!newSlideUrl || uploadingSlide}
-                  className="px-5 py-2 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer"
+                  className="px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-xl text-xs transition cursor-pointer"
                 >
                   Save Showroom Slide
                 </button>
@@ -3228,7 +3228,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="e.g. Chief Adebayo Ogunlesi"
                   value={reviewForm.customerName || ''}
                   onChange={(e) => setReviewForm({ ...reviewForm, customerName: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -3240,7 +3240,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     placeholder="e.g. 2024 Mercedes-Benz GLE 450"
                     value={reviewForm.vehiclePurchased || ''}
                     onChange={(e) => setReviewForm({ ...reviewForm, vehiclePurchased: e.target.value })}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
@@ -3249,7 +3249,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   <select
                     value={reviewForm.rating || 5}
                     onChange={(e) => setReviewForm({ ...reviewForm, rating: Number(e.target.value) })}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
                   >
                     <option value={5}>★★★★★ (5 Stars - Exceptional)</option>
                     <option value={4}>★★★★☆ (4 Stars - Very Good)</option>
@@ -3266,7 +3266,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                   placeholder="Write the customer's authentic review and inspection feedback..."
                   value={reviewForm.comment || ''}
                   onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-blue-500 resize-none"
                 />
               </div>
 
@@ -3276,7 +3276,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     type="checkbox"
                     checked={reviewForm.verified !== false}
                     onChange={(e) => setReviewForm({ ...reviewForm, verified: e.target.checked })}
-                    className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                    className="w-4 h-4 rounded text-blue-500 bg-neutral-950 border-neutral-800"
                   />
                   <span>Mark as Verified Buyer</span>
                 </label>
@@ -3286,7 +3286,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     type="checkbox"
                     checked={reviewForm.published !== false}
                     onChange={(e) => setReviewForm({ ...reviewForm, published: e.target.checked })}
-                    className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                    className="w-4 h-4 rounded text-blue-500 bg-neutral-950 border-neutral-800"
                   />
                   <span>Publish Immediately</span>
                 </label>
@@ -3303,7 +3303,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                 <button
                   type="submit"
                   disabled={savingReview}
-                  className="px-5 py-2 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition cursor-pointer"
+                  className="px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-xl text-xs transition cursor-pointer"
                 >
                   {savingReview ? 'Saving...' : 'Save Verified Review'}
                 </button>

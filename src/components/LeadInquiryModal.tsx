@@ -91,7 +91,7 @@ export const LeadInquiryModal: React.FC<LeadInquiryModalProps> = ({ vehicle, mod
           />
           <div>
             <h4 className="text-xs font-semibold text-white">{vehicle.title}</h4>
-            <p className="text-xs text-amber-400 font-mono">{priceFormatted}</p>
+            <p className="text-xs text-blue-400 font-mono font-semibold">{priceFormatted}</p>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export const LeadInquiryModal: React.FC<LeadInquiryModalProps> = ({ vehicle, mod
                 placeholder="e.g. John Doe"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -144,7 +144,7 @@ export const LeadInquiryModal: React.FC<LeadInquiryModalProps> = ({ vehicle, mod
                 placeholder="e.g. +234 800 000 0000"
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -157,7 +157,7 @@ export const LeadInquiryModal: React.FC<LeadInquiryModalProps> = ({ vehicle, mod
                     placeholder="e.g. Friday morning, 11:00 AM"
                     value={preferredDate}
                     onChange={(e) => setPreferredDate(e.target.value)}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg pl-3 pr-8 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg pl-3 pr-8 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                   <Calendar className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                 </div>
@@ -173,7 +173,7 @@ export const LeadInquiryModal: React.FC<LeadInquiryModalProps> = ({ vehicle, mod
                     placeholder="e.g. 74,000,000"
                     value={offerAmount}
                     onChange={(e) => setOfferAmount(e.target.value)}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg pl-3 pr-8 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-lg pl-3 pr-8 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
                   />
                   <Tag className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                 </div>
@@ -187,14 +187,14 @@ export const LeadInquiryModal: React.FC<LeadInquiryModalProps> = ({ vehicle, mod
                 placeholder="Any specific questions about condition, documentation, or viewing..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-blue-500 resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-blue-600/20"
             >
               {loading ? (
                 <span>Submitting...</span>

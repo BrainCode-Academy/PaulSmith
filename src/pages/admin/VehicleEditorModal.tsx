@@ -214,7 +214,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <button
                 type="button"
                 onClick={handleAutoTitle}
-                className="text-[11px] text-amber-400 hover:text-amber-300 cursor-pointer"
+                className="text-[11px] text-blue-400 hover:text-blue-300 cursor-pointer"
               >
                 Auto-generate from make/model
               </button>
@@ -225,7 +225,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               placeholder="e.g. 2024 Toyota Land Cruiser Prado TX-L"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-medium"
+              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-medium"
             />
           </div>
 
@@ -243,7 +243,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                       setCustomModelMode(true);
                     }
                   }}
-                  className="text-[11px] text-amber-400 hover:text-amber-300 cursor-pointer"
+                  className="text-[11px] text-blue-400 hover:text-blue-300 cursor-pointer"
                 >
                   {customMakeMode ? 'Select from list' : '+ Custom brand'}
                 </button>
@@ -260,7 +260,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                     setMake(val);
                     if (val && model && year) setTitle(`${year} ${val} ${model}`);
                   }}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               ) : (
                 <select
@@ -275,7 +275,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                       setTitle(`${year} ${selectedMake}`);
                     }
                   }}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                 >
                   <option value="">-- Select Brand ({hierarchy.length} available) --</option>
                   {hierarchy.map((b) => (
@@ -297,7 +297,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                   <button
                     type="button"
                     onClick={() => setCustomModelMode(!customModelMode)}
-                    className="text-[11px] text-amber-400 hover:text-amber-300 cursor-pointer"
+                    className="text-[11px] text-blue-400 hover:text-blue-300 cursor-pointer"
                   >
                     {customModelMode ? 'Select brand model' : '+ Unlisted model'}
                   </button>
@@ -316,7 +316,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                     setModel(val);
                     if (make && year && val) setTitle(`${year} ${make} ${val}`);
                   }}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 disabled:opacity-50"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 disabled:opacity-50"
                 />
               ) : (
                 <select
@@ -343,7 +343,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                       setTitle(`${year} ${make} ${chosenModelName}`);
                     }
                   }}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                 >
                   <option value="">-- Select {make} Model --</option>
                   {suggestedModels.map((m) => (
@@ -369,7 +369,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                       }}
                       className={`text-[10px] px-1.5 py-0.5 rounded cursor-pointer transition-colors ${
                         year === String(y)
-                          ? 'bg-amber-400 text-neutral-950 font-bold'
+                          ? 'bg-blue-600 text-white font-semibold'
                           : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
                       }`}
                     >
@@ -392,7 +392,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                   setYear(e.target.value);
                   if (make && model) setTitle(`${e.target.value} ${make} ${model}`);
                 }}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
@@ -407,7 +407,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="78500000"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
 
@@ -418,7 +418,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="15000"
                 value={mileage}
                 onChange={(e) => setMileage(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
 
@@ -427,7 +427,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={mileageUnit}
                 onChange={(e) => setMileageUnit(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="km">Kilometers (km)</option>
                 <option value="miles">Miles (mi)</option>
@@ -439,7 +439,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-semibold"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-semibold"
               >
                 <option value="Available">Available</option>
                 <option value="In Transit">In Transit</option>
@@ -457,7 +457,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={condition}
                 onChange={(e) => setCondition(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="Foreign Used">Foreign Used (Tokunbo)</option>
                 <option value="Brand New">Brand New</option>
@@ -471,7 +471,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={bodyType}
                 onChange={(e) => setBodyType(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-medium"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-medium"
               >
                 <option value="SUV">SUV</option>
                 <option value="Sedan">Sedan</option>
@@ -488,7 +488,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={transmission}
                 onChange={(e) => setTransmission(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="Automatic">Automatic</option>
                 <option value="Manual">Manual</option>
@@ -500,7 +500,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={fuel}
                 onChange={(e) => setFuel(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="Petrol">Petrol</option>
                 <option value="Diesel">Diesel</option>
@@ -517,7 +517,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <select
                 value={driveType}
                 onChange={(e) => setDriveType(e.target.value as any)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               >
                 <option value="AWD">AWD</option>
                 <option value="4WD">4WD</option>
@@ -533,7 +533,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="e.g. 2.4L Turbo 4-Cylinder"
                 value={engine}
                 onChange={(e) => setEngine(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -544,7 +544,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="e.g. Main Showroom"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -555,7 +555,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="Optional"
                 value={vin}
                 onChange={(e) => setVin(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
               />
             </div>
           </div>
@@ -569,7 +569,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="e.g. Pearl White"
                 value={color}
                 onChange={(e) => setColor(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
 
@@ -580,7 +580,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="e.g. Black Leather"
                 value={interiorColor}
                 onChange={(e) => setInteriorColor(e.target.value)}
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
@@ -595,7 +595,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               placeholder="e.g. https://www.youtube.com/embed/..."
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
             />
           </div>
 
@@ -608,7 +608,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               placeholder="Detailed description of the vehicle condition, documentation, origin, and service history..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none leading-relaxed"
+              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-blue-500 resize-none leading-relaxed"
             />
           </div>
 
@@ -621,7 +621,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="Add feature (e.g. 360-degree camera, heads-up display)..."
                 value={newFeatureText}
                 onChange={(e) => setNewFeatureText(e.target.value)}
-                className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400"
+                className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500"
               />
               <button
                 type="button"
@@ -655,7 +655,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs font-medium text-neutral-300">Vehicle Photos</label>
-              <label className="cursor-pointer text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 bg-amber-400/10 hover:bg-amber-400/20 px-2.5 py-1 rounded-lg border border-amber-400/30 transition">
+              <label className="cursor-pointer text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-blue-600/10 hover:bg-blue-600/20 px-2.5 py-1 rounded-lg border border-blue-500/30 transition">
                 <Upload className="w-3.5 h-3.5" />
                 <span>{uploading ? 'Uploading images...' : 'Upload Photos (Multiple)'}</span>
                 <input
@@ -675,7 +675,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                 placeholder="Or paste image URL (e.g. /images/prado.jpg or https://...)..."
                 value={newImageUrl}
                 onChange={(e) => setNewImageUrl(e.target.value)}
-                className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono"
+                className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500 font-mono"
               />
               <button
                 type="button"
@@ -694,7 +694,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                   {/* Primary indicator or index */}
                   <div className="absolute top-1.5 left-1.5 z-10 flex items-center gap-1">
                     {i === 0 ? (
-                      <span className="bg-amber-400 text-neutral-950 font-bold px-2 py-0.5 rounded text-[10px] flex items-center gap-1 shadow-md">
+                      <span className="bg-blue-600 text-white font-semibold px-2 py-0.5 rounded text-[10px] flex items-center gap-1 shadow-md">
                         <Star className="w-2.5 h-2.5 fill-current" /> Cover
                       </span>
                     ) : (
@@ -732,7 +732,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                           type="button"
                           onClick={() => handleMakePrimary(i)}
                           title="Set as primary cover"
-                          className="px-1.5 py-0.5 bg-amber-400/90 hover:bg-amber-300 text-neutral-950 rounded text-[10px] font-bold transition flex items-center gap-0.5"
+                          className="px-1.5 py-0.5 bg-blue-600/90 hover:bg-blue-500 text-white rounded text-[10px] font-bold transition flex items-center gap-0.5"
                         >
                           <Star className="w-2.5 h-2.5" /> Set Cover
                         </button>
@@ -761,9 +761,9 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                   type="checkbox"
                   checked={featured}
                   onChange={(e) => setFeatured(e.target.checked)}
-                  className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                  className="w-4 h-4 rounded text-blue-500 bg-neutral-950 border-neutral-800"
                 />
-                <span className="font-semibold text-amber-400">Featured on Homepage Hero Slider</span>
+                <span className="font-semibold text-blue-400">Featured on Homepage Hero Slider</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer text-neutral-300">
@@ -771,7 +771,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                   type="checkbox"
                   checked={published}
                   onChange={(e) => setPublished(e.target.checked)}
-                  className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                  className="w-4 h-4 rounded text-blue-500 bg-neutral-950 border-neutral-800"
                 />
                 <span>Published (Visible to public)</span>
               </label>
@@ -784,7 +784,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
                     type="checkbox"
                     checked={heroSlideEnabled}
                     onChange={(e) => setHeroSlideEnabled(e.target.checked)}
-                    className="w-4 h-4 rounded text-amber-400 bg-neutral-950 border-neutral-800"
+                    className="w-4 h-4 rounded text-blue-500 bg-neutral-950 border-neutral-800"
                   />
                   <span>Active in Slider Rotation</span>
                 </label>
@@ -814,7 +814,7 @@ export const VehicleEditorModal: React.FC<VehicleEditorModalProps> = ({ vehicle,
               <button
                 type="submit"
                 disabled={saving}
-                className="px-6 py-2 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-lg text-xs cursor-pointer"
+                className="px-6 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-lg text-xs cursor-pointer"
               >
                 {saving ? 'Saving...' : isEdit ? 'Update Vehicle' : 'Add Vehicle'}
               </button>

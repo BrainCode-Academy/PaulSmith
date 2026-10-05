@@ -130,7 +130,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 bg-amber-950/60 border border-amber-800/80 px-3.5 py-1.5 rounded-full">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-400 bg-blue-950/60 border border-blue-800/80 px-3.5 py-1.5 rounded-full">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Digital Showroom & Direct International Sourcing</span>
           </div>
@@ -147,7 +147,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <button
               onClick={() => onNavigate('/cars')}
-              className="w-full sm:w-auto px-7 py-3.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-sm transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Browse Cars</span>
               <ArrowRight className="w-4 h-4" />
@@ -232,7 +232,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
                       AVAILABLE
                     </span>
 
-                    <span className="inline-flex items-center gap-1 text-xs text-amber-400/90 font-medium">
+                    <span className="inline-flex items-center gap-1 text-xs text-blue-400/90 font-medium">
                       <Sparkles className="w-3.5 h-3.5" />
                       Featured Showroom Selection
                     </span>
@@ -244,12 +244,12 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
 
                   {/* Vehicle Heading */}
                   <div>
-                    <p className="text-sm sm:text-base font-semibold text-amber-400 tracking-wide uppercase">
+                    <p className="text-sm sm:text-base font-semibold text-blue-400 tracking-wide uppercase">
                       {vehicle.make}
                     </p>
                     <h2
                       onClick={() => onNavigate(`/cars/${vehicle.slug}`)}
-                      className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight hover:text-amber-300 transition-colors cursor-pointer"
+                      className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight hover:text-blue-300 transition-colors cursor-pointer"
                     >
                       {vehicle.year} {vehicle.model}
                     </h2>
@@ -268,21 +268,21 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
                   {/* Quick Spec Highlights (clean typographic separators, anti-slop) */}
                   <div className="flex flex-wrap items-center gap-y-1 gap-x-2.5 text-xs text-neutral-300 font-medium">
                     <span className="flex items-center gap-1">
-                      <Gauge className="w-3.5 h-3.5 text-amber-400" />
+                      <Gauge className="w-3.5 h-3.5 text-blue-400" />
                       {vehicle.mileage.toLocaleString()} {vehicle.mileageUnit}
                     </span>
                     <span aria-hidden="true" className="text-neutral-600">·</span>
                     <span>{vehicle.transmission}</span>
                     <span aria-hidden="true" className="text-neutral-600">·</span>
                     <span className="flex items-center gap-1">
-                      <Fuel className="w-3.5 h-3.5 text-amber-400" />
+                      <Fuel className="w-3.5 h-3.5 text-blue-400" />
                       {vehicle.fuel}
                     </span>
                     {vehicle.driveType && (
                       <>
                         <span aria-hidden="true" className="text-neutral-600">·</span>
                         <span className="flex items-center gap-1">
-                          <Compass className="w-3.5 h-3.5 text-amber-400" />
+                          <Compass className="w-3.5 h-3.5 text-blue-400" />
                           {vehicle.driveType}
                         </span>
                       </>
@@ -300,7 +300,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <button
                       onClick={() => onNavigate(`/cars/${vehicle.slug}`)}
-                      className="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-amber-500/20 flex items-center gap-2 cursor-pointer"
+                      className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-sm transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer"
                     >
                       <span>View Vehicle</span>
                       <ArrowRight className="w-4 h-4" />
@@ -365,7 +365,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
                   aria-label={`Go to slide ${idx + 1}: ${vehicle.title}`}
                   className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                     active
-                      ? 'w-8 sm:w-10 bg-amber-400 shadow-sm shadow-amber-400/50'
+                      ? 'w-8 sm:w-10 bg-blue-600 shadow-sm shadow-blue-600/50'
                       : 'w-2 sm:w-3 bg-neutral-600/70 hover:bg-neutral-400'
                   }`}
                 />
@@ -386,7 +386,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ vehicles, settings, onNa
               aria-label={isPaused ? 'Resume Slideshow' : 'Pause Slideshow'}
               className="text-neutral-400 hover:text-white transition-colors cursor-pointer"
             >
-              {isPaused ? <Play className="w-3.5 h-3.5 text-amber-400" /> : <Pause className="w-3.5 h-3.5" />}
+              {isPaused ? <Play className="w-3.5 h-3.5 text-blue-400" /> : <Pause className="w-3.5 h-3.5" />}
             </button>
           </div>
         </div>

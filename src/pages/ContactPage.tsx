@@ -70,9 +70,9 @@ export const ContactPage: React.FC = () => {
           <h2 className="text-base font-bold text-white tracking-tight">Direct Showroom Channels</h2>
 
           {/* CEO Direct VIP Channel */}
-          <div className="p-4 bg-amber-950/20 border border-amber-800/50 rounded-xl space-y-3">
+          <div className="p-4 bg-[#0e1422] border border-slate-800 rounded-xl space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl overflow-hidden border border-amber-700/60 shrink-0 bg-neutral-950">
+              <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-700 shrink-0 bg-neutral-950">
                 <img
                   src={settings?.ceoImage || '/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg'}
                   alt="Paul Smith - CEO"
@@ -82,7 +82,7 @@ export const ContactPage: React.FC = () => {
               </div>
               <div>
                 <span className="text-xs font-bold text-white block">Paul Smith</span>
-                <span className="text-[11px] text-amber-400 block font-medium">Founder & CEO</span>
+                <span className="text-[11px] text-blue-400 block font-medium">Founder & CEO</span>
                 <span className="text-xs text-neutral-300 font-mono">{ceoPhone}</span>
               </div>
             </div>
@@ -99,7 +99,7 @@ export const ContactPage: React.FC = () => {
               </a>
               <a
                 href={`tel:${ceoPhone}`}
-                className="py-2 px-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors"
+                className="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold border border-slate-700 rounded-lg flex items-center justify-center gap-1.5 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
                 <span>Call Direct</span>
@@ -147,7 +147,7 @@ export const ContactPage: React.FC = () => {
                 href={`tel:${settings.phone}`}
                 className="flex items-center gap-3 p-3 bg-neutral-950 hover:bg-neutral-800/80 rounded-xl border border-neutral-800 text-neutral-300 hover:text-white transition-colors"
               >
-                <div className="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center text-amber-400 shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-400 shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
@@ -209,7 +209,7 @@ export const ContactPage: React.FC = () => {
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="text-xs text-amber-400 hover:text-amber-300 font-semibold cursor-pointer pt-2"
+                className="text-xs text-blue-400 hover:text-blue-300 font-semibold cursor-pointer pt-2"
               >
                 Send another message
               </button>
@@ -232,7 +232,7 @@ export const ContactPage: React.FC = () => {
                   placeholder="e.g. David Eze"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -244,7 +244,7 @@ export const ContactPage: React.FC = () => {
                   placeholder="e.g. +234 800 000 0000"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3.5 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -256,14 +256,14 @@ export const ContactPage: React.FC = () => {
                   placeholder="How can we assist you today? Inquire about an available car, import advice, or inspection..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-blue-500 resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-amber-500/10"
+                className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-blue-600/20"
               >
                 {loading ? (
                   <span>Sending...</span>

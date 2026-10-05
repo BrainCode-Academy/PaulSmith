@@ -117,7 +117,7 @@ export const ShowroomHeroSlider: React.FC<ShowroomHeroSliderProps> = ({ customIm
       })}
 
       {/* Measured Dark Scrim & Gradients to guarantee high contrast & readability for hero text */}
-      <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/75 to-neutral-950/50 z-2 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/80 to-[#0b0f19]/55 z-2 pointer-events-none" />
 
       {/* Subtle Navigation Controls */}
       {slides.length > 1 && (
@@ -125,7 +125,7 @@ export const ShowroomHeroSlider: React.FC<ShowroomHeroSliderProps> = ({ customIm
           <button
             onClick={goToPrev}
             aria-label="Previous showroom slide"
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-neutral-950/40 hover:bg-neutral-900/80 text-white/70 hover:text-white border border-white/10 backdrop-blur-sm transition cursor-pointer"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-slate-950/50 hover:bg-slate-900 text-white/70 hover:text-white border border-white/10 backdrop-blur-sm transition cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
@@ -133,7 +133,7 @@ export const ShowroomHeroSlider: React.FC<ShowroomHeroSliderProps> = ({ customIm
           <button
             onClick={goToNext}
             aria-label="Next showroom slide"
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-neutral-950/40 hover:bg-neutral-900/80 text-white/70 hover:text-white border border-white/10 backdrop-blur-sm transition cursor-pointer"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-slate-950/50 hover:bg-slate-900 text-white/70 hover:text-white border border-white/10 backdrop-blur-sm transition cursor-pointer"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
@@ -147,8 +147,8 @@ export const ShowroomHeroSlider: React.FC<ShowroomHeroSliderProps> = ({ customIm
                 aria-label={`Go to showroom slide ${idx + 1}`}
                 className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
                   idx === currentIndex
-                    ? 'w-6 bg-amber-400'
-                    : 'w-2 bg-neutral-600/70 hover:bg-neutral-400'
+                    ? 'w-6 bg-blue-500'
+                    : 'w-2 bg-slate-600/70 hover:bg-slate-400'
                 }`}
               />
             ))}

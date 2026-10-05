@@ -73,7 +73,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
         {/* Header */}
         <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-400" />
+            <Sparkles className="w-5 h-5 text-blue-400" />
             <h3 className="font-semibold text-base text-white">Generate Social & WhatsApp Posts</h3>
           </div>
           <button
@@ -95,7 +95,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
           <div>
             <h4 className="text-sm font-semibold text-white">{vehicle.title}</h4>
             <div className="flex items-center gap-2 text-xs text-neutral-400">
-              <span className="text-amber-400 font-mono font-medium">
+              <span className="text-blue-400 font-mono font-medium">
                 {formatPrice(vehicle.price, vehicle.currency, currentSettings.currencySymbol)}
               </span>
               <span>·</span>
@@ -112,7 +112,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
             onClick={() => setActiveTab('whatsapp_status')}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
               activeTab === 'whatsapp_status'
-                ? 'bg-neutral-800 text-amber-400 font-semibold shadow-sm'
+                ? 'bg-neutral-800 text-blue-400 font-semibold shadow-sm'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -122,7 +122,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
             onClick={() => setActiveTab('whatsapp_group')}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
               activeTab === 'whatsapp_group'
-                ? 'bg-neutral-800 text-amber-400 font-semibold shadow-sm'
+                ? 'bg-neutral-800 text-blue-400 font-semibold shadow-sm'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -132,7 +132,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
             onClick={() => setActiveTab('facebook')}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
               activeTab === 'facebook'
-                ? 'bg-neutral-800 text-amber-400 font-semibold shadow-sm'
+                ? 'bg-neutral-800 text-blue-400 font-semibold shadow-sm'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -142,7 +142,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
             onClick={() => setActiveTab('instagram')}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
               activeTab === 'instagram'
-                ? 'bg-neutral-800 text-amber-400 font-semibold shadow-sm'
+                ? 'bg-neutral-800 text-blue-400 font-semibold shadow-sm'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -152,7 +152,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
             onClick={() => setActiveTab('card')}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
               activeTab === 'card'
-                ? 'bg-neutral-800 text-amber-400 font-semibold shadow-sm'
+                ? 'bg-neutral-800 text-blue-400 font-semibold shadow-sm'
                 : 'text-neutral-400 hover:text-white'
             }`}
           >
@@ -177,7 +177,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
                 )}
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-amber-400 hover:text-amber-300 transition-colors font-semibold cursor-pointer"
+                  className="flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors font-semibold cursor-pointer"
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied to Clipboard!' : 'Copy Post Text'}</span>
@@ -200,7 +200,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
                 <span className="text-sm font-bold text-white tracking-tight">
                   {currentSettings.businessName}
                 </span>
-                <span className="text-xs text-amber-400 font-medium">Showroom Ready</span>
+                <span className="text-xs text-blue-400 font-medium">Showroom Ready</span>
               </div>
 
               <div className="aspect-[16/9] w-full rounded-xl overflow-hidden bg-neutral-950 relative">
@@ -217,7 +217,7 @@ export const SocialPostModal: React.FC<SocialPostModalProps> = ({ vehicle, onClo
 
               <div className="space-y-1">
                 <h4 className="text-base font-bold text-white">{vehicle.title}</h4>
-                <div className="text-lg font-bold text-amber-400 font-mono">
+                <div className="text-lg font-bold text-blue-400 font-mono">
                   {formatPrice(vehicle.price, vehicle.currency, currentSettings.currencySymbol)}
                 </div>
               </div>

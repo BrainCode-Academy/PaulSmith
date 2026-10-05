@@ -114,26 +114,26 @@ export const CarsPage: React.FC<CarsPageProps> = ({ initialFilters, onNavigate }
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="bg-neutral-900 border border-neutral-800 rounded-xl h-80 animate-pulse" />
+            <div key={i} className="bg-[#0e1422] border border-slate-800 rounded-xl h-80 animate-pulse" />
           ))}
         </div>
       ) : vehicles.length === 0 ? (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12 text-center space-y-4 max-w-xl mx-auto">
-          <Car className="w-12 h-12 text-neutral-600 mx-auto" />
+        <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-12 text-center space-y-4 max-w-xl mx-auto">
+          <Car className="w-12 h-12 text-slate-600 mx-auto" />
           <h3 className="text-lg font-semibold text-white">No vehicles match your criteria</h3>
-          <p className="text-xs text-neutral-400 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             We source vehicles regularly. If you cannot find the exact car you need, submit an import or car finder request.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <button
               onClick={handleResetFilters}
-              className="w-full sm:w-auto px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-xs font-medium transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium transition-colors cursor-pointer border border-slate-700"
             >
               Reset Filters
             </button>
             <button
               onClick={() => onNavigate('/import-a-car')}
-              className="w-full sm:w-auto px-4 py-2.5 bg-amber-400 hover:bg-amber-300 text-neutral-950 rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+              className="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
             >
               <Ship className="w-3.5 h-3.5" />
               <span>Import a Car</span>

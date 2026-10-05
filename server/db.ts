@@ -202,7 +202,8 @@ export interface DatabaseSchema {
   };
 }
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
+const IS_VERCEL = Boolean(process.env.VERCEL);
+const DATA_DIR = IS_VERCEL ? path.join('/tmp', 'data') : path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'database.json');
 
 function hashPassword(password: string, salt: string): string {
@@ -492,7 +493,23 @@ class Database {
 
   constructor() {
     if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+      try {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      } catch (err) {
+        console.error('Failed creating DATA_DIR:', err);
+      }
+    }
+
+    // On Vercel, copy pre-seeded database.json from repository to /tmp/data if not yet copied
+    if (IS_VERCEL && !fs.existsSync(DB_FILE)) {
+      const seedFile = path.resolve(process.cwd(), 'data', 'database.json');
+      if (fs.existsSync(seedFile)) {
+        try {
+          fs.copyFileSync(seedFile, DB_FILE);
+        } catch (copyErr) {
+          console.error('Failed copying seed database to /tmp:', copyErr);
+        }
+      }
     }
 
     if (fs.existsSync(DB_FILE)) {
@@ -542,9 +559,13 @@ class Database {
   }
 
   private persist() {
-    const tmp = `${DB_FILE}.tmp.${Date.now()}`;
-    fs.writeFileSync(tmp, JSON.stringify(this.data, null, 2), 'utf-8');
-    fs.renameSync(tmp, DB_FILE);
+    try {
+      const tmp = `${DB_FILE}.tmp.${Date.now()}`;
+      fs.writeFileSync(tmp, JSON.stringify(this.data, null, 2), 'utf-8');
+      fs.renameSync(tmp, DB_FILE);
+    } catch (err) {
+      console.error('Failed persisting database file:', err);
+    }
   }
 
   // --- Settings ---

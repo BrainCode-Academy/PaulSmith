@@ -3,7 +3,6 @@ import {
   Search,
   ChevronRight,
   Globe,
-  SlidersHorizontal,
   Ship,
   Sparkles,
   Info,
@@ -99,12 +98,14 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
     }).sort((a, b) => a.name.localeCompare(b.name));
   }, [hierarchy, searchTerm, selectedLetter, selectedRegion, filterInStockOnly]);
 
-  // Group by alphabetical initial
+  // Group by alphabetical letter
   const groupedByLetter = useMemo(() => {
     const map: Record<string, BrandHierarchyResult[]> = {};
     filteredBrands.forEach((brand) => {
       const letter = brand.name.charAt(0).toUpperCase();
-      if (!map[letter]) map[letter] = [];
+      if (!map[letter]) {
+        map[letter] = [];
+      }
       map[letter].push(brand);
     });
     return map;
@@ -117,8 +118,8 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* 1. Page Header */}
       <div className="space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-800/80 text-amber-400 text-xs font-semibold">
-          <Globe className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-800/60 text-blue-300 text-xs font-semibold">
+          <Globe className="w-3.5 h-3.5 text-blue-400" />
           <span>Global Automobile Manufacturers Catalog</span>
         </div>
 
@@ -127,23 +128,23 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
               All Car Brands
             </h1>
-            <p className="text-sm text-neutral-400 mt-2 max-w-2xl leading-relaxed">
+            <p className="text-sm text-slate-400 mt-2 max-w-2xl leading-relaxed">
               Explore our comprehensive database of automobile manufacturers. View models currently in our
               showroom inventory, or request direct foreign import sourcing for any brand worldwide.
             </p>
           </div>
 
-          <div className="flex items-center gap-4 bg-neutral-900 border border-neutral-800 px-5 py-3 rounded-2xl shrink-0">
+          <div className="flex items-center gap-4 bg-[#0e1422] border border-slate-800 px-5 py-3 rounded-xl shrink-0">
             <div>
-              <span className="block text-xl font-bold text-amber-400">{hierarchy.length}</span>
-              <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-semibold">
+              <span className="block text-xl font-bold text-white font-mono">{hierarchy.length}</span>
+              <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
                 Supported Brands
               </span>
             </div>
-            <div className="h-8 w-px bg-neutral-800" />
+            <div className="h-8 w-px bg-slate-800" />
             <div>
-              <span className="block text-xl font-bold text-white">{brandsWithStockCount}</span>
-              <span className="text-[11px] text-neutral-400 uppercase tracking-wider font-semibold">
+              <span className="block text-xl font-bold text-blue-400 font-mono">{brandsWithStockCount}</span>
+              <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
                 With In-Stock Cars
               </span>
             </div>
@@ -152,22 +153,22 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
       </div>
 
       {/* 2. Search & Controls Bar */}
-      <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 space-y-5 shadow-xl">
+      <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-5 space-y-5 shadow-xl">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           {/* Search Input */}
           <div className="relative flex-1 w-full">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               placeholder="Search manufacturers, countries (e.g. Toyota, Germany, BYD)..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400 transition-colors"
+              className="w-full bg-[#090d16] border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
             />
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white text-xs"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer"
               >
                 Clear
               </button>
@@ -176,11 +177,11 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
 
           {/* Region / Country Filter */}
           <div className="w-full sm:w-auto flex items-center gap-2">
-            <Globe className="w-3.5 h-3.5 text-neutral-400 hidden sm:block" />
+            <Globe className="w-3.5 h-3.5 text-slate-400 hidden sm:block" />
             <select
               value={selectedRegion}
               onChange={(e) => setSelectedRegion(e.target.value)}
-              className="w-full sm:w-48 bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+              className="w-full sm:w-48 bg-[#090d16] border border-slate-800 rounded-lg px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
             >
               <option value="ALL">All Countries / Markets</option>
               {regions.map((reg) => (
@@ -195,10 +196,10 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
           <button
             type="button"
             onClick={() => setFilterInStockOnly(!filterInStockOnly)}
-            className={`w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer border ${
+            className={`w-full sm:w-auto px-4 py-2.5 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer border ${
               filterInStockOnly
-                ? 'bg-amber-400 text-neutral-950 border-amber-400 font-bold'
-                : 'bg-neutral-950 text-neutral-300 border-neutral-800 hover:border-neutral-700'
+                ? 'bg-blue-600 text-white border-blue-500 font-semibold shadow-sm'
+                : 'bg-[#090d16] text-slate-300 border-slate-800 hover:border-slate-700'
             }`}
           >
             <Car className="w-3.5 h-3.5" />
@@ -207,16 +208,16 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
         </div>
 
         {/* Alphabet Index Filter */}
-        <div className="pt-2 border-t border-neutral-800/80 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          <span className="text-xs text-neutral-500 font-semibold mr-1 shrink-0 uppercase tracking-wider text-[11px]">
+        <div className="pt-2 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          <span className="text-xs text-slate-400 font-semibold mr-1 shrink-0 uppercase tracking-wider text-[11px]">
             Index:
           </span>
           <button
             onClick={() => setSelectedLetter('ALL')}
-            className={`px-3 py-1 rounded-lg text-xs font-bold shrink-0 transition-colors cursor-pointer ${
+            className={`px-3 py-1 rounded-lg text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
               selectedLetter === 'ALL'
-                ? 'bg-amber-400 text-neutral-950'
-                : 'bg-neutral-950 text-neutral-400 hover:text-white border border-neutral-800'
+                ? 'bg-blue-600 text-white'
+                : 'bg-[#090d16] text-slate-400 hover:text-white border border-slate-800'
             }`}
           >
             All (A-Z)
@@ -225,10 +226,10 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
             <button
               key={letter}
               onClick={() => setSelectedLetter(letter)}
-              className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold shrink-0 transition-colors cursor-pointer ${
+              className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                 selectedLetter === letter
-                  ? 'bg-amber-400 text-neutral-950'
-                  : 'bg-neutral-950 text-neutral-400 hover:text-white hover:border-neutral-700 border border-neutral-800/80'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-[#090d16] text-slate-400 hover:text-white hover:border-slate-700 border border-slate-800'
               }`}
             >
               {letter}
@@ -241,14 +242,14 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {[...Array(12)].map((_, i) => (
-            <div key={i} className="bg-neutral-900 border border-neutral-800 rounded-2xl h-44 animate-pulse" />
+            <div key={i} className="bg-[#0e1422] border border-slate-800 rounded-xl h-44 animate-pulse" />
           ))}
         </div>
       ) : filteredBrands.length === 0 ? (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-12 text-center space-y-4 max-w-xl mx-auto shadow-xl">
-          <Globe className="w-12 h-12 text-neutral-600 mx-auto" />
+        <div className="bg-[#0e1422] border border-slate-800 rounded-xl p-12 text-center space-y-4 max-w-xl mx-auto shadow-xl">
+          <Globe className="w-12 h-12 text-slate-600 mx-auto" />
           <h3 className="text-lg font-bold text-white">No manufacturers match your filter</h3>
-          <p className="text-xs text-neutral-400">
+          <p className="text-xs text-slate-400">
             Try adjusting your search query, selecting another country, or resetting the alphabetical index.
           </p>
           <button
@@ -258,7 +259,7 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
               setSelectedRegion('ALL');
               setFilterInStockOnly(false);
             }}
-            className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xs font-medium cursor-pointer"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium cursor-pointer border border-slate-700"
           >
             Reset Catalog Filters
           </button>
@@ -270,11 +271,11 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
             .map((letter) => (
               <div key={letter} className="space-y-4">
                 {/* Alphabet Section Header */}
-                <div className="flex items-center gap-3 border-b border-neutral-800/80 pb-2">
-                  <span className="w-8 h-8 rounded-lg bg-amber-400/10 border border-amber-400/30 text-amber-400 font-bold flex items-center justify-center text-sm">
+                <div className="flex items-center gap-3 border-b border-slate-800 pb-2">
+                  <span className="w-8 h-8 rounded-lg bg-blue-950/60 border border-blue-800/60 text-blue-300 font-bold flex items-center justify-center text-sm">
                     {letter}
                   </span>
-                  <span className="text-xs text-neutral-400">
+                  <span className="text-xs text-slate-400">
                     {groupedByLetter[letter].length} manufacturer
                     {groupedByLetter[letter].length === 1 ? '' : 's'}
                   </span>
@@ -287,21 +288,21 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                     return (
                       <div
                         key={brand.id}
-                        className="bg-neutral-900/90 hover:bg-neutral-900 border border-neutral-800 hover:border-neutral-700 rounded-2xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md group"
+                        className="bg-[#0e1422] hover:bg-[#121a2c] border border-slate-800 hover:border-slate-700 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 shadow-md group"
                       >
                         <div className="space-y-3">
                           {/* Top Badges */}
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-[11px] font-semibold text-neutral-400 bg-neutral-950 px-2 py-0.5 rounded-md border border-neutral-800">
+                            <span className="text-[11px] font-medium text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
                               {brand.country || 'Global'}
                             </span>
                             {hasInventory ? (
-                              <span className="text-[11px] font-bold text-amber-400 bg-amber-950/60 border border-amber-800/80 px-2 py-0.5 rounded-md flex items-center gap-1">
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                              <span className="text-[11px] font-semibold text-emerald-300 bg-emerald-950/60 border border-emerald-800/80 px-2 py-0.5 rounded flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                                 {brand.vehicleCount} in stock
                               </span>
                             ) : (
-                              <span className="text-[10px] text-neutral-500 bg-neutral-950/60 px-2 py-0.5 rounded-md border border-neutral-800/60">
+                              <span className="text-[10px] text-slate-500 bg-slate-950/60 px-2 py-0.5 rounded border border-slate-800/60">
                                 Direct Import
                               </span>
                             )}
@@ -309,14 +310,14 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
 
                           {/* Brand Name & Monogram */}
                           <div className="flex items-start gap-3">
-                            <div className="w-11 h-11 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-amber-400 font-bold text-base shrink-0 group-hover:border-amber-400/40 transition-colors">
+                            <div className="w-11 h-11 rounded-lg bg-[#090d16] border border-slate-800 flex items-center justify-center text-blue-400 font-bold text-base shrink-0 group-hover:border-blue-500/40 transition-colors">
                               {brand.name.slice(0, 2).toUpperCase()}
                             </div>
                             <div>
-                              <h3 className="text-base font-bold text-white group-hover:text-amber-400 transition-colors">
+                              <h3 className="text-base font-bold text-white group-hover:text-blue-400 transition-colors">
                                 {brand.name}
                               </h3>
-                              <p className="text-[11px] text-neutral-400">
+                              <p className="text-[11px] text-slate-400">
                                 {brand.models.length} supported model{brand.models.length === 1 ? '' : 's'}
                               </p>
                             </div>
@@ -325,12 +326,12 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                           {/* Inventory / Availability Notice */}
                           <div className="pt-1">
                             {hasInventory ? (
-                              <div className="text-xs text-neutral-300 flex items-center gap-1.5">
+                              <div className="text-xs text-slate-300 flex items-center gap-1.5">
                                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                                 <span>{brand.vehicleCount} vehicle{brand.vehicleCount === 1 ? '' : 's'} available in showroom</span>
                               </div>
                             ) : (
-                              <div className="text-[11px] text-neutral-500 italic">
+                              <div className="text-[11px] text-slate-500 italic">
                                 No vehicles currently listed in showroom.
                               </div>
                             )}
@@ -338,11 +339,11 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                         </div>
 
                         {/* Card Action Buttons */}
-                        <div className="pt-4 border-t border-neutral-800/80 mt-4 flex items-center gap-2">
+                        <div className="pt-4 border-t border-slate-800/80 mt-4 flex items-center gap-2">
                           {hasInventory ? (
                             <button
                               onClick={() => onNavigate('/cars', { make: brand.name })}
-                              className="flex-1 py-2 px-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 rounded-xl text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
+                              className="flex-1 py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
                             >
                               <span>View Vehicles</span>
                               <ChevronRight className="w-3.5 h-3.5" />
@@ -350,9 +351,9 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                           ) : (
                             <button
                               onClick={() => onNavigate('/import-a-car', { preferredBrand: brand.name })}
-                              className="flex-1 py-2 px-3 bg-neutral-950 hover:bg-neutral-800 text-neutral-300 rounded-xl text-xs font-medium border border-neutral-800 transition-colors cursor-pointer flex items-center justify-center gap-1"
+                              className="flex-1 py-2 px-3 bg-[#090d16] hover:bg-slate-800 text-slate-300 rounded-lg text-xs font-medium border border-slate-800 transition-colors cursor-pointer flex items-center justify-center gap-1"
                             >
-                              <Ship className="w-3 h-3 text-amber-400" />
+                              <Ship className="w-3 h-3 text-blue-400" />
                               <span>Request Import</span>
                             </button>
                           )}
@@ -360,7 +361,7 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                           <button
                             onClick={() => setSelectedBrandModal(brand)}
                             title="View supported models & years"
-                            className="p-2 text-neutral-400 hover:text-white bg-neutral-950 hover:bg-neutral-800 border border-neutral-800 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-slate-400 hover:text-white bg-[#090d16] hover:bg-slate-800 border border-slate-800 rounded-lg transition-colors cursor-pointer"
                           >
                             <Info className="w-4 h-4" />
                           </button>
@@ -375,16 +376,16 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
       )}
 
       {/* 4. Direct Import Sourcing Banner */}
-      <div className="bg-gradient-to-r from-neutral-900 via-neutral-900 to-amber-950/40 border border-neutral-800 rounded-2xl p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl">
+      <div className="bg-gradient-to-r from-[#0d131f] via-[#101726] to-[#0d131f] border border-slate-800 rounded-xl p-8 sm:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 bg-amber-950/60 border border-amber-800/80 px-3 py-1 rounded-full">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-300 bg-blue-950/60 border border-blue-800/60 px-3 py-1 rounded-full">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
             <span>Custom Sourcing For Any Brand Worldwide</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
             Can’t Find Your Preferred Automobile Brand in Stock?
           </h2>
-          <p className="text-xs text-neutral-400 leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             {businessName} sources luxury, executive, commercial, and electric vehicles directly from verified auctions and dealership networks across North America, Europe, Asia, and the Middle East.
           </p>
         </div>
@@ -392,7 +393,7 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
           <button
             onClick={() => onNavigate('/import-a-car')}
-            className="w-full sm:w-auto px-6 py-3 bg-amber-400 hover:bg-amber-300 text-neutral-950 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-lg"
+            className="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm"
           >
             <Ship className="w-4 h-4" />
             <span>Order Custom Import</span>
@@ -401,7 +402,7 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
             href={buildWhatsAppLink(whatsappNumber, `Hello ${businessName}, I would like to inquire about importing a specific automobile brand.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-5 py-3 bg-neutral-950 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 rounded-xl text-xs font-semibold transition-colors flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-5 py-3 bg-[#090d16] hover:bg-slate-800 text-slate-200 border border-slate-800 rounded-lg text-xs font-medium transition-colors flex items-center justify-center gap-2"
           >
             <MessageSquare className="w-4 h-4 text-emerald-400" />
             <span>WhatsApp Sourcing Desk</span>
@@ -412,27 +413,27 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
       {/* 5. Brand Models Detail Modal */}
       {selectedBrandModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
+          <div className="relative w-full max-w-2xl bg-[#0e1422] border border-slate-800 rounded-xl p-6 shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-amber-400 font-bold text-base">
+                <div className="w-10 h-10 rounded-lg bg-[#090d16] border border-slate-800 flex items-center justify-center text-blue-400 font-bold text-base">
                   {selectedBrandModal.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <h2 className="text-base font-bold text-white flex items-center gap-2">
                     <span>{selectedBrandModal.name}</span>
-                    <span className="text-xs font-normal text-neutral-400 bg-neutral-950 px-2 py-0.5 rounded border border-neutral-800">
+                    <span className="text-xs font-normal text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
                       {selectedBrandModal.country || 'Global'}
                     </span>
                   </h2>
-                  <p className="text-xs text-neutral-400">
+                  <p className="text-xs text-slate-400">
                     {selectedBrandModal.vehicleCount} vehicle{selectedBrandModal.vehicleCount === 1 ? '' : 's'} in showroom inventory
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedBrandModal(null)}
-                className="p-1.5 text-neutral-400 hover:text-white cursor-pointer"
+                className="p-1.5 text-slate-400 hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -440,7 +441,7 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
 
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-semibold text-neutral-300 uppercase tracking-wider">
+                <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                   Catalog Models & Supported Years ({selectedBrandModal.models.length})
                 </h3>
                 {selectedBrandModal.vehicleCount > 0 ? (
@@ -450,18 +451,18 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                       setSelectedBrandModal(null);
                       onNavigate('/cars', { make: brandName });
                     }}
-                    className="text-xs text-amber-400 hover:text-amber-300 font-medium cursor-pointer flex items-center gap-1"
+                    className="text-xs text-blue-400 hover:text-blue-300 font-medium cursor-pointer flex items-center gap-1"
                   >
                     <span>View Showroom Cars ({selectedBrandModal.vehicleCount})</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 ) : (
-                  <span className="text-[11px] text-neutral-500 italic">No inventory currently in showroom</span>
+                  <span className="text-[11px] text-slate-500 italic">No inventory currently in showroom</span>
                 )}
               </div>
 
               {selectedBrandModal.models.length === 0 ? (
-                <p className="text-xs text-neutral-500 italic py-4">
+                <p className="text-xs text-slate-500 italic py-4">
                   No specific models registered under this brand yet. Contact our sourcing desk for any model request.
                 </p>
               ) : (
@@ -469,17 +470,17 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                   {selectedBrandModal.models.map((model) => (
                     <div
                       key={model.id}
-                      className="p-3 bg-neutral-950 border border-neutral-800/80 rounded-xl space-y-1.5"
+                      className="p-3 bg-[#090d16] border border-slate-800/80 rounded-lg space-y-1.5"
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-white">{model.name}</span>
                         {model.category && (
-                          <span className="text-[10px] text-amber-400 bg-amber-950/60 border border-amber-900/60 px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] text-blue-300 bg-blue-950/60 border border-blue-900/60 px-1.5 py-0.5 rounded">
                             {model.category}
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] text-neutral-400 font-mono">
+                      <div className="text-[11px] text-slate-400 font-mono">
                         Supported: {model.years && model.years.length > 0 ? model.years.join(', ') : 'Any'}
                       </div>
                     </div>
@@ -488,11 +489,11 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
               )}
             </div>
 
-            <div className="pt-4 border-t border-neutral-800 flex items-center justify-end gap-3">
+            <div className="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setSelectedBrandModal(null)}
-                className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xs font-medium cursor-pointer"
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium cursor-pointer border border-slate-700"
               >
                 Close
               </button>
@@ -503,7 +504,7 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ onNavigate, settings }) 
                   setSelectedBrandModal(null);
                   onNavigate('/import-a-car', { preferredBrand: bName });
                 }}
-                className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold rounded-xl text-xs cursor-pointer flex items-center gap-1.5"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs cursor-pointer flex items-center gap-1.5 shadow-sm"
               >
                 <Ship className="w-3.5 h-3.5" />
                 <span>Import a {selectedBrandModal.name}</span>
