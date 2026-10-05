@@ -17,6 +17,7 @@ import {
   Check,
   Facebook,
   Copy,
+  ReceiptText,
 } from 'lucide-react';
 import { Vehicle } from '../types';
 import { useDealer } from '../context/DealerContext';
@@ -30,6 +31,7 @@ import {
 import { VehicleCard } from '../components/VehicleCard';
 import { ShareVehicleModal } from '../components/ShareVehicleModal';
 import { LeadInquiryModal } from '../components/LeadInquiryModal';
+import { QuickQuoteModal } from '../components/QuickQuoteModal';
 
 interface VehicleDetailPageProps {
   slug: string;
@@ -48,6 +50,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
   // Modals state
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [inquiryModalMode, setInquiryModalMode] = useState<'inquiry' | 'inspection' | 'offer' | null>(null);
+  const [isQuickQuoteOpen, setIsQuickQuoteOpen] = useState(false);
 
   useEffect(() => {
     async function fetchVehicle() {
@@ -437,17 +440,28 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
 
             {/* Primary Action Buttons */}
             <div className="space-y-3">
-              {/* Chat on WhatsApp CTA */}
-              <a
-                href={whatsappInquiryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => handleWhatsAppAction('inquiry')}
-                className="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-sm transition-all shadow-md shadow-emerald-950/40 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
-              >
-                <MessageSquare className="w-4 h-4 fill-current" />
-                <span>Chat on WhatsApp</span>
-              </a>
+              {/* Dual Primary CTA: Chat on WhatsApp & Quick Quote */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <a
+                  href={whatsappInquiryUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => handleWhatsAppAction('inquiry')}
+                  className="py-3.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs sm:text-sm transition-all shadow-md shadow-emerald-950/40 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider text-center"
+                >
+                  <MessageSquare className="w-4 h-4 fill-current shrink-0" />
+                  <span>Chat on WhatsApp</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => setIsQuickQuoteOpen(true)}
+                  className="py-3.5 px-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs sm:text-sm transition-all shadow-md shadow-blue-950/40 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider text-center"
+                >
+                  <ReceiptText className="w-4 h-4 shrink-0" />
+                  <span>Quick Quote</span>
+                </button>
+              </div>
 
               {/* Request Video Walk-Around */}
               <a
@@ -602,6 +616,14 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
           vehicle={vehicle}
           mode={inquiryModalMode}
           onClose={() => setInquiryModalMode(null)}
+        />
+      )}
+
+      {/* Quick Quote Pricing Modal */}
+      {isQuickQuoteOpen && (
+        <QuickQuoteModal
+          vehicle={vehicle}
+          onClose={() => setIsQuickQuoteOpen(false)}
         />
       )}
     </div>

@@ -189,12 +189,27 @@
       "featured": true,
       "published": true,
       "viewsCount": 187,
-      "inquiriesCount": 36,
+      "inquiriesCount": 37,
       "createdAt": "2026-03-10T15:00:00.000Z",
       "updatedAt": "2026-03-21T11:45:00.000Z"
     }
   ],
   "leads": [
+    {
+      "name": "Chinedu Obi",
+      "phone": "08012345678",
+      "whatsapp": "08012345678",
+      "vehicleId": "v-lexus-rx-2021",
+      "vehicleTitle": "2021 Lexus RX 350 AWD Luxury",
+      "source": "quick_quote",
+      "message": "[QUICK QUOTE REQUEST] Delivery to Abuja",
+      "budget": "₦49,500,000",
+      "status": "New",
+      "id": "lead-1791199933523",
+      "notes": [],
+      "createdAt": "2026-10-05T11:32:13.523Z",
+      "updatedAt": "2026-10-05T11:32:13.523Z"
+    },
     {
       "name": "Alhaji Danladi",
       "phone": "08023456789",
@@ -275,6 +290,14 @@
   ],
   "reviews": [],
   "auditLogs": [
+    {
+      "id": "log-1791199933524-mhnq",
+      "action": "LEAD_CREATED",
+      "targetType": "lead",
+      "targetId": "lead-1791199933523",
+      "details": "New lead received from Chinedu Obi",
+      "timestamp": "2026-10-05T11:32:13.524Z"
+    },
     {
       "id": "log-1790762834770-fn1u",
       "action": "SHOWROOM_SLIDE_DELETED",
@@ -357,6 +380,38 @@
     }
   ],
   "analyticsEvents": [
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1791197882192-zmvt",
+      "timestamp": "2026-10-05T10:58:02.192Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1791197882180-0fck",
+      "timestamp": "2026-10-05T10:58:02.180Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1791196779433-tb3k",
+      "timestamp": "2026-10-05T10:39:39.433Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1791196779428-frg1",
+      "timestamp": "2026-10-05T10:39:39.428Z"
+    },
     {
       "eventType": "page_view",
       "metadata": {
@@ -639,9 +694,10 @@
     }
   ],
   "admin": {
-    "username": "admin",
-    "passwordHash": "4daccce27cd7bd7e54b110545bc9db57c8885d5b85f81e5289cbc8b0029430b23b6161e1ad3b839155bc9ea6cbd0e14401fad658c81dc65c909a1f014eaddbc8",
-    "salt": "autoprime_salt_2026"
+    "username": "paulsmith",
+    "salt": "0a8e80fb272f27f3564372922bf03e7e",
+    "passwordHash": "91689bec23adef223df1e8af8707803ff6085b99820def01e3e6947a4017b007c74b5a4a76f741f95cd0fcf10a89f9ed9233a57a74643f71ad3f11b49ba3ee01",
+    "isInitialSetupRequired": false
   },
   "brandCatalog": [
     {

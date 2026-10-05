@@ -77,7 +77,7 @@ export interface Lead {
   whatsapp: string;
   vehicleId?: string;
   vehicleTitle?: string;
-  source: 'whatsapp_cta' | 'vehicle_detail' | 'general_contact' | 'direct_call' | 'import_funnel';
+  source: 'whatsapp_cta' | 'vehicle_detail' | 'general_contact' | 'direct_call' | 'import_funnel' | 'quick_quote' | 'inspection' | 'offer';
   message: string;
   budget?: string;
   status: 'New' | 'Contacted' | 'Negotiating' | 'Inspection' | 'Purchased' | 'Closed' | 'Not Interested';

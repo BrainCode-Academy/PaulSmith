@@ -647,4 +647,25 @@ export const api = {
     });
     if (!res.ok) throw new Error('Failed to delete model');
   },
+
+  // Gemini AI Concierge Chat
+  async sendChatMessage(message: string, history: Array<{ role: 'user' | 'model'; text: string }>, vehicleContext?: any): Promise<string> {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message,
+        history: history.map(h => ({
+          role: h.role,
+          parts: [{ text: h.text }]
+        })),
+        vehicleContext
+      }),
+    });
+    if (!res.ok) {
+      throw new Error('Failed to communicate with automotive concierge');
+    }
+    const data = await res.json();
+    return data.reply;
+  },
 };

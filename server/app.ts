@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import { GoogleGenAI } from '@google/genai';
 import { db, Vehicle, DealerSettings } from './db.js';
 
 dotenv.config();
@@ -667,6 +668,103 @@ app.get('/api/admin/analytics', requireAdmin, (_req, res) => {
     res.json(analytics);
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to fetch analytics' });
+  }
+});
+
+// ==========================================
+// 8. GEMINI AI VEHICLE CONCIERGE CHAT
+// ==========================================
+function getFallbackChatAnswer(message: string, vehicleContext?: any): string {
+  const m = message.toLowerCase();
+  if (m.includes('quote') || m.includes('price') || m.includes('cost') || m.includes('how much')) {
+    if (vehicleContext && vehicleContext.price) {
+      return `For the **${vehicleContext.year || ''} ${vehicleContext.make || ''} ${vehicleContext.model || ''}**, the listed showroom price is **₦${Number(vehicleContext.price).toLocaleString()}**.\n\nAll prices at Paul Smith Autos include physical mechanical inspection and genuine customs clearance papers. For an itemized quotation breakdown including interstate delivery or port logistics, click the **'Quick Quote'** button or tap **'Chat on WhatsApp'** to speak directly with our sales desk.`;
+    }
+    return `Paul Smith Autos provides verified showroom cars and direct import sourcing with 100% transparent pricing (FOB + shipping + genuine customs duty). To receive an itemized pricing breakdown for any car, simply tap the **'Quick Quote'** button on any vehicle page or reach CEO Paul Smith directly on WhatsApp at **08037781788**.`;
+  }
+  if (m.includes('import') || m.includes('china') || m.includes('ship') || m.includes('custom')) {
+    return `**Paul Smith Autos Direct Import Sourcing:**\n\n1. **Origin Hubs:** We source directly from China, the United States, Canada, and Germany.\n2. **Verification:** Every car undergoes a physical pre-purchase inspection with documented photos and videos.\n3. **Shipping & Clearing:** We handle container logistics, Bill of Lading, and seamless Nigerian port clearance.\n4. **Delivery:** Delivered safely to our showroom or directly to your doorstep.\n\nYou can submit your requirements on our **'Import a Car'** page or chat directly with CEO Paul Smith at **08037781788**!`;
+  }
+  if (m.includes('inspection') || m.includes('viewing') || m.includes('visit') || m.includes('mechanic')) {
+    return `We encourage thorough physical inspections! You are welcome to inspect any vehicle in person or bring your trusted technician or computer diagnostics scanner.\n\nTo schedule a physical viewing, click **'Schedule Physical Inspection'** on the vehicle page, or message CEO Paul Smith directly on WhatsApp at **08037781788**.`;
+  }
+  return `Welcome to **Paul Smith Autos**! I am your AI Vehicle Advisor. I can help you with:\n\n• Detailed specifications and condition of our showroom inventory\n• Quick Quote breakdowns and landed cost estimations\n• International vehicle sourcing from China, the US, Canada, or Germany\n• Scheduling an in-person physical inspection\n\nHow can I assist your automotive search today?`;
+}
+
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message, history = [], vehicleContext } = req.body;
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: 'Message text is required' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      const fallback = getFallbackChatAnswer(message, vehicleContext);
+      return res.json({ reply: fallback });
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
+    const settings = db.getSettings();
+    const liveVehicles = db.getVehicles({ publishedOnly: true })
+      .filter((v: Vehicle) => v.status === 'Available')
+      .slice(0, 15)
+      .map((v: Vehicle) => `• ${v.year} ${v.make} ${v.model} (${v.condition}) - ₦${v.price.toLocaleString()} | ${v.transmission}, ${v.fuel}, ${v.mileage.toLocaleString()} ${v.mileageUnit}`)
+      .join('\n');
+
+    let currentVehicleBlock = '';
+    if (vehicleContext && vehicleContext.title) {
+      currentVehicleBlock = `\n\nUSER IS CURRENTLY VIEWING THIS SPECIFIC VEHICLE:
+- Title: ${vehicleContext.title}
+- Listed Price: ₦${Number(vehicleContext.price || 0).toLocaleString()}
+- Specifications: ${vehicleContext.year || ''} ${vehicleContext.make || ''} ${vehicleContext.model || ''}, ${vehicleContext.condition || ''}, ${vehicleContext.transmission || ''}, ${vehicleContext.fuel || ''}
+- VIN: ${vehicleContext.vin || 'Documented'}
+- Engine: ${vehicleContext.engine || 'Direct Specs'}`;
+    }
+
+    const systemInstruction = `You are the Paul Smith Autos Concierge & Vehicle Advisor, representing Paul Smith Autos—a verified luxury automotive dealership and international vehicle import sourcing specialist founded and managed by CEO Paul Smith.
+
+DEALERSHIP CREDENTIALS & VALUES:
+- Dealership Name: ${settings?.businessName || 'Paul Smith Autos'}
+- Founder & CEO: Paul Smith (${settings?.ceoPhone || '08037781788'})
+- Official WhatsApp Sales Channel: ${settings?.whatsappNumber || '08037781788'}
+- Sourcing Hubs: China, United States, Canada, and Germany
+- Standards: 100% physically inspected, clean title, no hidden collision history, genuine customs papers with verified port duty clearance, transparent pricing.
+
+CURRENT IN-STOCK SHOWROOM VEHICLES:
+${liveVehicles || 'Showroom cars available on request.'}${currentVehicleBlock}
+
+ROLE INSTRUCTIONS:
+- You are a knowledgeable, elite automotive advisor.
+- When prospective buyers ask about pricing, quotes, or discounts, explain the transparent pricing model (includes vehicle inspection and genuine customs clearance) and specifically invite them to use the **'Quick Quote'** button on the vehicle page or click **'Chat on WhatsApp'** for an itemized invoice.
+- If asked about importing or sourcing from China/USA/Germany, explain the 4-step direct import sourcing process.
+- Keep responses informative, polite, structured with clean bullet points, and concise. Never fabricate nonexistent vehicles; for cars not in stock, suggest submitting an Import Sourcing request.`;
+
+    const contents = [
+      ...history.map((turn: { role: string; text?: string; parts?: [{ text: string }] }) => ({
+        role: turn.role === 'user' ? 'user' : 'model',
+        parts: turn.parts || [{ text: turn.text || '' }]
+      })),
+      {
+        role: 'user',
+        parts: [{ text: message }]
+      }
+    ];
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-3.5-flash',
+      contents,
+      config: {
+        systemInstruction,
+      }
+    });
+
+    const reply = response.text || getFallbackChatAnswer(message, vehicleContext);
+    res.json({ reply });
+  } catch (err: any) {
+    console.error('Gemini chat error:', err?.message || err);
+    const fallback = getFallbackChatAnswer(req.body.message || '', req.body.vehicleContext);
+    res.json({ reply: fallback });
   }
 });
 

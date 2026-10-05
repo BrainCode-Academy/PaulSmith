@@ -2104,9 +2104,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                         <div className="flex items-center gap-2">
                           <h3 className="text-sm font-bold text-white">{l.name}</h3>
                           <span className="text-xs text-neutral-400">· {l.phone}</span>
+                          {l.source === 'quick_quote' && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-950/80 text-blue-300 border border-blue-800/80">
+                              ⚡ Quick Quote (Price Lead)
+                            </span>
+                          )}
                         </div>
                         <span className="text-[11px] text-neutral-500">
-                          Received: {new Date(l.createdAt).toLocaleString()} · Source: {l.source}
+                          Received: {new Date(l.createdAt).toLocaleString()} · Source: {l.source === 'quick_quote' ? 'Quick Quote Calculator' : l.source}
                         </span>
                       </div>
 

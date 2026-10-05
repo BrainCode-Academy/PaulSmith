@@ -3,6 +3,7 @@ import { DealerProvider, useDealer } from './context/DealerContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { DealershipChatbot } from './components/DealershipChatbot';
 import { HomePage } from './pages/HomePage';
 import { CarsPage } from './pages/CarsPage';
 import { VehicleDetailPage } from './pages/VehicleDetailPage';
@@ -146,6 +147,7 @@ function AppRouter() {
 
       {!isAdminRoute && <Footer onNavigate={navigate} />}
       {!isAdminRoute && <FloatingWhatsApp />}
+      {!isAdminRoute && <DealershipChatbot />}
     </div>
   );
 }
