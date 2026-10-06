@@ -171,7 +171,7 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 sm:pb-8 space-y-10">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-xs text-slate-400">
         <button
@@ -626,6 +626,37 @@ export const VehicleDetailPage: React.FC<VehicleDetailPageProps> = ({ slug, onNa
           onClose={() => setIsQuickQuoteOpen(false)}
         />
       )}
+
+      {/* Mobile Sticky Quick Action Bar */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0e1422]/95 backdrop-blur-md border-t border-slate-800 p-2.5 px-3 flex items-center gap-2 shadow-2xl">
+        <a
+          href={`tel:${dealerPhone}`}
+          className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg flex items-center justify-center shrink-0 border border-slate-700/60"
+          aria-label="Call Dealership"
+        >
+          <Phone className="w-4 h-4 text-slate-300" />
+        </a>
+
+        <button
+          type="button"
+          onClick={() => setIsQuickQuoteOpen(true)}
+          className="flex-1 py-3 px-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-blue-950/40 uppercase tracking-wider"
+        >
+          <ReceiptText className="w-3.5 h-3.5 shrink-0" />
+          <span>Quick Quote</span>
+        </button>
+
+        <a
+          href={whatsappInquiryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => handleWhatsAppAction('mobile_sticky_inquiry')}
+          className="flex-1 py-3 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-emerald-950/40 uppercase tracking-wider"
+        >
+          <MessageSquare className="w-3.5 h-3.5 fill-current shrink-0" />
+          <span>WhatsApp</span>
+        </a>
+      </div>
     </div>
   );
 };

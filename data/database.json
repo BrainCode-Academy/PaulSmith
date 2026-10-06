@@ -1,137 +1,18 @@
 {
   "settings": {
-    "id": "default",
+    "updatedAt": "2026-10-06T10:40:00.965Z",
     "businessName": "Paul Smith Autos",
-    "tagline": "Certified Automobile Showroom & Direct Import Sourcing",
-    "whatsappNumber": "+2348037781788",
-    "whatsappGroupLink": "https://chat.whatsapp.com/invite/PaulSmithAutosVIP",
-    "phone": "08037781788",
-    "email": "paulsmithautos@gmail.com",
-    "address": "Plot 14, Auto Boulevard, Victoria Island / Lekki Expressway, Lagos, Nigeria",
-    "businessDescription": "Paul Smith Autos is a premier automotive dealership and direct vehicle import specialist. Founded by Paul Smith, we guarantee 100% verified sound engines, original customs documentation, and zero compromises on mechanical integrity. No fakes, no altered odometers, and direct personal service.",
-    "ceoName": "Paul Smith",
-    "ceoTitle": "Founder & CEO",
-    "ceoImage": "/WhatsApp Image 2026-09-29 at 8.55.15 AM.jpeg",
-    "ceoPhone": "08037781788",
-    "ceoQuote": "At Paul Smith Autos, we inspect every car down to the bolt. No accident-concealed vehicles, no tampered odometers. You deal directly with a team that values your safety and hard-earned capital.",
-    "importCountries": [
-      "China",
-      "United States",
-      "Canada",
-      "Germany",
-      "Japan"
-    ],
-    "currency": "NGN",
-    "currencySymbol": "₦",
-    "facebook": "",
-    "instagram": "",
-    "tiktok": "",
-    "businessHours": "Monday – Saturday: 8:30 AM – 6:30 PM",
-    "inspectionOffered": true,
-    "sourcingProcess": [
-      "Tell us your vehicle specification, preferred year and budget",
-      "Direct sourcing inspection and verified pricing breakdown",
-      "Port clearance and transparent logistics tracking",
-      "Final vehicle handover with full documentation"
-    ],
-    "updatedAt": "2026-09-28T09:48:00.000Z",
-    "showroomSlides": [
-      {
-        "id": "slide-1",
-        "url": "/images/hero_car_showroom_1790168724059.jpg",
-        "caption": "Paul Smith Autos certified dealership showroom",
-        "order": 0,
-        "enabled": true
-      },
-      {
-        "id": "slide-2",
-        "url": "/images/vehicle_luxury_lexus_1790168762494.jpg",
-        "caption": "Vehicles displayed inside Paul Smith Autos showroom",
-        "order": 1,
-        "enabled": true
-      },
-      {
-        "id": "slide-3",
-        "url": "/images/vehicle_suv_prado_1790168736955.jpg",
-        "caption": "Showroom vehicle selection and inspection floor",
-        "order": 2,
-        "enabled": true
-      },
-      {
-        "id": "slide-4",
-        "url": "/images/import_shipping_port_1790168781597.jpg",
-        "caption": "Direct international automotive sourcing and logistics",
-        "order": 3,
-        "enabled": true
-      }
-    ]
+    "id": "test_ping"
   },
   "vehicles": [
     {
-      "id": "v-prado-2023",
-      "slug": "2023-toyota-land-cruiser-prado-txl",
-      "title": "2023 Toyota Land Cruiser Prado TX-L",
-      "make": "Toyota",
-      "model": "Land Cruiser Prado",
-      "year": 2023,
-      "price": 78500000,
-      "currency": "NGN",
-      "mileage": 12500,
-      "mileageUnit": "km",
-      "transmission": "Automatic",
-      "fuel": "Diesel",
-      "bodyType": "SUV",
-      "condition": "Foreign Used",
-      "status": "Available",
-      "location": "Showroom Ready",
-      "vin": "JTEBX3FJ5P0019284",
-      "engine": "2.8L D-4D Turbocharged 4-Cylinder",
-      "driveType": "4WD",
-      "color": "Dark Metallic Grey",
-      "interiorColor": "Black Leather",
-      "description": "Exceptional 2023 Toyota Land Cruiser Prado TX-L. Features multi-terrain select, 360-degree surround cameras, triple-zone climate control, keyless smart entry, cooler box, and full LED adaptive illumination. Thoroughly inspected and showroom ready.",
-      "features": [
-        "Multi-Terrain Select & Crawl Control",
-        "360-Degree Surround View Cameras",
-        "Center Console Refrigerator (Cooler Box)",
-        "Push Button Start & Smart Keyless Entry",
-        "Touchscreen Infotainment with Apple CarPlay",
-        "Electric Leather Seats with Memory Setting"
-      ],
-      "images": [
-        "/images/vehicle_suv_prado_1790168736955.jpg",
-        "/images/hero_car_showroom_1790168724059.jpg"
-      ],
-      "featured": true,
-      "published": true,
-      "viewsCount": 142,
-      "inquiriesCount": 28,
-      "createdAt": "2026-03-01T10:00:00.000Z",
-      "updatedAt": "2026-03-20T14:30:00.000Z"
-    },
-    {
-      "id": "v-camry-2022",
-      "slug": "2022-toyota-camry-xse",
-      "title": "2022 Toyota Camry XSE Luxury Sedan",
-      "make": "Toyota",
+      "createdAt": "2026-03-05T12:00:00.000Z",
       "model": "Camry",
-      "year": 2022,
-      "price": 36000000,
-      "currency": "NGN",
-      "mileage": 28400,
-      "mileageUnit": "km",
-      "transmission": "Automatic",
-      "fuel": "Petrol",
-      "bodyType": "Sedan",
-      "condition": "Foreign Used",
-      "status": "Available",
       "location": "Showroom Ready",
-      "vin": "4T1B11HK5NU382910",
-      "engine": "2.5L Dynamic Force 4-Cylinder DOHC",
+      "mileageUnit": "km",
       "driveType": "FWD",
-      "color": "Pearl White Metallic",
       "interiorColor": "Cockpit Red & Black Leather",
-      "description": "Pristine 2022 Toyota Camry XSE with full sport appearance package. Dual chrome quad exhaust tips, panoramic glass sunroof, Qi wireless smartphone charging, JBL premium sound system, and Toyota Safety Sense suite.",
+      "transmission": "Automatic",
       "features": [
         "Panoramic Dual-Pane Sunroof",
         "Sport-Tuned Suspension & Dual Exhaust",
@@ -140,40 +21,38 @@
         "Blind Spot Monitor with Rear Cross Traffic Alert",
         "Dual-Zone Automatic Climate Control"
       ],
+      "mileage": 28400,
+      "engine": "2.5L Dynamic Force 4-Cylinder DOHC",
+      "price": 36000000,
+      "description": "Pristine 2022 Toyota Camry XSE with full sport appearance package. Dual chrome quad exhaust tips, panoramic glass sunroof, Qi wireless smartphone charging, JBL premium sound system, and Toyota Safety Sense suite.",
+      "color": "Pearl White Metallic",
+      "make": "Toyota",
+      "vin": "4T1B11HK5NU382910",
+      "year": 2022,
       "images": [
         "/images/vehicle_sedan_camry_1790168748387.jpg",
         "/images/hero_car_showroom_1790168724059.jpg"
       ],
-      "featured": true,
-      "published": true,
       "viewsCount": 219,
+      "slug": "2022-toyota-camry-xse",
+      "published": true,
+      "updatedAt": "2026-03-22T09:15:00.000Z",
+      "condition": "Foreign Used",
       "inquiriesCount": 45,
-      "createdAt": "2026-03-05T12:00:00.000Z",
-      "updatedAt": "2026-03-22T09:15:00.000Z"
+      "title": "2022 Toyota Camry XSE Luxury Sedan",
+      "id": "v-camry-2022",
+      "status": "Available",
+      "featured": true,
+      "currency": "NGN",
+      "bodyType": "Sedan",
+      "fuel": "Petrol"
     },
     {
-      "id": "v-lexus-rx-2021",
-      "slug": "2021-lexus-rx-350-awd",
-      "title": "2021 Lexus RX 350 AWD Luxury",
-      "make": "Lexus",
-      "model": "RX 350",
-      "year": 2021,
-      "price": 49500000,
-      "currency": "NGN",
-      "mileage": 34100,
-      "mileageUnit": "km",
-      "transmission": "Automatic",
-      "fuel": "Petrol",
-      "bodyType": "Crossover",
-      "condition": "Foreign Used",
-      "status": "Available",
-      "location": "Showroom Ready",
-      "vin": "2T2BZMCA4MC198273",
       "engine": "3.5L V6 24-Valve DOHC",
-      "driveType": "AWD",
-      "color": "Midnight Blue Mica",
-      "interiorColor": "Parchment Semi-Aniline Leather",
-      "description": "Luxurious 2021 Lexus RX 350 All-Wheel Drive. Smooth V6 power, whisper-quiet cabin insulation, wood-trimmed heated steering wheel, power hands-free tailgate, and comprehensive Lexus Safety System+ 2.0.",
+      "images": [
+        "/images/vehicle_luxury_lexus_1790168762494.jpg",
+        "/images/hero_car_showroom_1790168724059.jpg"
+      ],
       "features": [
         "Active Torque Control All-Wheel Drive",
         "12.3-inch Multimedia Navigation Display",
@@ -182,16 +61,75 @@
         "Pre-Collision System with Pedestrian Detection",
         "Panoramic Moonroof"
       ],
+      "title": "2021 Lexus RX 350 AWD Luxury",
+      "mileageUnit": "km",
+      "createdAt": "2026-03-10T15:00:00.000Z",
+      "color": "Midnight Blue Mica",
+      "status": "Available",
+      "currency": "NGN",
+      "bodyType": "Crossover",
+      "price": 49500000,
+      "vin": "2T2BZMCA4MC198273",
+      "featured": true,
+      "driveType": "AWD",
+      "viewsCount": 187,
+      "year": 2021,
+      "id": "v-lexus-rx-2021",
+      "make": "Lexus",
+      "inquiriesCount": 37,
+      "interiorColor": "Parchment Semi-Aniline Leather",
+      "mileage": 34100,
+      "slug": "2021-lexus-rx-350-awd",
+      "transmission": "Automatic",
+      "location": "Showroom Ready",
+      "description": "Luxurious 2021 Lexus RX 350 All-Wheel Drive. Smooth V6 power, whisper-quiet cabin insulation, wood-trimmed heated steering wheel, power hands-free tailgate, and comprehensive Lexus Safety System+ 2.0.",
+      "fuel": "Petrol",
+      "published": true,
+      "updatedAt": "2026-03-21T11:45:00.000Z",
+      "condition": "Foreign Used",
+      "model": "RX 350"
+    },
+    {
+      "transmission": "Automatic",
+      "engine": "2.8L D-4D Turbocharged 4-Cylinder",
       "images": [
-        "/images/vehicle_luxury_lexus_1790168762494.jpg",
+        "/images/vehicle_suv_prado_1790168736955.jpg",
         "/images/hero_car_showroom_1790168724059.jpg"
       ],
-      "featured": true,
+      "description": "Exceptional 2023 Toyota Land Cruiser Prado TX-L. Features multi-terrain select, 360-degree surround cameras, triple-zone climate control, keyless smart entry, cooler box, and full LED adaptive illumination. Thoroughly inspected and showroom ready.",
+      "model": "Land Cruiser Prado",
+      "driveType": "4WD",
+      "interiorColor": "Black Leather",
+      "status": "Available",
+      "location": "Showroom Ready",
+      "mileage": 12500,
+      "vin": "JTEBX3FJ5P0019284",
+      "createdAt": "2026-03-01T10:00:00.000Z",
+      "features": [
+        "Multi-Terrain Select & Crawl Control",
+        "360-Degree Surround View Cameras",
+        "Center Console Refrigerator (Cooler Box)",
+        "Push Button Start & Smart Keyless Entry",
+        "Touchscreen Infotainment with Apple CarPlay",
+        "Electric Leather Seats with Memory Setting"
+      ],
+      "color": "Dark Metallic Grey",
+      "fuel": "Diesel",
+      "id": "v-prado-2023",
       "published": true,
-      "viewsCount": 187,
-      "inquiriesCount": 37,
-      "createdAt": "2026-03-10T15:00:00.000Z",
-      "updatedAt": "2026-03-21T11:45:00.000Z"
+      "updatedAt": "2026-03-20T14:30:00.000Z",
+      "slug": "2023-toyota-land-cruiser-prado-txl",
+      "condition": "Foreign Used",
+      "inquiriesCount": 28,
+      "price": 78500000,
+      "make": "Toyota",
+      "year": 2023,
+      "viewsCount": 142,
+      "featured": true,
+      "title": "2023 Toyota Land Cruiser Prado TX-L",
+      "currency": "NGN",
+      "mileageUnit": "km",
+      "bodyType": "SUV"
     }
   ],
   "leads": [
@@ -291,6 +229,38 @@
   "reviews": [],
   "auditLogs": [
     {
+      "id": "log-1791284219354-2glv",
+      "action": "VEHICLE_DELETED",
+      "targetType": "vehicle",
+      "targetId": "v-1791284219304",
+      "details": "Deleted vehicle 2025 Mercedes-Benz G63 AMG Magno Black",
+      "timestamp": "2026-10-06T10:56:59.354Z"
+    },
+    {
+      "id": "log-1791284219338-ongt",
+      "action": "VEHICLE_UPDATED",
+      "targetType": "vehicle",
+      "targetId": "v-1791284219304",
+      "details": "Updated vehicle 2025 Mercedes-Benz G63 AMG Magno Black",
+      "timestamp": "2026-10-06T10:56:59.338Z"
+    },
+    {
+      "id": "log-1791284219330-p16g",
+      "action": "VEHICLE_UPDATED",
+      "targetType": "vehicle",
+      "targetId": "v-1791284219304",
+      "details": "Updated vehicle 2025 Mercedes-Benz G63 AMG Magno Black",
+      "timestamp": "2026-10-06T10:56:59.330Z"
+    },
+    {
+      "id": "log-1791284219304-mc40",
+      "action": "VEHICLE_CREATED",
+      "targetType": "vehicle",
+      "targetId": "v-1791284219304",
+      "details": "Created vehicle 2025 Mercedes-Benz G63 AMG Magno Black",
+      "timestamp": "2026-10-06T10:56:59.304Z"
+    },
+    {
       "id": "log-1791199933524-mhnq",
       "action": "LEAD_CREATED",
       "targetType": "lead",
@@ -380,6 +350,22 @@
     }
   ],
   "analyticsEvents": [
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1791282736388-86bk",
+      "timestamp": "2026-10-06T10:32:16.388Z"
+    },
+    {
+      "eventType": "page_view",
+      "metadata": {
+        "page": "home"
+      },
+      "id": "ev-1791282736382-au70",
+      "timestamp": "2026-10-06T10:32:16.382Z"
+    },
     {
       "eventType": "page_view",
       "metadata": {
@@ -695,20 +681,2413 @@
   ],
   "admin": {
     "username": "paulsmith",
-    "salt": "0a8e80fb272f27f3564372922bf03e7e",
-    "passwordHash": "91689bec23adef223df1e8af8707803ff6085b99820def01e3e6947a4017b007c74b5a4a76f741f95cd0fcf10a89f9ed9233a57a74643f71ad3f11b49ba3ee01",
+    "salt": "a991de148e508bb2f2809609f730571c",
+    "passwordHash": "61140c212366b9013fcedc3926de762a462f94f31692cc013d717cfb997d4111a6e2242c4eb1e09fdc5d72159f296781d88a0bd7570019f636c15f13db0af0bb",
     "isInitialSetupRequired": false
   },
   "brandCatalog": [
     {
-      "id": "b-toyota",
-      "name": "Toyota",
+      "id": "b-acura",
+      "region": "Asia",
+      "enabled": true,
+      "name": "Acura",
+      "country": "Japan",
       "models": [
         {
-          "id": "m-toy-landcruiser",
-          "name": "Land Cruiser",
+          "category": "SUV",
+          "name": "MDX",
           "years": [
-            2026,
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-acu-mdx"
+        },
+        {
+          "name": "RDX",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Crossover",
+          "id": "m-acu-rdx"
+        },
+        {
+          "name": "TLX",
+          "category": "Sedan",
+          "id": "m-acu-tlx",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Europe",
+      "enabled": true,
+      "id": "b-alfa-romeo",
+      "models": [
+        {
+          "name": "Stelvio Quadrifoglio",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-alf-stelvio",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Crossover",
+          "name": "Tonale",
+          "id": "m-alf-tonale"
+        },
+        {
+          "id": "m-alf-giulia",
+          "name": "Giulia Quadrifoglio",
+          "category": "Sedan",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        }
+      ],
+      "name": "Alfa Romeo",
+      "country": "Italy"
+    },
+    {
+      "country": "United Kingdom",
+      "region": "Europe",
+      "id": "b-aston-martin",
+      "name": "Aston Martin",
+      "models": [
+        {
+          "name": "DBX / DBX707",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-am-dbx",
+          "category": "SUV"
+        },
+        {
+          "name": "DB12",
+          "category": "Coupe",
+          "years": [
+            2025,
+            2024
+          ],
+          "id": "m-am-db12"
+        },
+        {
+          "category": "Coupe",
+          "id": "m-am-vantage",
+          "name": "Vantage",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Q8 / RS Q8",
+          "category": "SUV",
+          "id": "m-aud-q8"
+        },
+        {
+          "id": "m-aud-q7",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV",
+          "name": "Q7"
+        },
+        {
+          "name": "Q5",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-aud-q5"
+        },
+        {
+          "category": "Sedan",
+          "name": "A8 / S8",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-aud-a8"
+        },
+        {
+          "id": "m-aud-a6",
+          "name": "A6",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "category": "Sedan",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "A4",
+          "id": "m-aud-a4"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Sedan",
+          "id": "m-aud-etron",
+          "name": "e-tron GT"
+        }
+      ],
+      "id": "b-audi",
+      "region": "Europe",
+      "country": "Germany",
+      "name": "Audi"
+    },
+    {
+      "name": "BAIC",
+      "region": "Asia",
+      "enabled": true,
+      "id": "b-baic",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-bai-bj40",
+          "name": "BJ40 Plus Off-Road",
+          "category": "SUV"
+        },
+        {
+          "id": "m-bai-bj60",
+          "category": "SUV",
+          "name": "BJ60",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "SUV",
+          "id": "m-bai-bj80",
+          "name": "BJ80 Luxury 4WD"
+        }
+      ],
+      "country": "China"
+    },
+    {
+      "country": "United Kingdom",
+      "models": [
+        {
+          "id": "m-ben-bentayga",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Bentayga (V8 / Speed / EWB)",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Continental GT",
+          "category": "Coupe",
+          "id": "m-ben-continental"
+        },
+        {
+          "id": "m-ben-flyingspur",
+          "name": "Flying Spur",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        }
+      ],
+      "region": "Europe",
+      "enabled": true,
+      "id": "b-bentley",
+      "name": "Bentley"
+    },
+    {
+      "country": "Germany",
+      "region": "Europe",
+      "name": "BMW",
+      "id": "b-bmw",
+      "enabled": true,
+      "models": [
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "X7",
+          "id": "m-bmw-x7"
+        },
+        {
+          "category": "SUV",
+          "name": "X6",
+          "id": "m-bmw-x6",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "X5",
+          "category": "SUV",
+          "id": "m-bmw-x5"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "X3",
+          "category": "SUV",
+          "id": "m-bmw-x3"
+        },
+        {
+          "id": "m-bmw-7series",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "7 Series (740i / 760i / i7)"
+        },
+        {
+          "name": "5 Series (530i / 540i)",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-bmw-5series",
+          "category": "Sedan"
+        },
+        {
+          "category": "Sedan",
+          "id": "m-bmw-3series",
+          "name": "3 Series (330i / M340i)",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "category": "Coupe",
+          "id": "m-bmw-m3",
+          "name": "M3 / M4 / M5",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "id": "m-bmw-ix",
+          "name": "iX Electric Flagship",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV"
+        }
+      ]
+    },
+    {
+      "name": "Bugatti",
+      "region": "Europe",
+      "country": "France",
+      "models": [
+        {
+          "category": "Coupe",
+          "id": "m-bug-tourbillon",
+          "name": "Tourbillon V16",
+          "years": [
+            2026
+          ]
+        },
+        {
+          "name": "Chiron Pur Sport / Super Sport",
+          "category": "Coupe",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-bug-chiron"
+        }
+      ],
+      "enabled": true,
+      "id": "b-bugatti"
+    },
+    {
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "name": "Tang (EV / DM-i / DM-p)",
+          "id": "m-byd-tang"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-byd-han",
+          "name": "Han Luxury Sedan",
+          "category": "Sedan"
+        },
+        {
+          "id": "m-byd-seal",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Seal / Seal U"
+        },
+        {
+          "category": "SUV",
+          "id": "m-byd-songplus",
+          "name": "Song Plus DM-i",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "id": "m-byd-atto3",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Atto 3 / Yuan Plus",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Dolphin",
+          "category": "Hatchback",
+          "id": "m-byd-dolphin"
+        },
+        {
+          "id": "m-byd-seagull",
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "Seagull",
+          "category": "Hatchback"
+        },
+        {
+          "id": "m-byd-u8",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "Yangwang U8 Off-Road Flagship"
+        },
+        {
+          "category": "Van",
+          "id": "m-byd-denzad9",
+          "name": "Denza D9 Executive MPV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        }
+      ],
+      "country": "China",
+      "name": "BYD",
+      "id": "b-byd",
+      "enabled": true,
+      "region": "Asia"
+    },
+    {
+      "country": "United States",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV",
+          "id": "m-cad-escalade",
+          "name": "Escalade / Escalade ESV"
+        },
+        {
+          "id": "m-cad-xt6",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "XT6",
+          "category": "SUV"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-cad-xt5",
+          "name": "XT5"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "SUV",
+          "name": "Lyriq EV",
+          "id": "m-cad-lyriq"
+        }
+      ],
+      "id": "b-cadillac",
+      "region": "Americas",
+      "enabled": true,
+      "name": "Cadillac"
+    },
+    {
+      "models": [
+        {
+          "name": "CS95 Plus",
+          "id": "m-cha-cs95",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "name": "CS75 Plus",
+          "id": "m-cha-cs75plus"
+        },
+        {
+          "id": "m-cha-cs55plus",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "name": "CS55 Plus"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "id": "m-cha-unik",
+          "name": "UNI-K"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "UNI-T",
+          "category": "Crossover",
+          "id": "m-cha-unit"
+        },
+        {
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "UNI-V",
+          "id": "m-cha-univ"
+        },
+        {
+          "name": "Deepal S7 EV / EREV",
+          "id": "m-cha-deepals7",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV"
+        }
+      ],
+      "country": "China",
+      "id": "b-changan",
+      "name": "Changan",
+      "enabled": true,
+      "region": "Asia"
+    },
+    {
+      "country": "China",
+      "id": "b-chery",
+      "region": "Asia",
+      "enabled": true,
+      "models": [
+        {
+          "category": "SUV",
+          "id": "m-che-tiggo8pro",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Tiggo 8 Pro / Max"
+        },
+        {
+          "id": "m-che-tiggo7pro",
+          "category": "SUV",
+          "name": "Tiggo 7 Pro",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Tiggo 4 Pro",
+          "category": "Crossover",
+          "id": "m-che-tiggo4pro"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Arrizo 8",
+          "id": "m-che-arrizo8",
+          "category": "Sedan"
+        }
+      ],
+      "name": "Chery"
+    },
+    {
+      "country": "United States",
+      "name": "Chevrolet",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Tahoe",
+          "category": "SUV",
+          "id": "m-che-tahoe"
+        },
+        {
+          "name": "Suburban",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "SUV",
+          "id": "m-che-suburban"
+        },
+        {
+          "id": "m-che-corvette",
+          "name": "Corvette C8",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Coupe"
+        },
+        {
+          "id": "m-che-silverado",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Silverado 1500",
+          "category": "Truck"
+        },
+        {
+          "id": "m-che-traverse",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Traverse"
+        }
+      ],
+      "id": "b-chevrolet",
+      "enabled": true,
+      "region": "Americas"
+    },
+    {
+      "region": "Americas",
+      "enabled": true,
+      "country": "United States",
+      "name": "Chrysler",
+      "id": "b-chrysler",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-chr-pacifica",
+          "category": "Van",
+          "name": "Pacifica"
+        },
+        {
+          "years": [
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-chr-300",
+          "category": "Sedan",
+          "name": "300C"
+        }
+      ]
+    },
+    {
+      "models": [
+        {
+          "category": "SUV",
+          "name": "C5 Aircross",
+          "id": "m-cit-c5aircross",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "category": "Hatchback",
+          "id": "m-cit-c4",
+          "years": [
+            2024,
+            2023,
+            2022
+          ],
+          "name": "C4"
+        }
+      ],
+      "country": "France",
+      "id": "b-citroen",
+      "name": "Citroën",
+      "enabled": true,
+      "region": "Europe"
+    },
+    {
+      "country": "United States",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Charger",
+          "category": "Sedan",
+          "id": "m-dod-charger"
+        },
+        {
+          "category": "Coupe",
+          "id": "m-dod-challenger",
+          "years": [
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Challenger"
+        },
+        {
+          "category": "SUV",
+          "id": "m-dod-durango",
+          "name": "Durango (SRT / Hellcat)",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        }
+      ],
+      "region": "Americas",
+      "enabled": true,
+      "id": "b-dodge",
+      "name": "Dodge"
+    },
+    {
+      "enabled": true,
+      "name": "Dongfeng",
+      "region": "Asia",
+      "id": "b-dongfeng",
+      "country": "China",
+      "models": [
+        {
+          "id": "m-don-mhero",
+          "name": "M-Hero 917 Military-Grade EV",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024
+          ]
+        },
+        {
+          "name": "Voyah Free",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-don-voyahfree"
+        },
+        {
+          "id": "m-don-shinemax",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Aeolus Shine Max",
+          "category": "Sedan"
+        }
+      ]
+    },
+    {
+      "region": "Europe",
+      "id": "b-ds",
+      "country": "France",
+      "name": "DS Automobiles",
+      "models": [
+        {
+          "name": "DS 7 Crossback",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-ds-7",
+          "category": "SUV"
+        },
+        {
+          "category": "Sedan",
+          "name": "DS 9",
+          "id": "m-ds-9",
+          "years": [
+            2024,
+            2023,
+            2022
+          ]
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "models": [
+        {
+          "name": "VX Flagship 7-Seater",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-exe-vx"
+        },
+        {
+          "id": "m-exe-rx",
+          "name": "RX Coupe SUV",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024
+          ]
+        },
+        {
+          "category": "SUV",
+          "name": "TXL",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-exe-txl"
+        }
+      ],
+      "enabled": true,
+      "name": "Exeed",
+      "region": "Asia",
+      "country": "China",
+      "id": "b-exeed"
+    },
+    {
+      "region": "Asia",
+      "country": "China",
+      "name": "FAW / Bestune",
+      "id": "b-faw",
+      "models": [
+        {
+          "name": "Bestune T99",
+          "id": "m-faw-t99",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-faw-t77",
+          "category": "SUV",
+          "name": "Bestune T77 Pro"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Bestune B70",
+          "category": "Sedan",
+          "id": "m-faw-b70"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "id": "b-ferrari",
+      "country": "Italy",
+      "models": [
+        {
+          "id": "m-fer-purosangue",
+          "category": "SUV",
+          "name": "Purosangue V12",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        },
+        {
+          "id": "m-fer-296",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Coupe",
+          "name": "296 GTB / GTS"
+        },
+        {
+          "category": "Coupe",
+          "name": "Roma",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-fer-roma"
+        },
+        {
+          "category": "Coupe",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-fer-sf90",
+          "name": "SF90 Stradale"
+        }
+      ],
+      "name": "Ferrari",
+      "region": "Europe",
+      "enabled": true
+    },
+    {
+      "name": "Fiat",
+      "country": "Italy",
+      "region": "Europe",
+      "id": "b-fiat",
+      "models": [
+        {
+          "category": "Hatchback",
+          "id": "m-fia-500",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "500e"
+        },
+        {
+          "id": "m-fia-500x",
+          "years": [
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Crossover",
+          "name": "500X"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "country": "United States",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "F-150 / Raptor",
+          "category": "Truck",
+          "id": "m-for-f150"
+        },
+        {
+          "name": "Explorer",
+          "category": "SUV",
+          "id": "m-for-explorer",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "id": "m-for-expedition",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "SUV",
+          "name": "Expedition"
+        },
+        {
+          "name": "Mustang",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Coupe",
+          "id": "m-for-mustang"
+        },
+        {
+          "category": "Truck",
+          "name": "Ranger",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-for-ranger"
+        },
+        {
+          "id": "m-for-edge",
+          "category": "SUV",
+          "name": "Edge",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "category": "SUV",
+          "id": "m-for-bronco",
+          "name": "Bronco",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        }
+      ],
+      "id": "b-ford",
+      "name": "Ford",
+      "region": "Americas",
+      "enabled": true
+    },
+    {
+      "name": "Foton",
+      "region": "Asia",
+      "country": "China",
+      "id": "b-foton",
+      "models": [
+        {
+          "name": "Tunland G7 / G9 4x4",
+          "id": "m-fot-tunland",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Truck"
+        },
+        {
+          "name": "Toano Executive Van",
+          "id": "m-fot-toano",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Van"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "region": "Asia",
+      "name": "GAC",
+      "country": "China",
+      "models": [
+        {
+          "name": "GS8 Luxury SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "id": "m-gac-gs8"
+        },
+        {
+          "category": "Crossover",
+          "id": "m-gac-gs3",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "GS3 Emzoom"
+        },
+        {
+          "category": "Sedan",
+          "id": "m-gac-empow",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Empow Sport Sedan"
+        },
+        {
+          "category": "Van",
+          "name": "M8 Master Series MPV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-gac-m8"
+        }
+      ],
+      "enabled": true,
+      "id": "b-gac"
+    },
+    {
+      "models": [
+        {
+          "id": "m-gee-monjaro",
+          "category": "SUV",
+          "name": "Monjaro (Xingyue L)",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Coolray (Binyue)",
+          "category": "Crossover",
+          "id": "m-gee-coolray"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-gee-tugella",
+          "name": "Tugella (Xingyue)"
+        },
+        {
+          "category": "Sedan",
+          "name": "Emgrand",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-gee-emgrand"
+        },
+        {
+          "name": "Okavango (Haoyue)",
+          "id": "m-gee-okavango",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "SUV"
+        }
+      ],
+      "country": "China",
+      "id": "b-geely",
+      "enabled": true,
+      "region": "Asia",
+      "name": "Geely"
+    },
+    {
+      "enabled": true,
+      "id": "b-genesis",
+      "region": "Asia",
+      "country": "South Korea",
+      "models": [
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "GV80 / GV80 Coupe",
+          "id": "m-gen-gv80"
+        },
+        {
+          "id": "m-gen-g80",
+          "name": "G80",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "id": "m-gen-gv70",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "GV70"
+        },
+        {
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "G90",
+          "id": "m-gen-g90"
+        }
+      ],
+      "name": "Genesis"
+    },
+    {
+      "country": "United States",
+      "id": "b-gmc",
+      "name": "GMC",
+      "region": "Americas",
+      "models": [
+        {
+          "name": "Yukon / Yukon Denali",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-gmc-yukon",
+          "category": "SUV"
+        },
+        {
+          "name": "Sierra 1500 Denali",
+          "id": "m-gmc-sierra",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Truck"
+        },
+        {
+          "id": "m-gmc-hummer",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Hummer EV SUV / Truck",
+          "category": "SUV"
+        },
+        {
+          "id": "m-gmc-acadia",
+          "name": "Acadia",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV"
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "name": "GWM",
+      "region": "Asia",
+      "enabled": true,
+      "id": "b-gwm",
+      "models": [
+        {
+          "name": "Poer Pickup",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Truck",
+          "id": "m-gwm-poer"
+        },
+        {
+          "id": "m-gwm-cannon",
+          "name": "Cannon X",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Truck"
+        }
+      ],
+      "country": "China"
+    },
+    {
+      "id": "b-haval",
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "H6 (GT / HEV)",
+          "id": "m-hav-h6",
+          "category": "SUV"
+        },
+        {
+          "id": "m-hav-jolion",
+          "name": "Jolion / Jolion Pro",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Dargo (Big Dog)",
+          "category": "SUV",
+          "id": "m-hav-dargo"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-hav-h9",
+          "name": "H9 4WD"
+        },
+        {
+          "name": "Raptor Hi4",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
+          "id": "m-hav-raptor"
+        }
+      ],
+      "country": "China",
+      "name": "Haval",
+      "region": "Asia"
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019
+          ],
+          "id": "m-hon-accord",
+          "name": "Accord"
+        },
+        {
+          "id": "m-hon-civic",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "Sedan",
+          "name": "Civic"
+        },
+        {
+          "name": "CR-V",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV",
+          "id": "m-hon-crv"
+        },
+        {
+          "id": "m-hon-pilot",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Pilot"
+        },
+        {
+          "name": "HR-V",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Crossover",
+          "id": "m-hon-hrv"
+        },
+        {
+          "category": "SUV",
+          "name": "Passport",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-hon-passport"
+        },
+        {
+          "name": "Odyssey",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Van",
+          "id": "m-hon-odyssey"
+        }
+      ],
+      "id": "b-honda",
+      "region": "Asia",
+      "country": "Japan",
+      "name": "Honda"
+    },
+    {
+      "name": "Hongqi",
+      "id": "b-hongqi",
+      "enabled": true,
+      "region": "Asia",
+      "models": [
+        {
+          "category": "Sedan",
+          "id": "m-hon-h9",
+          "name": "H9 Executive Luxury Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "name": "HS5",
+          "id": "m-hon-hs5",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "id": "m-hon-ehs9",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "E-HS9 Electric Presidential SUV"
+        },
+        {
+          "id": "m-hon-h5",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "H5",
+          "category": "Sedan"
+        }
+      ],
+      "country": "China"
+    },
+    {
+      "country": "South Korea",
+      "name": "Hyundai",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-hyu-palisade",
+          "name": "Palisade",
+          "category": "SUV"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Santa Fe",
+          "id": "m-hyu-santafe"
+        },
+        {
+          "category": "SUV",
+          "id": "m-hyu-tucson",
+          "name": "Tucson",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "name": "Sonata",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Sedan",
+          "id": "m-hyu-sonata"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Sedan",
+          "id": "m-hyu-elantra",
+          "name": "Elantra"
+        },
+        {
+          "category": "SUV",
+          "id": "m-hyu-creta",
+          "name": "Creta",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Crossover",
+          "name": "Ioniq 5",
+          "id": "m-hyu-ioniq5"
+        },
+        {
+          "name": "Staria Luxury Van",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-hyu-staria",
+          "category": "Van"
+        }
+      ],
+      "id": "b-hyundai",
+      "enabled": true,
+      "region": "Asia"
+    },
+    {
+      "models": [
+        {
+          "category": "SUV",
+          "id": "m-inf-qx80",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "QX80"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "id": "m-inf-qx60",
+          "name": "QX60"
+        },
+        {
+          "category": "Sedan",
+          "id": "m-inf-q50",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Q50"
+        }
+      ],
+      "name": "Infiniti",
+      "enabled": true,
+      "region": "Asia",
+      "id": "b-infiniti",
+      "country": "Japan"
+    },
+    {
+      "country": "Japan",
+      "region": "Asia",
+      "name": "Isuzu",
+      "enabled": true,
+      "id": "b-isuzu",
+      "models": [
+        {
+          "category": "Truck",
+          "name": "D-Max",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-isu-dmax"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-isu-mux",
+          "name": "MU-X"
+        }
+      ]
+    },
+    {
+      "models": [
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "JS8 Pro",
+          "id": "m-jac-js8"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "JS6",
+          "id": "m-jac-js6",
+          "category": "SUV"
+        },
+        {
+          "category": "Truck",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "T8 Pro 4x4 Pickup",
+          "id": "m-jac-t8"
+        }
+      ],
+      "name": "JAC",
+      "enabled": true,
+      "region": "Asia",
+      "country": "China",
+      "id": "b-jac"
+    },
+    {
+      "region": "Asia",
+      "enabled": true,
+      "name": "Jaecoo",
+      "id": "b-jaecoo",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
+          "id": "m-jae-7",
+          "name": "Jaecoo 7 AWD"
+        },
+        {
+          "id": "m-jae-8",
+          "name": "Jaecoo 8 Luxury Off-Road",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024
+          ]
+        }
+      ],
+      "country": "China"
+    },
+    {
+      "models": [
+        {
+          "id": "m-jag-fpace",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "SUV",
+          "name": "F-Pace SVR"
+        },
+        {
+          "name": "E-Pace",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "SUV",
+          "id": "m-jag-epace"
+        },
+        {
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "XF",
+          "id": "m-jag-xf",
+          "category": "Sedan"
+        },
+        {
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Coupe",
+          "name": "F-Type",
+          "id": "m-jag-ftype"
+        }
+      ],
+      "enabled": true,
+      "name": "Jaguar",
+      "id": "b-jaguar",
+      "region": "Europe",
+      "country": "United Kingdom"
+    },
+    {
+      "enabled": true,
+      "name": "Jeep",
+      "models": [
+        {
+          "category": "SUV",
+          "id": "m-jee-grandcherokee",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Grand Cherokee / Grand Cherokee L"
+        },
+        {
+          "category": "SUV",
+          "id": "m-jee-wrangler",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Wrangler Rubicon"
+        },
+        {
+          "name": "Grand Wagoneer",
+          "category": "SUV",
+          "id": "m-jee-wagoneer",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "category": "Truck",
+          "id": "m-jee-gladiator",
+          "name": "Gladiator",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        }
+      ],
+      "id": "b-jeep",
+      "country": "United States",
+      "region": "Americas"
+    },
+    {
+      "name": "Jetour",
+      "region": "Asia",
+      "enabled": true,
+      "id": "b-jetour",
+      "models": [
+        {
+          "id": "m-jet-t2",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
+          "name": "Traveler T2 4WD"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "SUV",
+          "name": "Dashing",
+          "id": "m-jet-dashing"
+        },
+        {
+          "name": "X70 Plus",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-jet-x70plus",
+          "category": "SUV"
+        },
+        {
+          "id": "m-jet-x90plus",
+          "name": "X90 Plus",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        }
+      ],
+      "country": "China"
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "name": "Telluride",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-kia-telluride",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Sorento",
+          "category": "SUV",
+          "id": "m-kia-sorento"
+        },
+        {
+          "name": "Sportage",
+          "category": "SUV",
+          "id": "m-kia-sportage",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "name": "Carnival MPV",
+          "category": "Van",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-kia-carnival"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Sedan",
+          "id": "m-kia-k5",
+          "name": "K5"
+        },
+        {
+          "name": "Seltos",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-kia-seltos",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024
+          ],
+          "id": "m-kia-ev9",
+          "category": "SUV",
+          "name": "EV9 Flagship SUV"
+        }
+      ],
+      "name": "Kia",
+      "country": "South Korea",
+      "region": "Asia",
+      "id": "b-kia"
+    },
+    {
+      "country": "Italy",
+      "models": [
+        {
+          "id": "m-lam-urus",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Urus (S / Performante / SE)",
+          "category": "SUV"
+        },
+        {
+          "category": "Coupe",
+          "id": "m-lam-revuelto",
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "Revuelto V12 Hybrid"
+        },
+        {
+          "category": "Coupe",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-lam-huracan",
+          "name": "Huracán (Tecnica / STO)"
+        }
+      ],
+      "id": "b-lamborghini",
+      "name": "Lamborghini",
+      "enabled": true,
+      "region": "Europe"
+    },
+    {
+      "models": [
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019
+          ],
+          "name": "Range Rover (Autobiography / SV)",
+          "id": "m-lr-rangerover"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Range Rover Sport",
+          "id": "m-lr-sport"
+        },
+        {
+          "name": "Range Rover Velar",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-lr-velar",
+          "category": "SUV"
+        },
+        {
+          "id": "m-lr-evoque",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Range Rover Evoque",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Defender (90 / 110 / 130)",
+          "category": "SUV",
+          "id": "m-lr-defender"
+        },
+        {
+          "id": "m-lr-discovery",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Discovery"
+        }
+      ],
+      "name": "Land Rover",
+      "id": "b-landrover",
+      "country": "United Kingdom",
+      "region": "Europe"
+    },
+    {
+      "name": "Leapmotor",
+      "id": "b-leapmotor",
+      "region": "Asia",
+      "enabled": true,
+      "country": "China",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "C11 SUV",
+          "id": "m-lea-c11",
+          "category": "SUV"
+        },
+        {
+          "id": "m-lea-c10",
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "C10 Global SUV",
+          "category": "SUV"
+        },
+        {
+          "category": "SUV",
+          "name": "C16 6-Seater SUV",
+          "id": "m-lea-c16",
+          "years": [
+            2025,
+            2024
+          ]
+        }
+      ]
+    },
+    {
+      "models": [
+        {
+          "name": "LX 600 / LX 570",
+          "category": "SUV",
+          "years": [
             2025,
             2024,
             2023,
@@ -718,11 +3097,24 @@
             2019,
             2018
           ],
-          "category": "SUV"
+          "id": "m-lex-lx600"
         },
         {
-          "id": "m-toy-prado",
-          "name": "Land Cruiser Prado",
+          "id": "m-lex-gx460",
+          "category": "SUV",
+          "name": "GX 460 / GX 550",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019
+          ]
+        },
+        {
+          "id": "m-lex-rx350",
           "years": [
             2025,
             2024,
@@ -733,27 +3125,1580 @@
             2019,
             2018
           ],
-          "category": "SUV"
+          "name": "RX 350",
+          "category": "Crossover"
         },
         {
-          "id": "m-toy-camry",
-          "name": "Camry",
+          "name": "ES 350",
+          "category": "Sedan",
           "years": [
-            2026,
             2025,
             2024,
             2023,
             2022,
             2021,
             2020,
-            2019,
-            2018
+            2019
+          ],
+          "id": "m-lex-es350"
+        },
+        {
+          "category": "Sedan",
+          "id": "m-lex-is350",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "IS 300 / IS 350"
+        },
+        {
+          "id": "m-lex-nx350",
+          "name": "NX 350",
+          "category": "Crossover",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "id": "m-lex-tx350",
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "TX 350",
+          "category": "SUV"
+        },
+        {
+          "name": "LS 500",
+          "category": "Sedan",
+          "id": "m-lex-ls500",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        }
+      ],
+      "country": "Japan",
+      "name": "Lexus",
+      "region": "Asia",
+      "id": "b-lexus"
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "SUV",
+          "name": "Li L9 Max 6-Seater SUV",
+          "id": "m-lia-l9"
+        },
+        {
+          "name": "Li L8",
+          "category": "SUV",
+          "id": "m-lia-l8",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Li L7 5-Seater Flagship",
+          "category": "SUV",
+          "id": "m-lia-l7"
+        },
+        {
+          "name": "Li MEGA Pure EV MPV",
+          "id": "m-lia-mega",
+          "category": "Van",
+          "years": [
+            2025,
+            2024
+          ]
+        }
+      ],
+      "id": "b-li-auto",
+      "region": "Asia",
+      "name": "Li Auto",
+      "country": "China"
+    },
+    {
+      "region": "Americas",
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-lin-navigator",
+          "name": "Navigator",
+          "category": "SUV"
+        },
+        {
+          "category": "SUV",
+          "id": "m-lin-aviator",
+          "name": "Aviator",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "id": "m-lin-nautilus",
+          "name": "Nautilus",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024
+          ]
+        }
+      ],
+      "id": "b-lincoln",
+      "name": "Lincoln",
+      "country": "United States"
+    },
+    {
+      "id": "b-lotus",
+      "region": "Europe",
+      "country": "United Kingdom",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "Eletre Hyper-SUV",
+          "id": "m-lot-eletre",
+          "category": "SUV"
+        },
+        {
+          "category": "Coupe",
+          "id": "m-lot-emira",
+          "name": "Emira",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        }
+      ],
+      "enabled": true,
+      "name": "Lotus"
+    },
+    {
+      "enabled": true,
+      "name": "Lucid",
+      "id": "b-lucid",
+      "models": [
+        {
+          "name": "Air Dream / Grand Touring",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-luc-air"
+        },
+        {
+          "id": "m-luc-gravity",
+          "category": "SUV",
+          "name": "Gravity SUV",
+          "years": [
+            2025
+          ]
+        }
+      ],
+      "country": "United States",
+      "region": "Americas"
+    },
+    {
+      "id": "b-mahindra",
+      "models": [
+        {
+          "id": "m-mah-scorpio-n",
+          "category": "SUV",
+          "name": "Scorpio-N 4x4",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "XUV700",
+          "category": "SUV",
+          "id": "m-mah-xuv700"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Thar 4x4",
+          "category": "SUV",
+          "id": "m-mah-thar"
+        }
+      ],
+      "enabled": true,
+      "name": "Mahindra",
+      "region": "Asia",
+      "country": "India"
+    },
+    {
+      "country": "Italy",
+      "id": "b-maserati",
+      "name": "Maserati",
+      "region": "Europe",
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "Grecale (Trofeo / Modena)",
+          "category": "SUV",
+          "id": "m-mas-grecale"
+        },
+        {
+          "id": "m-mas-levante",
+          "name": "Levante",
+          "category": "SUV",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "category": "Coupe",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "name": "MC20 Supercar",
+          "id": "m-mas-mc20"
+        },
+        {
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "GranTurismo",
+          "category": "Coupe",
+          "id": "m-mas-granturismo"
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "category": "Sedan",
+          "name": "Maybach S 680 V12",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-may-s680"
+        },
+        {
+          "category": "Sedan",
+          "name": "Maybach S 580",
+          "id": "m-may-s580",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Maybach GLS 600",
+          "category": "SUV",
+          "id": "m-may-gls600"
+        }
+      ],
+      "name": "Maybach",
+      "country": "Germany",
+      "id": "b-maybach",
+      "region": "Europe"
+    },
+    {
+      "id": "b-mazda",
+      "models": [
+        {
+          "category": "Crossover",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-maz-cx5",
+          "name": "CX-5"
+        },
+        {
+          "id": "m-maz-cx90",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
+          "name": "CX-90"
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-maz-cx60",
+          "name": "CX-60"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Sedan",
+          "name": "Mazda 3",
+          "id": "m-maz-mazda3"
+        },
+        {
+          "years": [
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-maz-mazda6",
+          "category": "Sedan",
+          "name": "Mazda 6"
+        }
+      ],
+      "country": "Japan",
+      "name": "Mazda",
+      "enabled": true,
+      "region": "Asia"
+    },
+    {
+      "region": "Europe",
+      "country": "United Kingdom",
+      "name": "McLaren",
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "750S",
+          "category": "Coupe",
+          "id": "m-mcl-750s"
+        },
+        {
+          "name": "Artura Hybrid",
+          "id": "m-mcl-artura",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Coupe"
+        },
+        {
+          "years": [
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "720S",
+          "id": "m-mcl-720s",
+          "category": "Coupe"
+        },
+        {
+          "category": "Coupe",
+          "id": "m-mcl-gt",
+          "name": "McLaren GT",
+          "years": [
+            2024,
+            2023,
+            2022
+          ]
+        }
+      ],
+      "id": "b-mclaren"
+    },
+    {
+      "id": "b-mercedes",
+      "country": "Germany",
+      "name": "Mercedes-Benz",
+      "region": "Europe",
+      "models": [
+        {
+          "category": "SUV",
+          "id": "m-mb-gclass",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019
+          ],
+          "name": "G-Class (G63 AMG / G500)"
+        },
+        {
+          "id": "m-mb-sclass",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "Sedan",
+          "name": "S-Class (S500 / S580)"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-mb-eclass",
+          "category": "Sedan",
+          "name": "E-Class (E350 / E450)"
+        },
+        {
+          "id": "m-mb-cclass",
+          "name": "C-Class (C300 / C43)",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "name": "GLE (GLE 450 / GLE 53)",
+          "id": "m-mb-gle",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV"
+        },
+        {
+          "id": "m-mb-gls",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV",
+          "name": "GLS (GLS 450 / GLS 580)"
+        },
+        {
+          "name": "GLC 300",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-mb-glc"
+        },
+        {
+          "id": "m-mb-cla",
+          "name": "CLA 250",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
           ],
           "category": "Sedan"
         },
         {
-          "id": "m-toy-corolla",
+          "name": "AMG GT",
+          "id": "m-mb-amggt",
+          "category": "Coupe",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "id": "m-mb-maybach-s",
+          "category": "Sedan",
+          "name": "Maybach S-Class",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Maybach GLS 600",
+          "id": "m-mb-maybach-gls"
+        }
+      ]
+    },
+    {
+      "country": "China",
+      "id": "b-mg",
+      "models": [
+        {
+          "category": "SUV",
+          "id": "m-mg-rx8",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "RX8 7-Seater 4WD"
+        },
+        {
+          "name": "HS / HS Trophy",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "id": "m-mg-hs"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "MG GT Sedan",
+          "id": "m-mg-gt",
+          "category": "Sedan"
+        },
+        {
+          "id": "m-mg-mg4",
+          "name": "MG 4 EV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Hatchback"
+        },
+        {
+          "category": "Coupe",
+          "name": "Cyberster Roadster",
+          "id": "m-mg-cyberster",
+          "years": [
+            2025,
+            2024
+          ]
+        }
+      ],
+      "enabled": true,
+      "region": "Asia",
+      "name": "MG"
+    },
+    {
+      "name": "Mini",
+      "enabled": true,
+      "region": "Europe",
+      "country": "United Kingdom",
+      "models": [
+        {
+          "id": "m-mini-countryman",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Countryman",
+          "category": "SUV"
+        },
+        {
+          "name": "Cooper S",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Hatchback",
+          "id": "m-mini-cooper"
+        }
+      ],
+      "id": "b-mini"
+    },
+    {
+      "region": "Asia",
+      "name": "Mitsubishi",
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV",
+          "name": "Pajero / Montero Sport",
+          "id": "m-mit-pajero"
+        },
+        {
+          "id": "m-mit-outlander",
+          "name": "Outlander",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "name": "L200 / Triton",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-mit-l200",
+          "category": "Truck"
+        }
+      ],
+      "id": "b-mitsubishi",
+      "country": "Japan"
+    },
+    {
+      "models": [
+        {
+          "name": "ES8 Flagship 6-Seater SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-nio-es8",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-nio-es6",
+          "category": "SUV",
+          "name": "ES6"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-nio-et7",
+          "name": "ET7 Luxury Sedan",
+          "category": "Sedan"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-nio-et5",
+          "category": "Sedan",
+          "name": "ET5 / ET5 Touring"
+        }
+      ],
+      "name": "NIO",
+      "country": "China",
+      "id": "b-nio",
+      "enabled": true,
+      "region": "Asia"
+    },
+    {
+      "enabled": true,
+      "id": "b-nissan",
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019
+          ],
+          "category": "SUV",
+          "name": "Patrol / Armada",
+          "id": "m-nis-patrol"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Pathfinder",
+          "id": "m-nis-pathfinder",
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Altima",
+          "id": "m-nis-altima",
+          "category": "Sedan"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Crossover",
+          "name": "Rogue / X-Trail",
+          "id": "m-nis-rogue"
+        },
+        {
+          "name": "Navara / Frontier",
+          "category": "Truck",
+          "id": "m-nis-navara",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "category": "Coupe",
+          "name": "GT-R",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "id": "m-nis-gtr"
+        }
+      ],
+      "region": "Asia",
+      "name": "Nissan",
+      "country": "Japan"
+    },
+    {
+      "id": "b-omoda",
+      "country": "China",
+      "models": [
+        {
+          "name": "Omoda C5",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Crossover",
+          "id": "m-omo-c5"
+        },
+        {
+          "id": "m-omo-e5",
+          "category": "Crossover",
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "Omoda E5 EV"
+        }
+      ],
+      "name": "Omoda",
+      "region": "Asia",
+      "enabled": true
+    },
+    {
+      "id": "b-opel",
+      "enabled": true,
+      "models": [
+        {
+          "id": "m-op-grandland",
+          "name": "Grandland",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Crossover",
+          "name": "Mokka",
+          "id": "m-op-mokka"
+        },
+        {
+          "id": "m-op-astra",
+          "name": "Astra",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "category": "Hatchback"
+        }
+      ],
+      "name": "Opel",
+      "region": "Europe",
+      "country": "Germany"
+    },
+    {
+      "region": "Europe",
+      "name": "Peugeot",
+      "country": "France",
+      "models": [
+        {
+          "id": "m-peu-5008",
+          "name": "5008",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "3008",
+          "category": "SUV",
+          "id": "m-peu-3008"
+        },
+        {
+          "category": "Crossover",
+          "id": "m-peu-2008",
+          "name": "2008",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "name": "508",
+          "id": "m-peu-508",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "Sedan"
+        },
+        {
+          "name": "Landtrek Pickup",
+          "id": "m-peu-landtrek",
+          "category": "Truck",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        }
+      ],
+      "id": "b-peugeot",
+      "enabled": true
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "category": "Sedan",
+          "name": "Polestar 2",
+          "id": "m-pol-2",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "category": "SUV",
+          "id": "m-pol-3",
+          "name": "Polestar 3 SUV",
+          "years": [
+            2025,
+            2024
+          ]
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025
+          ],
+          "name": "Polestar 4 Coupe SUV",
+          "id": "m-pol-4"
+        }
+      ],
+      "name": "Polestar",
+      "country": "Sweden",
+      "region": "Europe",
+      "id": "b-polestar"
+    },
+    {
+      "country": "Germany",
+      "id": "b-porsche",
+      "region": "Europe",
+      "name": "Porsche",
+      "enabled": true,
+      "models": [
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "SUV",
+          "name": "Cayenne",
+          "id": "m-por-cayenne"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "category": "SUV",
+          "name": "Macan",
+          "id": "m-por-macan"
+        },
+        {
+          "id": "m-por-911",
+          "name": "911 (Carrera / Turbo / GT3)",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "category": "Coupe"
+        },
+        {
+          "id": "m-por-panamera",
+          "category": "Sedan",
+          "name": "Panamera",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "name": "Taycan EV",
+          "id": "m-por-taycan",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b-renault",
+      "enabled": true,
+      "name": "Renault",
+      "region": "Europe",
+      "models": [
+        {
+          "id": "m-ren-duster",
+          "name": "Duster",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "category": "SUV",
+          "id": "m-ren-koleos",
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Koleos"
+        },
+        {
+          "category": "Crossover",
+          "years": [
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-ren-arkana",
+          "name": "Arkana"
+        }
+      ],
+      "country": "France"
+    },
+    {
+      "name": "Rivian",
+      "enabled": true,
+      "region": "Americas",
+      "models": [
+        {
+          "name": "R1S Electric SUV",
+          "id": "m-riv-r1s",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV"
+        },
+        {
+          "id": "m-riv-r1t",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "R1T Electric Truck",
+          "category": "Truck"
+        }
+      ],
+      "country": "United States",
+      "id": "b-rivian"
+    },
+    {
+      "region": "Europe",
+      "enabled": true,
+      "id": "b-rolls-royce",
+      "models": [
+        {
+          "id": "m-rr-cullinan",
+          "category": "SUV",
+          "name": "Cullinan (Series II / Black Badge)",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ]
+        },
+        {
+          "id": "m-rr-phantom",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Phantom VIII",
+          "category": "Sedan"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Ghost",
+          "category": "Sedan",
+          "id": "m-rr-ghost"
+        },
+        {
+          "name": "Spectre EV Coupe",
+          "id": "m-rr-spectre",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "Coupe"
+        }
+      ],
+      "name": "Rolls-Royce",
+      "country": "United Kingdom"
+    },
+    {
+      "country": "Germany",
+      "name": "Smart",
+      "models": [
+        {
+          "name": "#1 Compact SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-smt-1",
+          "category": "Crossover"
+        },
+        {
+          "years": [
+            2025,
+            2024
+          ],
+          "name": "#3 Coupe SUV",
+          "category": "Crossover",
+          "id": "m-smt-3"
+        }
+      ],
+      "id": "b-smart",
+      "enabled": true,
+      "region": "Europe"
+    },
+    {
+      "name": "Subaru",
+      "id": "b-subaru",
+      "region": "Asia",
+      "enabled": true,
+      "country": "Japan",
+      "models": [
+        {
+          "name": "Outback",
+          "category": "Crossover",
+          "id": "m-sub-outback",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ]
+        },
+        {
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Forester",
+          "id": "m-sub-forester"
+        },
+        {
+          "category": "Crossover",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-sub-crosstrek",
+          "name": "Crosstrek"
+        },
+        {
+          "name": "WRX",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "Sedan",
+          "id": "m-sub-wrx"
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "id": "m-suz-jimny",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
+          "name": "Jimny",
+          "category": "SUV"
+        },
+        {
+          "id": "m-suz-grandvitara",
+          "name": "Grand Vitara",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ]
+        },
+        {
+          "name": "Swift",
+          "category": "Hatchback",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-suz-swift"
+        }
+      ],
+      "name": "Suzuki",
+      "country": "Japan",
+      "id": "b-suzuki",
+      "region": "Asia"
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "name": "Tank 300 Off-Roader",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-tnk-300",
+          "category": "SUV"
+        },
+        {
+          "id": "m-tnk-500",
+          "name": "Tank 500 Luxury 4WD",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ]
+        },
+        {
+          "name": "Tank 700 Hi4-T",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
+          "id": "m-tnk-700"
+        }
+      ],
+      "country": "China",
+      "name": "Tank",
+      "id": "b-tank",
+      "region": "Asia"
+    },
+    {
+      "enabled": true,
+      "models": [
+        {
+          "id": "m-tat-harrier",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "category": "SUV",
+          "name": "Harrier"
+        },
+        {
+          "category": "SUV",
+          "name": "Safari",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-tat-safari"
+        },
+        {
+          "name": "Nexon / Nexon EV",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
+          "id": "m-tat-nexon",
+          "category": "SUV"
+        }
+      ],
+      "name": "Tata",
+      "country": "India",
+      "id": "b-tata",
+      "region": "Asia"
+    },
+    {
+      "enabled": true,
+      "name": "Tesla",
+      "models": [
+        {
+          "name": "Model Y",
+          "category": "SUV",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "id": "m-tsl-modely"
+        },
+        {
+          "id": "m-tsl-model3",
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021
+          ],
+          "name": "Model 3 (Highland)"
+        },
+        {
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "name": "Model X Plaid",
+          "category": "SUV",
+          "id": "m-tsl-modelx"
+        },
+        {
+          "category": "Sedan",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
+          "id": "m-tsl-models",
+          "name": "Model S Plaid"
+        },
+        {
+          "name": "Cybertruck",
+          "id": "m-tsl-cybertruck",
+          "category": "Truck",
+          "years": [
+            2025,
+            2024
+          ]
+        }
+      ],
+      "country": "United States",
+      "region": "Americas",
+      "id": "b-tesla"
+    },
+    {
+      "id": "b-toyota",
+      "models": [
+        {
+          "years": [
+            2026,
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019,
+            2018
+          ],
+          "name": "Land Cruiser",
+          "category": "SUV",
+          "id": "m-toy-landcruiser"
+        },
+        {
+          "category": "SUV",
+          "name": "Land Cruiser Prado",
+          "id": "m-toy-prado",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019,
+            2018
+          ]
+        },
+        {
+          "years": [
+            2026,
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020,
+            2019,
+            2018
+          ],
+          "id": "m-toy-camry",
+          "category": "Sedan",
+          "name": "Camry"
+        },
+        {
           "name": "Corolla",
+          "id": "m-toy-corolla",
           "years": [
             2025,
             2024,
@@ -797,8 +4742,6 @@
           "category": "SUV"
         },
         {
-          "id": "m-toy-hilux",
-          "name": "Hilux",
           "years": [
             2025,
             2024,
@@ -809,11 +4752,13 @@
             2019,
             2018
           ],
-          "category": "Truck"
+          "category": "Truck",
+          "name": "Hilux",
+          "id": "m-toy-hilux"
         },
         {
-          "id": "m-toy-fortuner",
           "name": "Fortuner",
+          "category": "SUV",
           "years": [
             2025,
             2024,
@@ -823,11 +4768,11 @@
             2020,
             2019
           ],
-          "category": "SUV"
+          "id": "m-toy-fortuner"
         },
         {
-          "id": "m-toy-sienna",
           "name": "Sienna",
+          "id": "m-toy-sienna",
           "years": [
             2025,
             2024,
@@ -839,20 +4784,18 @@
           "category": "Van"
         },
         {
-          "id": "m-toy-venza",
           "name": "Venza",
+          "id": "m-toy-venza",
+          "category": "Crossover",
           "years": [
             2024,
             2023,
             2022,
             2021,
             2020
-          ],
-          "category": "Crossover"
+          ]
         },
         {
-          "id": "m-toy-avalon",
-          "name": "Avalon",
           "years": [
             2022,
             2021,
@@ -860,1185 +4803,46 @@
             2019,
             2018
           ],
+          "name": "Avalon",
+          "id": "m-toy-avalon",
           "category": "Sedan"
         },
         {
           "id": "m-toy-crown",
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
           "name": "Crown",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
           "category": "Sedan"
         },
         {
-          "id": "m-toy-4runner",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022,
+            2021,
+            2020
+          ],
           "name": "4Runner",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
+          "category": "SUV",
+          "id": "m-toy-4runner"
         }
       ],
       "country": "Japan",
+      "name": "Toyota",
       "region": "Asia"
-    },
-    {
-      "id": "b-lexus",
-      "name": "Lexus",
-      "models": [
-        {
-          "id": "m-lex-lx600",
-          "name": "LX 600 / LX 570",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019,
-            2018
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lex-gx460",
-          "name": "GX 460 / GX 550",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lex-rx350",
-          "name": "RX 350",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019,
-            2018
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-lex-es350",
-          "name": "ES 350",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-lex-is350",
-          "name": "IS 300 / IS 350",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-lex-nx350",
-          "name": "NX 350",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-lex-tx350",
-          "name": "TX 350",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lex-ls500",
-          "name": "LS 500",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        }
-      ],
-      "country": "Japan",
-      "region": "Asia"
-    },
-    {
-      "id": "b-mercedes",
-      "name": "Mercedes-Benz",
-      "models": [
-        {
-          "id": "m-mb-gclass",
-          "name": "G-Class (G63 AMG / G500)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mb-sclass",
-          "name": "S-Class (S500 / S580)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-mb-eclass",
-          "name": "E-Class (E350 / E450)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-mb-cclass",
-          "name": "C-Class (C300 / C43)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-mb-gle",
-          "name": "GLE (GLE 450 / GLE 53)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mb-gls",
-          "name": "GLS (GLS 450 / GLS 580)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mb-glc",
-          "name": "GLC 300",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mb-cla",
-          "name": "CLA 250",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-mb-amggt",
-          "name": "AMG GT",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-mb-maybach-s",
-          "name": "Maybach S-Class",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-mb-maybach-gls",
-          "name": "Maybach GLS 600",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        }
-      ],
-      "country": "Germany",
-      "region": "Europe"
-    },
-    {
-      "id": "b-landrover",
-      "name": "Land Rover",
-      "models": [
-        {
-          "id": "m-lr-rangerover",
-          "name": "Range Rover (Autobiography / SV)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lr-sport",
-          "name": "Range Rover Sport",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lr-velar",
-          "name": "Range Rover Velar",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lr-evoque",
-          "name": "Range Rover Evoque",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lr-defender",
-          "name": "Defender (90 / 110 / 130)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lr-discovery",
-          "name": "Discovery",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        }
-      ],
-      "country": "United Kingdom",
-      "region": "Europe"
-    },
-    {
-      "id": "b-honda",
-      "name": "Honda",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-hon-accord",
-          "name": "Accord",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-hon-civic",
-          "name": "Civic",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-hon-crv",
-          "name": "CR-V",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hon-pilot",
-          "name": "Pilot",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hon-hrv",
-          "name": "HR-V",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-hon-passport",
-          "name": "Passport",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hon-odyssey",
-          "name": "Odyssey",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Van"
-        }
-      ]
-    },
-    {
-      "id": "b-nissan",
-      "name": "Nissan",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-nis-patrol",
-          "name": "Patrol / Armada",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020,
-            2019
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-nis-pathfinder",
-          "name": "Pathfinder",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-nis-altima",
-          "name": "Altima",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-nis-rogue",
-          "name": "Rogue / X-Trail",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-nis-navara",
-          "name": "Navara / Frontier",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-nis-gtr",
-          "name": "GT-R",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-mazda",
-      "name": "Mazda",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-maz-cx5",
-          "name": "CX-5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-maz-cx90",
-          "name": "CX-90",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-maz-cx60",
-          "name": "CX-60",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-maz-mazda3",
-          "name": "Mazda 3",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-maz-mazda6",
-          "name": "Mazda 6",
-          "years": [
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-subaru",
-      "name": "Subaru",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-sub-outback",
-          "name": "Outback",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-sub-forester",
-          "name": "Forester",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-sub-crosstrek",
-          "name": "Crosstrek",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-sub-wrx",
-          "name": "WRX",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-mitsubishi",
-      "name": "Mitsubishi",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-mit-pajero",
-          "name": "Pajero / Montero Sport",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mit-outlander",
-          "name": "Outlander",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mit-l200",
-          "name": "L200 / Triton",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-suzuki",
-      "name": "Suzuki",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-suz-jimny",
-          "name": "Jimny",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-suz-grandvitara",
-          "name": "Grand Vitara",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-suz-swift",
-          "name": "Swift",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Hatchback"
-        }
-      ]
-    },
-    {
-      "id": "b-isuzu",
-      "name": "Isuzu",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-isu-dmax",
-          "name": "D-Max",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-isu-mux",
-          "name": "MU-X",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-infiniti",
-      "name": "Infiniti",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-inf-qx80",
-          "name": "QX80",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-inf-qx60",
-          "name": "QX60",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-inf-q50",
-          "name": "Q50",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-acura",
-      "name": "Acura",
-      "country": "Japan",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-acu-mdx",
-          "name": "MDX",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-acu-rdx",
-          "name": "RDX",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-acu-tlx",
-          "name": "TLX",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-bmw",
-      "name": "BMW",
-      "country": "Germany",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-bmw-x7",
-          "name": "X7",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-bmw-x6",
-          "name": "X6",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-bmw-x5",
-          "name": "X5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-bmw-x3",
-          "name": "X3",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-bmw-7series",
-          "name": "7 Series (740i / 760i / i7)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-bmw-5series",
-          "name": "5 Series (530i / 540i)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-bmw-3series",
-          "name": "3 Series (330i / M340i)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-bmw-m3",
-          "name": "M3 / M4 / M5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-bmw-ix",
-          "name": "iX Electric Flagship",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-audi",
-      "name": "Audi",
-      "country": "Germany",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-aud-q8",
-          "name": "Q8 / RS Q8",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-aud-q7",
-          "name": "Q7",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-aud-q5",
-          "name": "Q5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-aud-a8",
-          "name": "A8 / S8",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-aud-a6",
-          "name": "A6",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-aud-a4",
-          "name": "A4",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-aud-etron",
-          "name": "e-tron GT",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-porsche",
-      "name": "Porsche",
-      "country": "Germany",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-por-cayenne",
-          "name": "Cayenne",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-por-macan",
-          "name": "Macan",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-por-911",
-          "name": "911 (Carrera / Turbo / GT3)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-por-panamera",
-          "name": "Panamera",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-por-taycan",
-          "name": "Taycan EV",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        }
-      ]
     },
     {
       "id": "b-volkswagen",
       "name": "Volkswagen",
       "country": "Germany",
       "region": "Europe",
-      "enabled": true,
       "models": [
         {
+          "category": "SUV",
           "id": "m-vw-touareg",
           "name": "Touareg",
           "years": [
@@ -2048,12 +4852,11 @@
             2022,
             2021,
             2020
-          ],
-          "category": "SUV"
+          ]
         },
         {
-          "id": "m-vw-teramont",
           "name": "Teramont / Atlas",
+          "id": "m-vw-teramont",
           "years": [
             2025,
             2024,
@@ -2065,7 +4868,7 @@
         },
         {
           "id": "m-vw-tiguan",
-          "name": "Tiguan",
+          "category": "SUV",
           "years": [
             2025,
             2024,
@@ -2073,11 +4876,10 @@
             2022,
             2021
           ],
-          "category": "SUV"
+          "name": "Tiguan"
         },
         {
           "id": "m-vw-passat",
-          "name": "Passat",
           "years": [
             2024,
             2023,
@@ -2085,1271 +4887,40 @@
             2021,
             2020
           ],
-          "category": "Sedan"
+          "category": "Sedan",
+          "name": "Passat"
         },
         {
-          "id": "m-vw-golf",
+          "years": [
+            2025,
+            2024,
+            2023,
+            2022
+          ],
           "name": "Golf GTI / Golf R",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Hatchback"
+          "category": "Hatchback",
+          "id": "m-vw-golf"
         },
         {
-          "id": "m-vw-id4",
           "name": "ID.4 / ID.6",
+          "category": "SUV",
           "years": [
             2025,
             2024,
             2023,
             2022
           ],
-          "category": "SUV"
+          "id": "m-vw-id4"
         }
-      ]
-    },
-    {
-      "id": "b-opel",
-      "name": "Opel",
-      "country": "Germany",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-op-grandland",
-          "name": "Grandland",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-op-mokka",
-          "name": "Mokka",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-op-astra",
-          "name": "Astra",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Hatchback"
-        }
-      ]
-    },
-    {
-      "id": "b-maybach",
-      "name": "Maybach",
-      "country": "Germany",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-may-s680",
-          "name": "Maybach S 680 V12",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-may-s580",
-          "name": "Maybach S 580",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-may-gls600",
-          "name": "Maybach GLS 600",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-smart",
-      "name": "Smart",
-      "country": "Germany",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-smt-1",
-          "name": "#1 Compact SUV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-smt-3",
-          "name": "#3 Coupe SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Crossover"
-        }
-      ]
-    },
-    {
-      "id": "b-ford",
-      "name": "Ford",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-for-f150",
-          "name": "F-150 / Raptor",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-for-explorer",
-          "name": "Explorer",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-for-expedition",
-          "name": "Expedition",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-for-mustang",
-          "name": "Mustang",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-for-ranger",
-          "name": "Ranger",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-for-edge",
-          "name": "Edge",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-for-bronco",
-          "name": "Bronco",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-chevrolet",
-      "name": "Chevrolet",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-che-tahoe",
-          "name": "Tahoe",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-che-suburban",
-          "name": "Suburban",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-che-corvette",
-          "name": "Corvette C8",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-che-silverado",
-          "name": "Silverado 1500",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-che-traverse",
-          "name": "Traverse",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-cadillac",
-      "name": "Cadillac",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-cad-escalade",
-          "name": "Escalade / Escalade ESV",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cad-xt6",
-          "name": "XT6",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cad-xt5",
-          "name": "XT5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cad-lyriq",
-          "name": "Lyriq EV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-gmc",
-      "name": "GMC",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-gmc-yukon",
-          "name": "Yukon / Yukon Denali",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gmc-sierra",
-          "name": "Sierra 1500 Denali",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-gmc-hummer",
-          "name": "Hummer EV SUV / Truck",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gmc-acadia",
-          "name": "Acadia",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-dodge",
-      "name": "Dodge",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-dod-charger",
-          "name": "Charger",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-dod-challenger",
-          "name": "Challenger",
-          "years": [
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-dod-durango",
-          "name": "Durango (SRT / Hellcat)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-jeep",
-      "name": "Jeep",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-jee-grandcherokee",
-          "name": "Grand Cherokee / Grand Cherokee L",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jee-wrangler",
-          "name": "Wrangler Rubicon",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jee-wagoneer",
-          "name": "Grand Wagoneer",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jee-gladiator",
-          "name": "Gladiator",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-chrysler",
-      "name": "Chrysler",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-chr-pacifica",
-          "name": "Pacifica",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Van"
-        },
-        {
-          "id": "m-chr-300",
-          "name": "300C",
-          "years": [
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-tesla",
-      "name": "Tesla",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-tsl-modely",
-          "name": "Model Y",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-tsl-model3",
-          "name": "Model 3 (Highland)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-tsl-modelx",
-          "name": "Model X Plaid",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-tsl-models",
-          "name": "Model S Plaid",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-tsl-cybertruck",
-          "name": "Cybertruck",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-lincoln",
-      "name": "Lincoln",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-lin-navigator",
-          "name": "Navigator",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lin-aviator",
-          "name": "Aviator",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lin-nautilus",
-          "name": "Nautilus",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-rivian",
-      "name": "Rivian",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-riv-r1s",
-          "name": "R1S Electric SUV",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-riv-r1t",
-          "name": "R1T Electric Truck",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-lucid",
-      "name": "Lucid",
-      "country": "United States",
-      "region": "Americas",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-luc-air",
-          "name": "Air Dream / Grand Touring",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-luc-gravity",
-          "name": "Gravity SUV",
-          "years": [
-            2025
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-hyundai",
-      "name": "Hyundai",
-      "country": "South Korea",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-hyu-palisade",
-          "name": "Palisade",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hyu-santafe",
-          "name": "Santa Fe",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hyu-tucson",
-          "name": "Tucson",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hyu-sonata",
-          "name": "Sonata",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-hyu-elantra",
-          "name": "Elantra",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-hyu-creta",
-          "name": "Creta",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hyu-ioniq5",
-          "name": "Ioniq 5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-hyu-staria",
-          "name": "Staria Luxury Van",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Van"
-        }
-      ]
-    },
-    {
-      "id": "b-kia",
-      "name": "Kia",
-      "country": "South Korea",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-kia-telluride",
-          "name": "Telluride",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-kia-sorento",
-          "name": "Sorento",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-kia-sportage",
-          "name": "Sportage",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-kia-carnival",
-          "name": "Carnival MPV",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Van"
-        },
-        {
-          "id": "m-kia-k5",
-          "name": "K5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-kia-seltos",
-          "name": "Seltos",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-kia-ev9",
-          "name": "EV9 Flagship SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-genesis",
-      "name": "Genesis",
-      "country": "South Korea",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-gen-gv80",
-          "name": "GV80 / GV80 Coupe",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gen-g80",
-          "name": "G80",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-gen-gv70",
-          "name": "GV70",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gen-g90",
-          "name": "G90",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-jaguar",
-      "name": "Jaguar",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-jag-fpace",
-          "name": "F-Pace SVR",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jag-epace",
-          "name": "E-Pace",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jag-xf",
-          "name": "XF",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-jag-ftype",
-          "name": "F-Type",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-bentley",
-      "name": "Bentley",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-ben-bentayga",
-          "name": "Bentayga (V8 / Speed / EWB)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-ben-continental",
-          "name": "Continental GT",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-ben-flyingspur",
-          "name": "Flying Spur",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-rolls-royce",
-      "name": "Rolls-Royce",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-rr-cullinan",
-          "name": "Cullinan (Series II / Black Badge)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-rr-phantom",
-          "name": "Phantom VIII",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-rr-ghost",
-          "name": "Ghost",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-rr-spectre",
-          "name": "Spectre EV Coupe",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-aston-martin",
-      "name": "Aston Martin",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-am-dbx",
-          "name": "DBX / DBX707",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-am-db12",
-          "name": "DB12",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-am-vantage",
-          "name": "Vantage",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-mclaren",
-      "name": "McLaren",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-mcl-750s",
-          "name": "750S",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-mcl-artura",
-          "name": "Artura Hybrid",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-mcl-720s",
-          "name": "720S",
-          "years": [
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-mcl-gt",
-          "name": "McLaren GT",
-          "years": [
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-lotus",
-      "name": "Lotus",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-lot-eletre",
-          "name": "Eletre Hyper-SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lot-emira",
-          "name": "Emira",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-mini",
-      "name": "Mini",
-      "country": "United Kingdom",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-mini-countryman",
-          "name": "Countryman",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mini-cooper",
-          "name": "Cooper S",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Hatchback"
-        }
-      ]
+      ],
+      "enabled": true
     },
     {
       "id": "b-volvo",
       "name": "Volvo",
-      "country": "Sweden",
-      "region": "Europe",
       "enabled": true,
+      "region": "Europe",
+      "country": "Sweden",
       "models": [
         {
           "id": "m-vol-xc90",
@@ -3367,1727 +4938,142 @@
         {
           "id": "m-vol-xc60",
           "name": "XC60",
+          "category": "SUV",
           "years": [
             2025,
             2024,
             2023,
             2022,
             2021
-          ],
-          "category": "SUV"
+          ]
         },
         {
-          "id": "m-vol-xc40",
-          "name": "XC40 / EX40",
           "years": [
             2025,
             2024,
             2023,
             2022
           ],
-          "category": "Crossover"
+          "name": "XC40 / EX40",
+          "category": "Crossover",
+          "id": "m-vol-xc40"
         },
         {
+          "category": "SUV",
           "id": "m-vol-ex90",
           "name": "EX90 Electric",
           "years": [
             2025,
             2024
-          ],
-          "category": "SUV"
+          ]
         },
         {
+          "years": [
+            2024,
+            2023,
+            2022,
+            2021
+          ],
           "id": "m-vol-s90",
-          "name": "S90",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
+          "category": "Sedan",
+          "name": "S90"
         }
       ]
     },
     {
-      "id": "b-polestar",
-      "name": "Polestar",
-      "country": "Sweden",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-pol-2",
-          "name": "Polestar 2",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-pol-3",
-          "name": "Polestar 3 SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-pol-4",
-          "name": "Polestar 4 Coupe SUV",
-          "years": [
-            2025
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-peugeot",
-      "name": "Peugeot",
-      "country": "France",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-peu-5008",
-          "name": "5008",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-peu-3008",
-          "name": "3008",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-peu-2008",
-          "name": "2008",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-peu-508",
-          "name": "508",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-peu-landtrek",
-          "name": "Landtrek Pickup",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-citroen",
-      "name": "Citroën",
-      "country": "France",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-cit-c5aircross",
-          "name": "C5 Aircross",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cit-c4",
-          "name": "C4",
-          "years": [
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Hatchback"
-        }
-      ]
-    },
-    {
-      "id": "b-renault",
-      "name": "Renault",
-      "country": "France",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-ren-duster",
-          "name": "Duster",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-ren-koleos",
-          "name": "Koleos",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-ren-arkana",
-          "name": "Arkana",
-          "years": [
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        }
-      ]
-    },
-    {
-      "id": "b-ds",
-      "name": "DS Automobiles",
-      "country": "France",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-ds-7",
-          "name": "DS 7 Crossback",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-ds-9",
-          "name": "DS 9",
-          "years": [
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-bugatti",
-      "name": "Bugatti",
-      "country": "France",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-bug-tourbillon",
-          "name": "Tourbillon V16",
-          "years": [
-            2026
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-bug-chiron",
-          "name": "Chiron Pur Sport / Super Sport",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-ferrari",
-      "name": "Ferrari",
-      "country": "Italy",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-fer-purosangue",
-          "name": "Purosangue V12",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-fer-296",
-          "name": "296 GTB / GTS",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-fer-roma",
-          "name": "Roma",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-fer-sf90",
-          "name": "SF90 Stradale",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-lamborghini",
-      "name": "Lamborghini",
-      "country": "Italy",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-lam-urus",
-          "name": "Urus (S / Performante / SE)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021,
-            2020
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lam-revuelto",
-          "name": "Revuelto V12 Hybrid",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-lam-huracan",
-          "name": "Huracán (Tecnica / STO)",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-maserati",
-      "name": "Maserati",
-      "country": "Italy",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-mas-grecale",
-          "name": "Grecale (Trofeo / Modena)",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mas-levante",
-          "name": "Levante",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mas-mc20",
-          "name": "MC20 Supercar",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Coupe"
-        },
-        {
-          "id": "m-mas-granturismo",
-          "name": "GranTurismo",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-alfa-romeo",
-      "name": "Alfa Romeo",
-      "country": "Italy",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-alf-stelvio",
-          "name": "Stelvio Quadrifoglio",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-alf-tonale",
-          "name": "Tonale",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-alf-giulia",
-          "name": "Giulia Quadrifoglio",
-          "years": [
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-fiat",
-      "name": "Fiat",
-      "country": "Italy",
-      "region": "Europe",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-fia-500",
-          "name": "500e",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Hatchback"
-        },
-        {
-          "id": "m-fia-500x",
-          "name": "500X",
-          "years": [
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        }
-      ]
-    },
-    {
-      "id": "b-byd",
-      "name": "BYD",
       "country": "China",
       "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-byd-tang",
-          "name": "Tang (EV / DM-i / DM-p)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-byd-han",
-          "name": "Han Luxury Sedan",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-byd-seal",
-          "name": "Seal / Seal U",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-byd-songplus",
-          "name": "Song Plus DM-i",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-byd-atto3",
-          "name": "Atto 3 / Yuan Plus",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-byd-dolphin",
-          "name": "Dolphin",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Hatchback"
-        },
-        {
-          "id": "m-byd-seagull",
-          "name": "Seagull",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Hatchback"
-        },
-        {
-          "id": "m-byd-u8",
-          "name": "Yangwang U8 Off-Road Flagship",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-byd-denzad9",
-          "name": "Denza D9 Executive MPV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Van"
-        }
-      ]
-    },
-    {
-      "id": "b-geely",
-      "name": "Geely",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-gee-monjaro",
-          "name": "Monjaro (Xingyue L)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gee-coolray",
-          "name": "Coolray (Binyue)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-gee-tugella",
-          "name": "Tugella (Xingyue)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gee-emgrand",
-          "name": "Emgrand",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-gee-okavango",
-          "name": "Okavango (Haoyue)",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-changan",
-      "name": "Changan",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-cha-cs95",
-          "name": "CS95 Plus",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cha-cs75plus",
-          "name": "CS75 Plus",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cha-cs55plus",
-          "name": "CS55 Plus",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cha-unik",
-          "name": "UNI-K",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-cha-unit",
-          "name": "UNI-T",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-cha-univ",
-          "name": "UNI-V",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-cha-deepals7",
-          "name": "Deepal S7 EV / EREV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-chery",
-      "name": "Chery",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-che-tiggo8pro",
-          "name": "Tiggo 8 Pro / Max",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-che-tiggo7pro",
-          "name": "Tiggo 7 Pro",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-che-tiggo4pro",
-          "name": "Tiggo 4 Pro",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-che-arrizo8",
-          "name": "Arrizo 8",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-gwm",
-      "name": "GWM",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-gwm-poer",
-          "name": "Poer Pickup",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-gwm-cannon",
-          "name": "Cannon X",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-haval",
-      "name": "Haval",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-hav-h6",
-          "name": "H6 (GT / HEV)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022,
-            2021
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hav-jolion",
-          "name": "Jolion / Jolion Pro",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hav-dargo",
-          "name": "Dargo (Big Dog)",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hav-h9",
-          "name": "H9 4WD",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hav-raptor",
-          "name": "Raptor Hi4",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-tank",
-      "name": "Tank",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-tnk-300",
-          "name": "Tank 300 Off-Roader",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-tnk-500",
-          "name": "Tank 500 Luxury 4WD",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-tnk-700",
-          "name": "Tank 700 Hi4-T",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-jetour",
-      "name": "Jetour",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-jet-t2",
-          "name": "Traveler T2 4WD",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jet-dashing",
-          "name": "Dashing",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jet-x70plus",
-          "name": "X70 Plus",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jet-x90plus",
-          "name": "X90 Plus",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-jac",
-      "name": "JAC",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-jac-js8",
-          "name": "JS8 Pro",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jac-js6",
-          "name": "JS6",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jac-t8",
-          "name": "T8 Pro 4x4 Pickup",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Truck"
-        }
-      ]
-    },
-    {
-      "id": "b-mg",
-      "name": "MG",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-mg-rx8",
-          "name": "RX8 7-Seater 4WD",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mg-hs",
-          "name": "HS / HS Trophy",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mg-gt",
-          "name": "MG GT Sedan",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-mg-mg4",
-          "name": "MG 4 EV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Hatchback"
-        },
-        {
-          "id": "m-mg-cyberster",
-          "name": "Cyberster Roadster",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Coupe"
-        }
-      ]
-    },
-    {
-      "id": "b-nio",
-      "name": "NIO",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-nio-es8",
-          "name": "ES8 Flagship 6-Seater SUV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-nio-es6",
-          "name": "ES6",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-nio-et7",
-          "name": "ET7 Luxury Sedan",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-nio-et5",
-          "name": "ET5 / ET5 Touring",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
       "id": "b-xpeng",
       "name": "XPeng",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
       "models": [
         {
+          "years": [
+            2025,
+            2024,
+            2023
+          ],
           "id": "m-xpe-g9",
-          "name": "G9 Flagship EV SUV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
+          "category": "SUV",
+          "name": "G9 Flagship EV SUV"
         },
         {
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
           "id": "m-xpe-g6",
-          "name": "G6 Coupe SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
+          "name": "G6 Coupe SUV"
         },
         {
-          "id": "m-xpe-p7i",
           "name": "P7i Sports Sedan",
+          "category": "Sedan",
           "years": [
             2025,
             2024,
             2023
           ],
-          "category": "Sedan"
+          "id": "m-xpe-p7i"
         },
         {
-          "id": "m-xpe-x9",
           "name": "X9 Luxury MPV",
+          "category": "Van",
+          "id": "m-xpe-x9",
           "years": [
             2025,
             2024
-          ],
-          "category": "Van"
+          ]
         }
-      ]
+      ],
+      "enabled": true
     },
     {
-      "id": "b-li-auto",
-      "name": "Li Auto",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
       "models": [
         {
-          "id": "m-lia-l9",
-          "name": "Li L9 Max 6-Seater SUV",
           "years": [
             2025,
             2024,
-            2023
+            2023,
+            2022
           ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lia-l8",
-          "name": "Li L8",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lia-l7",
-          "name": "Li L7 5-Seater Flagship",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lia-mega",
-          "name": "Li MEGA Pure EV MPV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Van"
-        }
-      ]
-    },
-    {
-      "id": "b-zeekr",
-      "name": "Zeekr",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
+          "category": "Sedan",
           "id": "m-zee-001",
-          "name": "Zeekr 001 / FR",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
+          "name": "Zeekr 001 / FR"
         },
         {
-          "id": "m-zee-009",
+          "category": "Van",
           "name": "Zeekr 009 Ultra-Luxury MPV",
+          "id": "m-zee-009",
           "years": [
             2025,
             2024,
             2023
-          ],
-          "category": "Van"
+          ]
         },
         {
-          "id": "m-zee-x",
+          "years": [
+            2025,
+            2024
+          ],
+          "category": "SUV",
           "name": "Zeekr X Urban SUV",
+          "id": "m-zee-x"
+        },
+        {
+          "category": "Sedan",
           "years": [
             2025,
             2024
           ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-zee-007",
           "name": "Zeekr 007 Sedan",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Sedan"
+          "id": "m-zee-007"
         }
-      ]
-    },
-    {
-      "id": "b-leapmotor",
-      "name": "Leapmotor",
+      ],
+      "enabled": true,
+      "name": "Zeekr",
+      "id": "b-zeekr",
       "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-lea-c11",
-          "name": "C11 SUV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lea-c10",
-          "name": "C10 Global SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-lea-c16",
-          "name": "C16 6-Seater SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-baic",
-      "name": "BAIC",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-bai-bj40",
-          "name": "BJ40 Plus Off-Road",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-bai-bj60",
-          "name": "BJ60",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-bai-bj80",
-          "name": "BJ80 Luxury 4WD",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-faw",
-      "name": "FAW / Bestune",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-faw-t99",
-          "name": "Bestune T99",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-faw-t77",
-          "name": "Bestune T77 Pro",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-faw-b70",
-          "name": "Bestune B70",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-dongfeng",
-      "name": "Dongfeng",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-don-mhero",
-          "name": "M-Hero 917 Military-Grade EV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-don-voyahfree",
-          "name": "Voyah Free",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-don-shinemax",
-          "name": "Aeolus Shine Max",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-gac",
-      "name": "GAC",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-gac-gs8",
-          "name": "GS8 Luxury SUV",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-gac-gs3",
-          "name": "GS3 Emzoom",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-gac-empow",
-          "name": "Empow Sport Sedan",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-gac-m8",
-          "name": "M8 Master Series MPV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Van"
-        }
-      ]
-    },
-    {
-      "id": "b-hongqi",
-      "name": "Hongqi",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-hon-h9",
-          "name": "H9 Executive Luxury Sedan",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Sedan"
-        },
-        {
-          "id": "m-hon-hs5",
-          "name": "HS5",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hon-ehs9",
-          "name": "E-HS9 Electric Presidential SUV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-hon-h5",
-          "name": "H5",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Sedan"
-        }
-      ]
-    },
-    {
-      "id": "b-foton",
-      "name": "Foton",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-fot-tunland",
-          "name": "Tunland G7 / G9 4x4",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "Truck"
-        },
-        {
-          "id": "m-fot-toano",
-          "name": "Toano Executive Van",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Van"
-        }
-      ]
-    },
-    {
-      "id": "b-exeed",
-      "name": "Exeed",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-exe-vx",
-          "name": "VX Flagship 7-Seater",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-exe-rx",
-          "name": "RX Coupe SUV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-exe-txl",
-          "name": "TXL",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-omoda",
-      "name": "Omoda",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-omo-c5",
-          "name": "Omoda C5",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "Crossover"
-        },
-        {
-          "id": "m-omo-e5",
-          "name": "Omoda E5 EV",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "Crossover"
-        }
-      ]
-    },
-    {
-      "id": "b-jaecoo",
-      "name": "Jaecoo",
-      "country": "China",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-jae-7",
-          "name": "Jaecoo 7 AWD",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-jae-8",
-          "name": "Jaecoo 8 Luxury Off-Road",
-          "years": [
-            2025,
-            2024
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-tata",
-      "name": "Tata",
-      "country": "India",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-tat-harrier",
-          "name": "Harrier",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-tat-safari",
-          "name": "Safari",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-tat-nexon",
-          "name": "Nexon / Nexon EV",
-          "years": [
-            2025,
-            2024,
-            2023
-          ],
-          "category": "SUV"
-        }
-      ]
-    },
-    {
-      "id": "b-mahindra",
-      "name": "Mahindra",
-      "country": "India",
-      "region": "Asia",
-      "enabled": true,
-      "models": [
-        {
-          "id": "m-mah-scorpio-n",
-          "name": "Scorpio-N 4x4",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mah-xuv700",
-          "name": "XUV700",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        },
-        {
-          "id": "m-mah-thar",
-          "name": "Thar 4x4",
-          "years": [
-            2025,
-            2024,
-            2023,
-            2022
-          ],
-          "category": "SUV"
-        }
-      ]
+      "region": "Asia"
     }
   ]
 }

@@ -48,7 +48,7 @@ function AppRouter() {
     const businessName = settings?.businessName || 'Paul Smith Autos';
     if (currentPath === '/') {
       document.title = `${businessName} | Verified Car Dealership & Direct Import Sourcing`;
-    } else if (currentPath === '/cars') {
+    } else if (currentPath === '/cars' || currentPath === '/vehicles') {
       document.title = `Showroom Inventory | ${businessName}`;
     } else if (currentPath === '/brands') {
       document.title = `All Car Brands & Global Catalog | ${businessName}`;
@@ -62,7 +62,7 @@ function AppRouter() {
       document.title = `About Us | ${businessName}`;
     } else if (currentPath === '/contact') {
       document.title = `Contact & Inquiries | ${businessName}`;
-    } else if (currentPath === '/admin') {
+    } else if (currentPath === '/admin' || currentPath.startsWith('/admin/')) {
       document.title = `Dealership Admin Console | ${businessName}`;
     }
   }, [currentPath, settings?.businessName]);
@@ -73,7 +73,7 @@ function AppRouter() {
       return <HomePage onNavigate={navigate} />;
     }
 
-    if (currentPath === '/cars') {
+    if (currentPath === '/cars' || currentPath === '/vehicles') {
       return <CarsPage initialFilters={routeParams} onNavigate={navigate} />;
     }
 
@@ -83,6 +83,11 @@ function AppRouter() {
 
     if (currentPath.startsWith('/cars/')) {
       const slug = currentPath.replace('/cars/', '');
+      return <VehicleDetailPage slug={slug} onNavigate={navigate} />;
+    }
+
+    if (currentPath.startsWith('/vehicles/')) {
+      const slug = currentPath.replace('/vehicles/', '');
       return <VehicleDetailPage slug={slug} onNavigate={navigate} />;
     }
 
@@ -114,7 +119,7 @@ function AppRouter() {
       return <TermsPage />;
     }
 
-    if (currentPath === '/admin') {
+    if (currentPath === '/admin' || currentPath.startsWith('/admin/')) {
       return <AdminDashboard onNavigate={navigate} />;
     }
 
@@ -135,7 +140,7 @@ function AppRouter() {
     );
   };
 
-  const isAdminRoute = currentPath === '/admin';
+  const isAdminRoute = currentPath === '/admin' || currentPath.startsWith('/admin/');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0b0f19] text-slate-100 selection:bg-blue-600 selection:text-white">

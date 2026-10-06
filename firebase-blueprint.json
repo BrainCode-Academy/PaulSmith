@@ -1,0 +1,221 @@
+{
+  "entities": {
+    "Vehicle": {
+      "title": "Vehicle",
+      "description": "Showroom and import inventory automobile listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "title": { "type": "string" },
+        "make": { "type": "string" },
+        "model": { "type": "string" },
+        "year": { "type": "number" },
+        "price": { "type": "number" },
+        "currency": { "type": "string" },
+        "mileage": { "type": "number" },
+        "mileageUnit": { "type": "string" },
+        "transmission": { "type": "string" },
+        "fuel": { "type": "string" },
+        "bodyType": { "type": "string" },
+        "condition": { "type": "string" },
+        "status": { "type": "string" },
+        "location": { "type": "string" },
+        "vin": { "type": "string" },
+        "engine": { "type": "string" },
+        "driveType": { "type": "string" },
+        "color": { "type": "string" },
+        "interiorColor": { "type": "string" },
+        "description": { "type": "string" },
+        "features": { "type": "array" },
+        "images": { "type": "array" },
+        "videoUrl": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "featuredOrder": { "type": "number" },
+        "heroSlideEnabled": { "type": "boolean" },
+        "published": { "type": "boolean" },
+        "viewsCount": { "type": "number" },
+        "inquiriesCount": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "make", "model", "price", "status"]
+    },
+    "DealerSettings": {
+      "title": "DealerSettings",
+      "description": "Paul Smith Autos business credentials and configurations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "businessName": { "type": "string" },
+        "tagline": { "type": "string" },
+        "whatsappNumber": { "type": "string" },
+        "whatsappGroupLink": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" },
+        "businessDescription": { "type": "string" },
+        "ceoName": { "type": "string" },
+        "ceoTitle": { "type": "string" },
+        "ceoImage": { "type": "string" },
+        "ceoPhone": { "type": "string" },
+        "ceoQuote": { "type": "string" },
+        "importCountries": { "type": "array" },
+        "currency": { "type": "string" },
+        "currencySymbol": { "type": "string" },
+        "facebook": { "type": "string" },
+        "instagram": { "type": "string" },
+        "tiktok": { "type": "string" },
+        "businessHours": { "type": "string" },
+        "inspectionOffered": { "type": "boolean" },
+        "sourcingProcess": { "type": "array" },
+        "showroomSlides": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "businessName", "whatsappNumber"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Customer inquiry, inspection booking, or quick quote submission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "vehicleId": { "type": "string" },
+        "vehicleTitle": { "type": "string" },
+        "source": { "type": "string" },
+        "message": { "type": "string" },
+        "budget": { "type": "string" },
+        "status": { "type": "string" },
+        "notes": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "phone", "status", "createdAt"]
+    },
+    "ImportRequest": {
+      "title": "ImportRequest",
+      "description": "Direct vehicle import sourcing request from overseas hubs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "whatsappNumber": { "type": "string" },
+        "preferredBrand": { "type": "string" },
+        "preferredModel": { "type": "string" },
+        "preferredYear": { "type": "string" },
+        "budget": { "type": "string" },
+        "condition": { "type": "string" },
+        "preferredCountry": { "type": "string" },
+        "specificRequirements": { "type": "string" },
+        "additionalMessage": { "type": "string" },
+        "status": { "type": "string" },
+        "notes": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "fullName", "whatsappNumber", "preferredBrand", "preferredModel", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Verified client testimonial or review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "author": { "type": "string" },
+        "location": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "vehiclePurchased": { "type": "string" },
+        "date": { "type": "string" },
+        "published": { "type": "boolean" }
+      },
+      "required": ["id", "author", "rating", "comment"]
+    },
+    "BrandCatalog": {
+      "title": "BrandCatalog",
+      "description": "Automotive brand and model hierarchy record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "country": { "type": "string" },
+        "region": { "type": "string" },
+        "logo": { "type": "string" },
+        "enabled": { "type": "boolean" },
+        "models": { "type": "array" }
+      },
+      "required": ["id", "name"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Administrative actions audit log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "targetType": { "type": "string" },
+        "targetId": { "type": "string" },
+        "details": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "action", "timestamp"]
+    },
+    "Media": {
+      "title": "Media",
+      "description": "Persistent binary media asset storage",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "data": { "type": "string" },
+        "size": { "type": "number" },
+        "uploadedAt": { "type": "string" }
+      },
+      "required": ["id", "mimeType", "data"]
+    }
+  },
+  "firestore": {
+    "/vehicles/{vehicleId}": {
+      "schema": "Vehicle",
+      "description": "Showroom vehicle inventory documents"
+    },
+    "/settings/{settingsId}": {
+      "schema": "DealerSettings",
+      "description": "Dealership business profile and preferences"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Customer inquiries and quick quotes"
+    },
+    "/importRequests/{requestId}": {
+      "schema": "ImportRequest",
+      "description": "Custom international sourcing requests"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Client reviews and testimonials"
+    },
+    "/brandCatalog/{brandId}": {
+      "schema": "BrandCatalog",
+      "description": "Automotive brands and models catalog"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Administrative audit trail logs"
+    },
+    "/media/{mediaId}": {
+      "schema": "Media",
+      "description": "Persistent media image storage"
+    },
+    "/carRequests/{requestId}": {
+      "schema": "Lead",
+      "description": "Find my car vehicle locator requests"
+    },
+    "/admin/{adminId}": {
+      "schema": "DealerSettings",
+      "description": "Administrator credentials and salt"
+    }
+  }
+}

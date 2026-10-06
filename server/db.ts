@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { COMPREHENSIVE_BRAND_CATALOG } from './brandCatalogData';
+import { syncDocToFirestore, deleteDocFromFirestore, loadCollectionFromFirestore, getFirestoreDb } from './firebaseStorage.js';
 
 export interface ShowroomSlide {
   id: string;
@@ -556,6 +557,82 @@ class Database {
       };
       this.persist();
     }
+
+    // Connect and synchronize with Cloud Firestore for persistent storage
+    this.initFirestoreSync().catch((err) => {
+      console.warn('[Firestore] Sync warning during boot:', err);
+    });
+  }
+
+  private async initFirestoreSync() {
+    try {
+      const db = getFirestoreDb();
+      if (!db) return;
+
+      // 1. Vehicles: Load from Firestore or seed if cloud is empty
+      const cloudVehicles = await loadCollectionFromFirestore<Vehicle>('vehicles');
+      if (cloudVehicles && cloudVehicles.length > 0) {
+        this.data.vehicles = cloudVehicles;
+        console.log(`[Firestore] Synced ${cloudVehicles.length} vehicles from persistent cloud storage.`);
+      } else if (this.data.vehicles && this.data.vehicles.length > 0) {
+        for (const v of this.data.vehicles) {
+          await syncDocToFirestore('vehicles', v.id, v);
+        }
+        console.log(`[Firestore] Seeded ${this.data.vehicles.length} vehicles to cloud storage.`);
+      }
+
+      // 2. Settings: Load or seed
+      const cloudSettings = await loadCollectionFromFirestore<DealerSettings>('settings');
+      if (cloudSettings && cloudSettings.length > 0) {
+        this.data.settings = cloudSettings[0];
+        console.log('[Firestore] Synced dealer business profile from cloud.');
+      } else {
+        await syncDocToFirestore('settings', 'default', this.data.settings);
+      }
+
+      // 3. Leads: Load
+      const cloudLeads = await loadCollectionFromFirestore<Lead>('leads');
+      if (cloudLeads && cloudLeads.length > 0) {
+        this.data.leads = cloudLeads;
+      }
+
+      // 4. Import Requests: Load
+      const cloudImports = await loadCollectionFromFirestore<ImportRequest>('importRequests');
+      if (cloudImports && cloudImports.length > 0) {
+        this.data.importRequests = cloudImports;
+      }
+
+      // 5. Admin credentials: Load
+      const cloudAdmin = await loadCollectionFromFirestore<any>('admin');
+      if (cloudAdmin && cloudAdmin.length > 0 && cloudAdmin[0].passwordHash) {
+        this.data.admin = cloudAdmin[0];
+        console.log('[Firestore] Synced administrator credentials from cloud.');
+      } else if (this.data.admin && this.data.admin.passwordHash) {
+        await syncDocToFirestore('admin', 'credentials', this.data.admin);
+      }
+
+      // 6. Reviews: Load or seed
+      const cloudReviews = await loadCollectionFromFirestore<Review>('reviews');
+      if (cloudReviews && cloudReviews.length > 0) {
+        this.data.reviews = cloudReviews;
+      } else if (this.data.reviews && this.data.reviews.length > 0) {
+        for (const r of this.data.reviews) {
+          await syncDocToFirestore('reviews', r.id, r);
+        }
+      }
+
+      // 7. Brand Catalog: Load or seed
+      const cloudBrands = await loadCollectionFromFirestore<BrandCatalogItem>('brandCatalog');
+      if (cloudBrands && cloudBrands.length > 0) {
+        this.data.brandCatalog = cloudBrands;
+      } else if (this.data.brandCatalog && this.data.brandCatalog.length > 0) {
+        for (const b of this.data.brandCatalog) {
+          await syncDocToFirestore('brandCatalog', b.id, b);
+        }
+      }
+    } catch (err) {
+      console.warn('[Firestore] Non-blocking sync error:', err);
+    }
   }
 
   private persist() {
@@ -581,6 +658,7 @@ class Database {
     };
     this.logAudit('SETTINGS_UPDATED', 'settings', 'default', 'Dealer business profile updated');
     this.persist();
+    syncDocToFirestore('settings', 'default', this.data.settings);
     return this.getSettings();
   }
 
@@ -681,6 +759,7 @@ class Database {
     this.data.vehicles.unshift(newVehicle);
     this.logAudit('VEHICLE_CREATED', 'vehicle', id, `Created vehicle ${newVehicle.title}`);
     this.persist();
+    syncDocToFirestore('vehicles', newVehicle.id, newVehicle);
     return newVehicle;
   }
 
@@ -699,6 +778,7 @@ class Database {
     this.data.vehicles[idx] = updated;
     this.logAudit('VEHICLE_UPDATED', 'vehicle', id, `Updated vehicle ${updated.title}`);
     this.persist();
+    syncDocToFirestore('vehicles', updated.id, updated);
     return updated;
   }
 
@@ -709,6 +789,7 @@ class Database {
     this.data.vehicles.splice(idx, 1);
     this.logAudit('VEHICLE_DELETED', 'vehicle', id, `Deleted vehicle ${title}`);
     this.persist();
+    deleteDocFromFirestore('vehicles', id);
     return true;
   }
 
@@ -717,6 +798,7 @@ class Database {
       const v = this.data.vehicles.find(item => item.id === id);
       if (v) {
         v.featuredOrder = index;
+        syncDocToFirestore('vehicles', v.id, v);
       }
     });
     this.logAudit('HERO_SLIDER_REORDERED', 'vehicle', 'hero-slider', `Reordered ${orderedIds.length} homepage slides`);
@@ -861,6 +943,7 @@ class Database {
     this.data.brandCatalog.push(newBrand);
     this.logAudit('BRAND_CREATED', 'settings', id, `Added brand ${newBrand.name} (${newBrand.country})`);
     this.persist();
+    syncDocToFirestore('brandCatalog', newBrand.id, newBrand);
     return newBrand;
   }
 
@@ -874,6 +957,7 @@ class Database {
     if (updates.enabled !== undefined) brand.enabled = updates.enabled;
     this.logAudit('BRAND_UPDATED', 'settings', id, `Updated brand ${brand.name}`);
     this.persist();
+    syncDocToFirestore('brandCatalog', brand.id, brand);
     return brand;
   }
 
@@ -884,6 +968,7 @@ class Database {
     brand.enabled = brand.enabled === false ? true : false;
     this.logAudit('BRAND_TOGGLED', 'settings', id, `Toggled brand ${brand.name} to ${brand.enabled}`);
     this.persist();
+    syncDocToFirestore('brandCatalog', brand.id, brand);
     return brand;
   }
 
@@ -895,6 +980,7 @@ class Database {
     this.data.brandCatalog.splice(idx, 1);
     this.logAudit('BRAND_DELETED', 'settings', id, `Deleted brand ${name}`);
     this.persist();
+    deleteDocFromFirestore('brandCatalog', id);
     return true;
   }
 
@@ -911,6 +997,7 @@ class Database {
     });
     this.logAudit('MODEL_CREATED', 'settings', modelId, `Added model ${modelName} to ${brand.name}`);
     this.persist();
+    syncDocToFirestore('brandCatalog', brand.id, brand);
     return brand;
   }
 
@@ -925,6 +1012,7 @@ class Database {
     if (updates.category !== undefined) model.category = updates.category;
     this.logAudit('MODEL_UPDATED', 'settings', modelId, `Updated model ${model.name}`);
     this.persist();
+    syncDocToFirestore('brandCatalog', brand.id, brand);
     return brand;
   }
 
@@ -937,6 +1025,7 @@ class Database {
     brand.models.splice(idx, 1);
     this.logAudit('MODEL_DELETED', 'settings', modelId, `Deleted model from ${brand.name}`);
     this.persist();
+    syncDocToFirestore('brandCatalog', brand.id, brand);
     return brand;
   }
 
@@ -963,6 +1052,7 @@ class Database {
     }
     this.logAudit('LEAD_CREATED', 'lead', newLead.id, `New lead received from ${newLead.name}`);
     this.persist();
+    syncDocToFirestore('leads', newLead.id, newLead);
     return newLead;
   }
 
@@ -981,6 +1071,7 @@ class Database {
     }
     this.logAudit('LEAD_STATUS_UPDATED', 'lead', id, `Status changed to ${status}`);
     this.persist();
+    syncDocToFirestore('leads', lead.id, lead);
     return lead;
   }
 
@@ -995,6 +1086,7 @@ class Database {
     });
     lead.updatedAt = new Date().toISOString();
     this.persist();
+    syncDocToFirestore('leads', lead.id, lead);
     return lead;
   }
 
@@ -1014,6 +1106,7 @@ class Database {
     this.data.importRequests.unshift(newReq);
     this.logAudit('IMPORT_REQUEST_CREATED', 'import_request', newReq.id, `Import request for ${req.preferredBrand} ${req.preferredModel}`);
     this.persist();
+    syncDocToFirestore('importRequests', newReq.id, newReq);
     return newReq;
   }
 
@@ -1029,6 +1122,7 @@ class Database {
       });
     }
     this.persist();
+    syncDocToFirestore('importRequests', req.id, req);
     return req;
   }
 
@@ -1046,6 +1140,7 @@ class Database {
     };
     this.data.carRequests.unshift(newReq);
     this.persist();
+    syncDocToFirestore('carRequests', newReq.id, newReq);
     return newReq;
   }
 
@@ -1054,6 +1149,7 @@ class Database {
     if (!req) return null;
     req.status = status;
     this.persist();
+    syncDocToFirestore('carRequests', req.id, req);
     return req;
   }
 
@@ -1073,6 +1169,7 @@ class Database {
     };
     this.data.reviews.unshift(newRev);
     this.persist();
+    syncDocToFirestore('reviews', newRev.id, newRev);
     return newRev;
   }
 
@@ -1081,6 +1178,7 @@ class Database {
     if (idx === -1) return false;
     this.data.reviews.splice(idx, 1);
     this.persist();
+    deleteDocFromFirestore('reviews', id);
     return true;
   }
 
@@ -1094,6 +1192,7 @@ class Database {
     if (updates.verified !== undefined) rev.verified = updates.verified;
     if (updates.published !== undefined) rev.published = updates.published;
     this.persist();
+    syncDocToFirestore('reviews', rev.id, rev);
     return rev;
   }
 
@@ -1192,6 +1291,7 @@ class Database {
     };
     this.logAudit('ADMIN_INITIAL_SETUP', 'auth', 'admin', 'Initial administrator password configured');
     this.persist();
+    syncDocToFirestore('admin', 'credentials', this.data.admin);
     return true;
   }
 
@@ -1208,6 +1308,7 @@ class Database {
     this.data.admin.isInitialSetupRequired = false;
     this.logAudit('ADMIN_PASSWORD_CHANGED', 'auth', 'admin', 'Admin password successfully updated');
     this.persist();
+    syncDocToFirestore('admin', 'credentials', this.data.admin);
     return true;
   }
 
@@ -1229,6 +1330,7 @@ class Database {
     this.data.settings.showroomSlides.push(newSlide);
     this.logAudit('SHOWROOM_SLIDE_ADDED', 'settings', newSlide.id, `Added showroom slide`);
     this.persist();
+    syncDocToFirestore('settings', 'default', this.data.settings);
     return newSlide;
   }
 
@@ -1242,6 +1344,7 @@ class Database {
     if (updates.order !== undefined) slide.order = updates.order;
     this.logAudit('SHOWROOM_SLIDE_UPDATED', 'settings', id, `Updated showroom slide`);
     this.persist();
+    syncDocToFirestore('settings', 'default', this.data.settings);
     return slide;
   }
 
@@ -1252,6 +1355,7 @@ class Database {
     this.data.settings.showroomSlides.splice(idx, 1);
     this.logAudit('SHOWROOM_SLIDE_DELETED', 'settings', id, `Deleted showroom slide`);
     this.persist();
+    syncDocToFirestore('settings', 'default', this.data.settings);
     return true;
   }
 
@@ -1274,6 +1378,7 @@ class Database {
     this.data.settings.showroomSlides = reordered;
     this.logAudit('SHOWROOM_SLIDES_REORDERED', 'settings', 'slider', `Reordered showroom slides`);
     this.persist();
+    syncDocToFirestore('settings', 'default', this.data.settings);
     return reordered;
   }
 }

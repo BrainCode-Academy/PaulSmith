@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { db, Vehicle, DealerSettings } from './db.js';
+import { saveMediaAsset, getMediaAsset } from './firebaseStorage.js';
 
 dotenv.config();
 
@@ -106,7 +107,7 @@ app.post('/api/auth/setup', (req, res) => {
     if (!password || password.length < 8) {
       return res.status(400).json({ error: 'Master password must be at least 8 characters long' });
     }
-    if (password !== confirmPassword) {
+    if (confirmPassword !== undefined && password !== confirmPassword) {
       return res.status(400).json({ error: 'Passwords do not match' });
     }
     const status = db.getAdminSetupStatus();
@@ -137,7 +138,13 @@ app.post('/api/auth/login', (req, res) => {
     return res.status(400).json({ error: 'Username and password are required' });
   }
 
-  if (username !== 'admin' || !db.verifyAdminPassword(password)) {
+  const configuredUsername = db.getAdminSetupStatus().username;
+  const isUserValid = (
+    username.toLowerCase() === 'admin' ||
+    username.toLowerCase() === configuredUsername.toLowerCase()
+  );
+
+  if (!isUserValid || !db.verifyAdminPassword(password)) {
     return res.status(401).json({ error: 'Invalid admin credentials' });
   }
 
@@ -145,7 +152,7 @@ app.post('/api/auth/login', (req, res) => {
   res.json({
     success: true,
     token,
-    user: { username: 'admin', role: 'Dealer Administrator' }
+    user: { username, role: 'Dealer Administrator' }
   });
 });
 
@@ -453,37 +460,72 @@ app.delete('/api/admin/brands/:brandId/models/:modelId', requireAdmin, (req, res
 });
 
 // ==========================================
-// 5. IMAGE UPLOADS
+// 5. PERSISTENT IMAGE & MEDIA STORAGE
 // ==========================================
-app.post('/api/upload', requireAdmin, (req, res) => {
+app.get('/api/media/:mediaId', async (req, res) => {
+  try {
+    const { mediaId } = req.params;
+    const media = await getMediaAsset(mediaId);
+    if (!media) {
+      return res.status(404).json({ error: 'Media asset not found' });
+    }
+
+    res.setHeader('Content-Type', media.mimeType);
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.setHeader('Content-Length', media.buffer.length);
+    return res.end(media.buffer);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Failed to retrieve media asset' });
+  }
+});
+
+app.post('/api/upload', requireAdmin, async (req, res) => {
   try {
     const { fileData, fileName } = req.body;
     if (!fileData) {
       return res.status(400).json({ error: 'No image data provided' });
     }
 
+    // Pass through already hosted CDN or absolute URLs
+    if (fileData.startsWith('http://') || fileData.startsWith('https://')) {
+      return res.json({ url: fileData });
+    }
+
     const matches = fileData.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     if (!matches || matches.length !== 3) {
-      // In case it's already an absolute URL or CDN image
-      if (fileData.startsWith('http') || fileData.startsWith('/')) {
-        return res.json({ url: fileData });
-      }
       return res.status(400).json({ error: 'Invalid base64 image data' });
     }
 
-    const extension = matches[1].split('/')[1] || 'jpg';
-    const buffer = Buffer.from(matches[2], 'base64');
-    const cleanFileName = `vehicle_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${extension}`;
+    const mimeType = matches[1].toLowerCase();
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowedTypes.includes(mimeType)) {
+      return res.status(400).json({ error: 'Unsupported file type. Only JPEG, PNG, WebP, and GIF images are allowed.' });
+    }
 
-    // Write file to uploads directory or fallback to base64 data uri if filesystem is strictly read-only
+    const base64Data = matches[2];
+    const buffer = Buffer.from(base64Data, 'base64');
+    
+    // 15MB limit check
+    if (buffer.length > 15 * 1024 * 1024) {
+      return res.status(400).json({ error: 'Image file size exceeds maximum 15MB limit' });
+    }
+
+    const extension = mimeType.split('/')[1] || 'jpg';
+    const mediaId = `veh_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+    const cleanFileName = `${mediaId}.${extension}`;
+
+    // 1. Save permanently to Cloud Firestore
+    const cloudMediaUrl = await saveMediaAsset(mediaId, mimeType, base64Data, fileName || cleanFileName);
+
+    // 2. Also cache to local disk if directory is writable (for fast local dev)
     try {
       const filePath = path.join(UPLOADS_DIR, cleanFileName);
       fs.writeFileSync(filePath, buffer);
-      return res.json({ url: `/uploads/${cleanFileName}` });
-    } catch (fsErr) {
-      console.warn('Filesystem write not permitted, serving as data URI:', fsErr);
-      return res.json({ url: fileData });
+    } catch {
+      // Ephemeral or serverless read-only disk: safely ignored since Firestore is permanent
     }
+
+    return res.json({ url: cloudMediaUrl });
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Failed to process image upload' });
   }

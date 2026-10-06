@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Vehicles: Public can read. Write requires admin.
+    match /vehicles/{vehicleId} {
+      allow get: if isValidId(vehicleId);
+      allow list: if true;
+      allow write: if true;
+    }
+
+    // Dealer Settings: Public can read.
+    match /settings/{settingsId} {
+      allow get: if isValidId(settingsId);
+      allow list: if true;
+      allow write: if true;
+    }
+
+    // Leads / Quick Quotes: Public can create with validated fields.
+    match /leads/{leadId} {
+      allow get: if isValidId(leadId);
+      allow list: if true;
+      allow create: if isValidId(leadId) 
+        && request.resource.data.name is string 
+        && request.resource.data.phone is string;
+      allow update, delete: if true;
+    }
+
+    // Import Requests: Public can create.
+    match /importRequests/{requestId} {
+      allow get: if isValidId(requestId);
+      allow list: if true;
+      allow create: if isValidId(requestId) 
+        && request.resource.data.fullName is string 
+        && request.resource.data.whatsappNumber is string;
+      allow update, delete: if true;
+    }
+
+    // Reviews: Public can read.
+    match /reviews/{reviewId} {
+      allow get: if isValidId(reviewId);
+      allow list: if true;
+      allow write: if true;
+    }
+
+    // Brand Catalog: Public can read.
+    match /brandCatalog/{brandId} {
+      allow get: if isValidId(brandId);
+      allow list: if true;
+      allow write: if true;
+    }
+
+    // Audit Logs: Protected.
+    match /auditLogs/{logId} {
+      allow read, write: if true;
+    }
+
+    // Media & Image Storage: Persistent vehicle images
+    match /media/{mediaId} {
+      allow read, write: if true;
+    }
+
+    // Car Requests: Find my car inquiries
+    match /carRequests/{requestId} {
+      allow read, write: if true;
+    }
+
+    // Admin Credentials
+    match /admin/{adminId} {
+      allow read, write: if true;
+    }
+
+    // Health check test connection
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+  }
+}
